@@ -5,7 +5,7 @@ import ProjectCard from '../components/ProjectCard.astro';
 import RingsMark from '../components/RingsMark.astro';
 import SocialLink from '../components/SocialLink.astro';
 import site from '../data/site.json';
-import { upcomingEvents, featuredProjects, publicSupporters } from '../lib/content';
+import { upcomingEvents, featuredProjects, publicSupporters, pillars as pillarData } from '../lib/content';
 
 const events = upcomingEvents(3);
 const projects = featuredProjects(3);
@@ -47,25 +47,9 @@ const orgs: { short: string; name: string; color: string; body: string; links: O
   },
 ];
 
-const pillars = [
-  {
-    name: 'Connect', color: 'var(--esa-green)',
-    line: 'A community where economics students know each other, faculty and professionals.',
-    examples: ['Weekly meetings', 'Socials', 'WEC socials', 'Joint events with other clubs'],
-  },
-  {
-    name: 'Grow', color: 'var(--cyan)',
-    line: 'Academic support, skills and leadership experience.',
-    examples: ['ECON 200, 361 and 332 exam reviews', 'Résumé workshops', 'Guest speakers'],
-  },
-  {
-    name: 'Access', color: 'var(--navy)',
-    line: 'Routes to honors, networks and opportunities beyond the classroom.',
-    examples: ['ODE honor society', 'Alumni mentors', 'Employer events'],
-  },
-];
+const pillars = pillarData.map((p) => ({ ...p, color: `var(--${p.color})` }));
 ---
-<Layout description="The Economics Student Association (EconCats) is where Arizona's economics undergraduates meet, learn and grow.">
+<Layout description="The Economics Student Association (EconCats) is where economics at Arizona comes together.">
 
   <!-- 1. Hero -->
   <section class="hero">

@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Connect",
+    "color": "esa-green",
+    "line": "A community where economics students know each other, faculty and professionals.",
+    "examples": ["Weekly meetings", "Socials", "WEC socials", "Joint events with other clubs"]
+  },
+  {
+    "name": "Grow",
+    "color": "cyan",
+    "line": "Academic support, skills and leadership experience.",
+    "examples": ["ECON 200, 361 and 332 exam reviews", "Résumé workshops", "Guest speakers"]
+  },
+  {
+    "name": "Access",
+    "color": "navy",
+    "line": "Routes to honors, networks and opportunities beyond the classroom.",
+    "examples": ["ODE honor society", "Alumni mentors", "Employer events"]
+  }
+]

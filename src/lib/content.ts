@@ -48,3 +48,27 @@ export function featuredProjects(limit = 3): Project[] {
 export function publicSupporters(limit = 6): Supporter[] {
   return (supporters as Supporter[]).filter((s) => s.permission).slice(0, limit);
 }
+
+// ---------- About page ----------
+import pillarsData from '../data/pillars.json';
+import achievementsData from '../data/achievements.json';
+import presidentsData from '../data/presidents.json';
+import advisorsData from '../data/advisors.json';
+import timelineData from '../data/timeline.json';
+
+export type OrgId = 'esa' | 'ees' | 'wec' | 'ode';
+
+export interface PillarInfo { name: Pillar; color: string; line: string; examples: string[] }
+export interface Achievement { org: OrgId; title: string; year?: string }
+export interface President { org: OrgId; name: string; term?: string }
+export interface Advisor { name: string; role: string }
+export interface Milestone { when: string; text: string; org: OrgId }
+
+export const pillars = pillarsData as PillarInfo[];
+export const timeline = timelineData as Milestone[];
+export const advisors = advisorsData as Advisor[];
+
+export const achievementsFor = (org: OrgId) =>
+  (achievementsData as Achievement[]).filter((a) => a.org === org);
+export const presidentsFor = (org: OrgId) =>
+  (presidentsData as President[]).filter((p) => p.org === org);
