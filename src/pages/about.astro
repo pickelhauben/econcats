@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SocialLink from '../components/SocialLink.astro';
+import site from '../data/site.json';
 ---
 <Layout title="About">
   <section class="page-intro wrap">
@@ -7,6 +9,42 @@ import Layout from '../layouts/Layout.astro';
     <h1>About ESA</h1>
   </section>
   <section class="wrap">
-    <p class="todo">Coming in step 2: mission, the merger story, history timeline from 2011.</p>
+    <p class="todo">Coming in step 2: mission and the merger story.</p>
+  </section>
+
+  <!-- Heritage: anchors used by the home page. Story text still to come. -->
+  <section class="section heritage" id="heritage">
+    <div class="wrap">
+      <p class="eyebrow">Our heritage</p>
+      <h2>Three stories, <em>one association.</em></h2>
+      <div class="orgs">
+        <article id="ees" style="--c: var(--esa-green)">
+          <h3>Eller Economics Society</h3>
+          <p>Constitution adopted November 13, 2024.</p>
+          <p class="todo">[EES STORY]</p>
+        </article>
+        <article id="wec" style="--c: var(--wec)">
+          <h3>Women in Economics</h3>
+          <p>Founded in fall 2018 by economics lecturer Erin Yetter.</p>
+          <p class="todo">[WEC STORY]</p>
+          <p><SocialLink href={site.wecInstagram} label={site.wecInstagramHandle} /></p>
+        </article>
+        <article id="ode" style="--c: var(--ode)">
+          <h3>Omicron Delta Epsilon</h3>
+          <p>Arizona Beta chapter reactivated in 2026. <a href="/projects#ode">About our chapter →</a></p>
+          <p class="todo">[ODE STORY]</p>
+        </article>
+      </div>
+    </div>
   </section>
 </Layout>
+
+<style>
+  .heritage h2 { margin: 16px 0 40px; }
+  .orgs { display: grid; gap: 32px; }
+  article { border-top: 4px solid var(--c); padding-top: 20px; scroll-margin-top: calc(var(--header-h) + 16px); }
+  article p { margin: 8px 0 0; color: var(--muted); }
+  article a { color: var(--ink); }
+  article .todo { margin-top: 16px; }
+  @media (min-width: 900px) { .orgs { grid-template-columns: repeat(3, 1fr); } }
+</style>

@@ -3,7 +3,31 @@
 Website for the Economics Student Association (ESA, "EconCats") at the University of Arizona.
 ESA was formed by three organizations: EES ([EES FULL NAME]), WEC ([WEC FULL NAME]) and ODE (Omicron Delta Epsilon, ΟΔΕ).
 The logo reads "Arizona · EES · WEC · ΟΔΕ · Est. 2026 · Economics Student Association".
-Domain: [econcats.com or econcats.org — not decided].
+Domain: econcats.org. Use "ESA" for the official name and "EconCats" as the site's voice and identity.
+
+## Voice
+- ESA welcomes undergraduates, graduate students and faculty. Show this through who we describe at events, never with phrases like "we represent all undergraduates" or "open to everyone". Keep the tone confident and specific.
+- ESA's roots go back further than our records. Never give a founding year for economics student organizations at Arizona; use "for decades" or "generations of economics students" instead. Use specific dates only for verified milestones.
+
+## Verified dates and facts
+- WEC (Women in Economics Club) founded fall 2018 by economics lecturer Erin Yetter.
+- ODE Arizona Beta reactivated 2026.
+- EES constitution: November 13, 2024.
+- Eller Experience Award, won as the Eller Economics Society.
+- Omicron Delta Epsilon founded 1915. Arizona Beta eligibility: 3.0 GPA; 12 economics credits, waived after one year of active ESA membership. Applications each semester.
+
+## Links (all in `src/data/site.json`)
+- ESA Instagram @econcats: https://www.instagram.com/econcats/
+- WEC Instagram @ua_wec: https://www.instagram.com/ua_wec/
+- ESA LinkedIn: https://www.linkedin.com/company/106468095
+- ODE International: https://www.omicrondeltaepsilon.org/
+External links open in a new tab. Social links use `SocialLink.astro` (icon + visible handle).
+
+## Facts to confirm before launch
+Shown on the site in [brackets] until confirmed:
+1. ODE member count ([19]) and "first time since 2007".
+2. Permission from any alumni or supporters named on the site.
+Do not mention EpicHire anywhere on the site.
 
 ## Stack
 - Astro, static output, deployed on Vercel (not connected yet).
@@ -33,7 +57,7 @@ Its center is transparent, so it always sits on a white disc. Ask for an SVG exp
 | Page | Route | Content |
 |---|---|---|
 | Home | `/` | Hero, the three pillars, upcoming events, latest projects, "Join us" call to action |
-| About | `/about` | Mission, the merger story, history timeline from 2011 |
+| About | `/about` | Mission, the merger story, heritage (`#heritage`, `#ees`, `#wec`) |
 | Activities | `/activities` | Upcoming and past events, photo gallery |
 | Projects | `/projects` | ODE chapter, exam reviews, mentorship, alumni campaign, discussion series |
 | Leadership | `/leadership` | Current board by role, advisors, "Lead with us" |

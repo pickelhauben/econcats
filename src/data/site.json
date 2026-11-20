@@ -2,7 +2,13 @@
   "name": "EconCats",
   "fullName": "Economics Student Association",
   "school": "University of Arizona",
-  "email": "[CONTACT EMAIL]",
-  "instagram": "[INSTAGRAM URL]",
-  "instagramHandle": "[@HANDLE]"
+  "email": "arizonaeconsociety@gmail.com",
+  "instagram": "https://www.instagram.com/econcats/",
+  "instagramHandle": "@econcats",
+  "wecInstagram": "https://www.instagram.com/ua_wec/",
+  "wecInstagramHandle": "@ua_wec",
+  "linkedin": "https://www.linkedin.com/company/106468095",
+  "odeInternational": "https://www.omicrondeltaepsilon.org/",
+  "meetings": "Thursdays at 5 PM during the semester",
+  "disclaimer": "A registered student organization. Not an official University of Arizona website."
 }

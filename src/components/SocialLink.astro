@@ -1,0 +1,34 @@
+---
+// External social link: icon + visible handle/label, opens in a new tab.
+interface Props {
+  href: string;
+  label: string;
+  network?: 'instagram' | 'linkedin';
+  class?: string;
+}
+const { href, label, network = 'instagram', class: className } = Astro.props;
+const name = network === 'instagram' ? 'Instagram' : 'LinkedIn';
+const srSuffix = label.includes(name) ? ' (opens in a new tab)' : ` on ${name} (opens in a new tab)`;
+---
+<a class:list={['social', className]} href={href} target="_blank" rel="noopener noreferrer">
+  {network === 'instagram' ? (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4.2" />
+      <circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  ) : (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+      <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.6 4.77 6v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4z" />
+    </svg>
+  )}
+  <span>{label}</span>
+  <span class="sr-only">{srSuffix}</span>
+</a>
+
+<style>
+  .social { display: inline-flex; align-items: center; gap: 8px; color: inherit; text-decoration: none; }
+  .social:hover span { text-decoration: underline; }
+  .social svg { flex: 0 0 auto; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>

@@ -1,0 +1,23 @@
+[
+  {
+    "slug": "ode",
+    "title": "ODE Arizona Beta",
+    "summary": "Growing the honor society chapter we reactivated in 2026.",
+    "tag": "Access",
+    "featured": true
+  },
+  {
+    "slug": "exam-reviews",
+    "title": "Exam reviews",
+    "summary": "Peer-led reviews for ECON 200, 361 and 332.",
+    "tag": "Grow",
+    "featured": true
+  },
+  {
+    "slug": "reconnecting-alumni",
+    "title": "Reconnecting alumni",
+    "summary": "Finding the economics students who came before us.",
+    "tag": "Connect",
+    "featured": true
+  }
+]

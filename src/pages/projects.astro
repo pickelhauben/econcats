@@ -1,12 +1,68 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SocialLink from '../components/SocialLink.astro';
+import site from '../data/site.json';
 ---
 <Layout title="Projects">
   <section class="page-intro wrap">
     <p class="eyebrow">Projects</p>
     <h1>Projects</h1>
   </section>
-  <section class="wrap">
-    <p class="todo">Coming in step 3: ODE chapter, exam reviews, mentorship, alumni campaign, discussion series.</p>
+
+  <section class="ode" id="ode" aria-labelledby="ode-title">
+    <div class="wrap ode-grid">
+      <div>
+        <p class="eyebrow">Honor society</p>
+        <h2 id="ode-title">Omicron Delta Epsilon<span class="sr-only"> · </span> <span class="chapter">Arizona Beta Chapter</span></h2>
+      </div>
+      <div class="ode-body">
+        <p>Omicron Delta Epsilon (OΔE) is one of the world’s largest academic honor societies, recognizing scholarly achievement in economics since 1915. The University of Arizona’s Arizona Beta chapter returned in 2026 and is run by ESA with the Department of Economics.</p>
+
+        <h3>Eligibility</h3>
+        <ul class="criteria">
+          <li><strong>3.0</strong> GPA</li>
+          <li><strong>12</strong> economics credits, waived after one year of active ESA membership</li>
+        </ul>
+
+        <p class="apply">Applications open each semester. Follow <SocialLink href={site.instagram} label={site.instagramHandle} /> for the next cycle.</p>
+
+        <a class="btn ode-btn" href={site.odeInternational} target="_blank" rel="noopener noreferrer">
+          Visit ODE International <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap rest">
+    <p class="todo">Coming in step 3: exam reviews, mentorship, alumni campaign, discussion series.</p>
   </section>
 </Layout>
+
+<style>
+  /* Honors accent: navy (the ODE ring color); the palette has no gold. */
+  .ode {
+    --accent: var(--ode);
+    border-top: 4px solid var(--accent);
+    background: color-mix(in srgb, var(--navy) 5%, var(--white));
+    padding: 56px 0;
+    scroll-margin-top: var(--header-h);
+  }
+  .ode .eyebrow { color: var(--accent); }
+  .ode h2 { margin-top: 16px; color: var(--accent); }
+  .ode h2 .chapter { display: block; font-style: italic; font-size: .6em; margin-top: 6px; }
+  .ode-grid { display: grid; gap: 32px; }
+  .ode-body > p { margin: 0 0 24px; max-width: 38em; }
+  .ode h3 { font-family: var(--sans); font-size: 12px; text-transform: uppercase; letter-spacing: .16em; color: var(--muted); font-weight: 500; margin: 0 0 12px; }
+  .criteria { list-style: none; margin: 0 0 24px; padding: 0; border-top: 1px solid var(--rule); }
+  .criteria li { padding: 14px 0; border-bottom: 1px solid var(--rule); }
+  .criteria strong { font-family: var(--serif); font-weight: 400; font-size: 28px; color: var(--accent); margin-right: 8px; }
+  .apply :global(.social) { color: var(--accent); font-weight: 500; vertical-align: bottom; }
+  .ode-btn { border-color: var(--accent); color: var(--accent); }
+  .ode-btn:hover { background: var(--accent); color: var(--white); }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .rest { padding-top: 48px; }
+  @media (min-width: 900px) {
+    .ode { padding: 96px 0; }
+    .ode-grid { grid-template-columns: 1fr 1.3fr; gap: 80px; }
+  }
+</style>

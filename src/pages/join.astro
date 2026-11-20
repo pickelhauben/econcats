@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SocialLink from '../components/SocialLink.astro';
+import site from '../data/site.json';
 ---
 <Layout title="Join">
   <section class="page-intro wrap">
@@ -7,6 +9,17 @@ import Layout from '../layouts/Layout.astro';
     <h1>Join ESA</h1>
   </section>
   <section class="wrap">
-    <p class="todo">Coming later: meetings, dues, email, Instagram.</p>
+    <ul class="contact">
+      <li><SocialLink href={site.instagram} label={site.instagramHandle} /></li>
+      <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+    </ul>
+    <p class="todo">Coming later: meetings, dues, weekly email sign-up.</p>
   </section>
 </Layout>
+
+<style>
+  .contact { list-style: none; margin: 0 0 32px; padding: 0; border-top: 1px solid var(--rule); }
+  .contact li { padding: 16px 0; border-bottom: 1px solid var(--rule); font-size: 18px; }
+  .contact a { text-decoration: none; }
+  .contact a:hover { color: var(--esa-green); }
+</style>

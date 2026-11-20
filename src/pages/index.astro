@@ -1,12 +1,416 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import EventCard from '../components/EventCard.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import RingsMark from '../components/RingsMark.astro';
+import SocialLink from '../components/SocialLink.astro';
+import site from '../data/site.json';
+import { upcomingEvents, featuredProjects, publicSupporters } from '../lib/content';
+
+const events = upcomingEvents(3);
+const projects = featuredProjects(3);
+const supporters = publicSupporters(6);
+
+// Hero photo: put your own event photo in public/images/ and set the path here, e.g. '/images/hero.jpg'.
+const heroImage: string | null = null;
+const heroAlt = '[DESCRIBE THE HERO PHOTO]';
+
+const proof = [
+  { value: 'Eller Experience Award', caption: 'Won as the Eller Economics Society', text: true },
+  { value: '3', caption: 'student organizations, one association' },
+  { value: '2026', caption: 'ODE Arizona Beta reactivated, first time since 2007' },
+  { value: '[19]', caption: 'ODE honor society members', text: true },
+];
+
+type OrgLink = { text: string; href: string; external?: boolean; instagram?: boolean };
+const orgs: { short: string; name: string; color: string; body: string; links: OrgLink[] }[] = [
+  {
+    short: 'EES', name: 'Eller Economics Society', color: 'var(--esa-green)',
+    body: 'The original economics society at Arizona. Speakers, workshops, exam reviews and the weekly meetings that hold the community together.',
+    links: [{ text: 'Learn more', href: '/about#ees' }],
+  },
+  {
+    short: 'WEC', name: 'Women in Economics', color: 'var(--wec)',
+    body: 'Founded in fall 2018 by economics lecturer Erin Yetter to create a space for women in economics. WEC’s women-only socials remain a permanent part of ESA, and its professional events are open to everyone.',
+    links: [
+      { text: 'Read WEC’s story', href: '/about#wec' },
+      { text: 'Follow WEC on Instagram', href: site.wecInstagram, instagram: true },
+    ],
+  },
+  {
+    short: 'OΔE', name: 'Omicron Delta Epsilon, Arizona Beta', color: 'var(--ode)',
+    body: 'Omicron Delta Epsilon is the international honor society in economics, founded in 1915. ESA is home to its Arizona Beta chapter, reactivated in 2026. Membership is by invitation for students with a 3.0 GPA and 12 economics credits.',
+    links: [
+      { text: 'About our chapter', href: '/projects#ode' },
+      { text: 'ODE International', href: site.odeInternational, external: true },
+    ],
+  },
+];
+
+const pillars = [
+  {
+    name: 'Connect', color: 'var(--esa-green)',
+    line: 'A community where economics students know each other, faculty and professionals.',
+    examples: ['Weekly meetings', 'Socials', 'WEC socials', 'Joint events with other clubs'],
+  },
+  {
+    name: 'Grow', color: 'var(--cyan)',
+    line: 'Academic support, skills and leadership experience.',
+    examples: ['ECON 200, 361 and 332 exam reviews', 'Résumé workshops', 'Guest speakers'],
+  },
+  {
+    name: 'Access', color: 'var(--navy)',
+    line: 'Routes to honors, networks and opportunities beyond the classroom.',
+    examples: ['ODE honor society', 'Alumni mentors', 'Employer events'],
+  },
+];
 ---
-<Layout>
-  <section class="page-intro wrap">
-    <p class="eyebrow">Home</p>
-    <h1>EconCats</h1>
+<Layout description="The Economics Student Association (EconCats) is where Arizona's economics undergraduates meet, learn and grow.">
+
+  <!-- 1. Hero -->
+  <section class="hero">
+    <div class="wrap hero-text">
+      <p class="eyebrow">University of Arizona · Economics students for decades</p>
+      <h1>Home of the <em>EconCats.</em></h1>
+      <p class="lede">The Economics Student Association is where economics at Arizona comes together. Three student organizations, one community, and a seat at the table for anyone who cares about economics.</p>
+      <div class="actions">
+        <a class="btn primary" href="/join">Come to a meeting <span aria-hidden="true">→</span></a>
+        <a class="btn" href="/activities">See what we do</a>
+      </div>
+    </div>
+    <figure class="hero-photo">
+      {heroImage
+        ? <img src={heroImage} alt={heroAlt} />
+        : <div class="photo-placeholder"><span>[HERO PHOTO: a recent meeting or event]</span></div>}
+      <span class="hero-mark"><RingsMark size={44} /></span>
+    </figure>
   </section>
-  <section class="wrap">
-    <p class="todo">Coming in step 2: hero, the three pillars, upcoming events, latest projects, “Join us”.</p>
+
+  <!-- 2. Proof strip -->
+  <section class="proof" aria-label="ESA at a glance">
+    <ul class="wrap">
+      {proof.map((p) => (
+        <li>
+          <span class:list={['value', { text: p.text }]}>{p.value}</span>
+          <span class="caption">{p.caption}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- 3. Three organizations -->
+  <section class="section">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Who we are</p>
+        <h2>Three organizations. <em>One home.</em></h2>
+        <p class="intro">ESA brings together three student organizations that each served economics students in their own way. Each keeps its identity and its programs inside ESA.</p>
+      </div>
+      <div class="orgs">
+        {orgs.map((o) => (
+          <article class="org" style={`--c:${o.color}`}>
+            <span class="ring" aria-hidden="true"></span>
+            <span class="short">{o.short}</span>
+            <h3>{o.name}</h3>
+            <p>{o.body}</p>
+            <ul class="org-links">
+              {o.links.map((l) => (
+                <li>
+                  {l.instagram
+                    ? <SocialLink class="org-link" href={l.href} label={l.text} />
+                    : l.external
+                      ? <a class="org-link" href={l.href} target="_blank" rel="noopener noreferrer">{l.text} <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+                      : <a class="org-link" href={l.href}>{l.text} <span aria-hidden="true">→</span></a>}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3b. Heritage band -->
+  <section class="heritage" aria-labelledby="heritage-title">
+    <div class="wrap heritage-grid">
+      <div class="heritage-head">
+        <span class="dots" aria-hidden="true">
+          <span style="--c: var(--esa-green)"></span>
+          <span style="--c: var(--cyan)"></span>
+          <span style="--c: var(--navy)"></span>
+        </span>
+        <h2 id="heritage-title">Our heritage</h2>
+      </div>
+      <p>Every organization in ESA has its own story: generations of Eller Economics Society members, the Women in Economics Club since 2018, and Omicron Delta Epsilon’s return to Arizona in 2026. We’re keeping all three.</p>
+      <a class="btn" href="/about#heritage">Explore our history <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <!-- 4. Where economics at Arizona comes together -->
+  <section class="section tint">
+    <div class="wrap voice">
+      <div>
+        <p class="eyebrow">Our community</p>
+        <h2>Where economics at Arizona <em>comes together.</em></h2>
+        <p class="intro">For decades, economics students at Arizona have found each other through student organizations like ours. Thursday meetings bring together undergraduates from Eller, Social and Behavioral Sciences, PPEL and Agricultural &amp; Applied Economics, and the graduate students and faculty who stop by to speak, listen and push the conversation further.</p>
+      </div>
+      <ul class="points">
+        <li>
+          <h3>With the department</h3>
+          <p>We work with the Department of Economics and our faculty advisors on the honor society, speakers and the events that shape economics at Arizona.</p>
+        </li>
+        <li>
+          <h3>Across Eller</h3>
+          <p>A registered organization with FESO and ASUA, and a regular partner for joint events with other Eller clubs.</p>
+        </li>
+        <li>
+          <h3>Whoever pulls up a chair</h3>
+          <p>First-years, seniors, PhD students and professors have all joined the conversation. Bring your questions.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5. Pillars -->
+  <section class="section">
+    <div class="wrap">
+      <div class="head row">
+        <div>
+          <p class="eyebrow">Our work</p>
+          <h2>What EconCats <em>do</em></h2>
+        </div>
+        <a class="link" href="/activities">See all activities <span aria-hidden="true">→</span></a>
+      </div>
+      <ol class="pillars">
+        {pillars.map((p, i) => (
+          <li style={`--c:${p.color}`}>
+            <span class="num">0{i + 1}</span>
+            <h3>{p.name}</h3>
+            <p>{p.line}</p>
+            <ul>{p.examples.map((x) => <li>{x}</li>)}</ul>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 6. Coming up (Sheet: Events) -->
+  <section class="section tint">
+    <div class="wrap upcoming">
+      <div>
+        <p class="eyebrow">Calendar</p>
+        <h2>Coming <em>up</em></h2>
+      </div>
+      <div>
+        {events.length > 0
+          ? <div class="events">{events.map((e) => <EventCard event={e} />)}</div>
+          : <p class="empty">Our spring schedule is coming soon. Meetings are {site.meetings}.</p>}
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Projects (Sheet: Projects) -->
+  <section class="section">
+    <div class="wrap">
+      <div class="head row">
+        <div>
+          <p class="eyebrow">Projects</p>
+          <h2>What we're <em>building</em></h2>
+        </div>
+        <a class="link" href="/projects">All projects <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="projects">
+        {projects.map((p, i) => <ProjectCard project={p} index={i} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Alumni band -->
+  <section class="alumni">
+    <div class="wrap alumni-grid">
+      <div>
+        <p class="eyebrow">Alumni</p>
+        <h2>Once an EconCat, <em>always an EconCat.</em></h2>
+        <p class="intro">Our alumni span generations of economics students at Arizona, across the Eller Economics Society, WEC and ODE. Tell us where you are now, speak to current students, or help fund the next generation.</p>
+        <div class="actions">
+          <a class="btn light" href="/alumni">Reconnect <span aria-hidden="true">→</span></a>
+          <a class="btn ghost" href="/alumni#support">Support ESA</a>
+        </div>
+      </div>
+      <div class="supporters">
+        <p class="label">Supporters</p>
+        {supporters.length > 0
+          ? <ul>{supporters.map((s) => <li>{s.name}</li>)}</ul>
+          : <p class="empty-dark">Be one of our founding supporters.</p>}
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Closing call to action -->
+  <section class="closing">
+    <div class="wrap">
+      <RingsMark size={52} />
+      <h2>Come once.<br /><em>You'll know if it's for you.</em></h2>
+      <p class="intro">No application needed. Meetings are Thursdays at 5 PM during the semester, usually in McClelland Hall. Room and topic go out in our weekly email.</p>
+      <div class="actions">
+        <a class="btn primary" href="/join">Get the weekly email <span aria-hidden="true">→</span></a>
+        <SocialLink class="btn" href={site.instagram} label={site.instagramHandle} />
+      </div>
+    </div>
   </section>
 </Layout>
+
+<style>
+  /* ---------- shared bits ---------- */
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .intro { color: var(--muted); max-width: 36em; margin: 20px 0 0; }
+  .head { margin-bottom: 40px; }
+  .head h2 { margin-top: 16px; }
+  .head.row { display: flex; flex-direction: column; gap: 20px; }
+  .link { color: var(--esa-green); font-weight: 500; text-decoration: none; }
+  .link:hover { text-decoration: underline; }
+  @media (min-width: 768px) {
+    .head { margin-bottom: 64px; }
+    .head.row { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+  }
+
+  /* ---------- 1. Hero ---------- */
+  .hero-text { padding-top: 48px; padding-bottom: 40px; }
+  .hero h1 { margin: 20px 0 24px; max-width: 12em; }
+  .hero-photo { position: relative; margin: 0; }
+  .hero-photo img, .photo-placeholder { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+  .photo-placeholder {
+    display: grid; place-items: center; padding: 24px; text-align: center;
+    background:
+      radial-gradient(circle at 25% 40%, rgba(141, 196, 160, .25) 0 18%, transparent 18.5%),
+      radial-gradient(circle at 70% 65%, rgba(42, 172, 204, .18) 0 24%, transparent 24.5%),
+      var(--deep);
+    color: rgba(255, 255, 255, .75); font-size: 13px; letter-spacing: .1em; text-transform: uppercase;
+  }
+  .hero-mark {
+    position: absolute; right: var(--gutter); bottom: 16px;
+    display: grid; place-items: center; width: 60px; height: 60px;
+    background: var(--white); border-radius: 50%;
+  }
+  @media (min-width: 768px) {
+    .hero-text { padding-top: 96px; padding-bottom: 64px; }
+    .hero-photo img, .photo-placeholder { aspect-ratio: 21 / 9; }
+    .hero-mark { bottom: 24px; width: 72px; height: 72px; }
+  }
+
+  /* ---------- 2. Proof strip ---------- */
+  .proof { border-bottom: 1px solid var(--rule); }
+  .proof ul { list-style: none; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; }
+  .proof li { padding: 28px 16px 28px 0; display: flex; flex-direction: column; gap: 6px; }
+  .proof li:nth-child(odd) { border-right: 1px solid var(--rule); }
+  .proof li:nth-child(even) { padding-left: 16px; }
+  .proof li:nth-child(-n + 2) { border-bottom: 1px solid var(--rule); }
+  .value { font-family: var(--serif); font-size: 36px; line-height: 1; color: var(--esa-green); }
+  .value.text { font-size: 22px; line-height: 1.2; }
+  .caption { font-size: 14px; color: var(--muted); line-height: 1.4; }
+  @media (min-width: 900px) {
+    .proof ul { grid-template-columns: repeat(4, 1fr); }
+    .proof li, .proof li:nth-child(even) { padding: 36px 24px; border-bottom: 0; border-right: 1px solid var(--rule); }
+    .proof li:first-child { padding-left: 0; }
+    .proof li:last-child { border-right: 0; }
+    .value { font-size: 48px; }
+    .value.text { font-size: 26px; }
+  }
+
+  /* ---------- 3. Orgs ---------- */
+  .orgs { display: grid; gap: 16px; }
+  .org {
+    display: flex; flex-direction: column; gap: 8px;
+    padding: 28px 24px; border: 1px solid var(--rule); border-radius: 6px;
+    border-top: 4px solid var(--c);
+  }
+  .org-links { list-style: none; margin: auto 0 0; padding: 16px 0 0; display: flex; flex-direction: column; gap: 10px; }
+  .org-link {
+    font-size: 14px; font-weight: 500; color: var(--ink); text-decoration: none;
+    border-bottom: 1px solid var(--c); padding-bottom: 1px;
+  }
+  .org-link:hover { color: var(--esa-green); }
+  .org-links li { display: flex; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .ring { width: 36px; height: 36px; border-radius: 50%; border: 5px solid var(--c); margin-bottom: 12px; }
+  .short { font-size: 13px; font-weight: 600; letter-spacing: .12em; color: var(--c); }
+  .org p { margin: 4px 0 0; color: var(--muted); font-size: 15px; }
+  @media (min-width: 900px) { .orgs { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+
+  /* ---------- 3b. Heritage band ---------- */
+  .heritage { border-top: 1px solid var(--rule); padding: 40px 0; }
+  .heritage-grid { display: grid; gap: 16px; align-items: center; }
+  .heritage-head { display: flex; align-items: center; gap: 14px; }
+  .heritage h2 { font-size: clamp(26px, 3.4vw, 34px); }
+  .heritage p { margin: 0; color: var(--muted); max-width: 40em; }
+  .heritage .btn { justify-self: start; white-space: nowrap; }
+  .dots { display: inline-flex; gap: 5px; }
+  .dots span { width: 12px; height: 12px; border-radius: 50%; background: var(--c); }
+  @media (min-width: 900px) {
+    .heritage { padding: 48px 0; }
+    .heritage-grid { grid-template-columns: auto 1fr auto; gap: 48px; }
+  }
+
+  /* ---------- 4. Voice ---------- */
+  .tint { background: var(--paper); }
+  .voice { display: grid; gap: 40px; }
+  .voice h2 { margin-top: 16px; }
+  .points { list-style: none; margin: 0; padding: 0; }
+  .points li { padding: 24px 0; border-top: 1px solid var(--rule); }
+  .points li:last-child { border-bottom: 1px solid var(--rule); }
+  .points p { margin: 8px 0 0; color: var(--muted); font-size: 15px; }
+  @media (min-width: 900px) { .voice { grid-template-columns: 1.1fr 1fr; gap: 80px; align-items: start; } }
+
+  /* ---------- 5. Pillars ---------- */
+  .pillars { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+  .pillars > li { padding: 32px 0; border-top: 1px solid var(--rule); }
+  .pillars .num { font-size: 13px; color: var(--c); font-weight: 600; letter-spacing: .1em; }
+  .pillars h3 { font-size: clamp(36px, 5vw, 52px); margin: 8px 0 12px; color: var(--c); }
+  .pillars p { margin: 0 0 16px; }
+  .pillars ul { margin: 0; padding: 0; list-style: none; }
+  .pillars ul li { font-size: 15px; color: var(--muted); padding: 4px 0 4px 18px; position: relative; }
+  .pillars ul li::before { content: ""; position: absolute; left: 0; top: 13px; width: 8px; height: 1px; background: var(--c); }
+  @media (min-width: 900px) {
+    .pillars { grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  }
+
+  /* ---------- 6. Upcoming ---------- */
+  .upcoming { display: grid; gap: 32px; }
+  .upcoming h2 { margin-top: 16px; }
+  .events { border-bottom: 1px solid var(--rule); }
+  .empty { margin: 0; padding: 24px; border: 1px dashed var(--rule); border-radius: 6px; color: var(--muted); background: var(--white); }
+  @media (min-width: 900px) { .upcoming { grid-template-columns: 1fr 2fr; gap: 80px; } }
+
+  /* ---------- 7. Projects ---------- */
+  .projects { display: grid; gap: 16px; }
+  @media (min-width: 900px) { .projects { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+
+  /* ---------- 8. Alumni ---------- */
+  .alumni { background: var(--deep); color: var(--white); padding: 64px 0; }
+  .alumni .eyebrow { color: var(--mint); }
+  .alumni em { color: var(--mint); }
+  .alumni h2 { margin-top: 16px; }
+  .alumni .intro { color: rgba(255, 255, 255, .75); }
+  .alumni-grid { display: grid; gap: 40px; }
+  .btn.light { background: var(--mint); border-color: var(--mint); color: var(--deep); }
+  .btn.light:hover { background: var(--white); border-color: var(--white); }
+  .btn.ghost { border-color: rgba(255, 255, 255, .5); color: var(--white); }
+  .btn.ghost:hover { background: var(--white); color: var(--deep); }
+  .supporters { border-top: 1px solid rgba(255, 255, 255, .16); padding-top: 24px; }
+  .label { margin: 0 0 12px; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--mint); }
+  .supporters ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; }
+  .empty-dark { margin: 0; font-family: var(--serif); font-size: 24px; font-style: italic; color: rgba(255, 255, 255, .85); }
+  @media (min-width: 768px) { .alumni { padding: 112px 0; } }
+  @media (min-width: 900px) {
+    .alumni-grid { grid-template-columns: 1.4fr 1fr; gap: 80px; align-items: end; }
+    .supporters { border-top: 0; border-left: 1px solid rgba(255, 255, 255, .16); padding: 0 0 0 40px; }
+  }
+
+  /* ---------- 9. Closing ---------- */
+  .closing { padding: 72px 0; text-align: center; }
+  .closing .wrap { display: flex; flex-direction: column; align-items: center; }
+  .closing h2 { margin-top: 20px; text-wrap: balance; }
+  .closing .intro { margin-left: auto; margin-right: auto; }
+  .closing .actions { justify-content: center; }
+  @media (min-width: 768px) { .closing { padding: 128px 0; } }
+</style>
