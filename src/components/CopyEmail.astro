@@ -1,0 +1,53 @@
+---
+// Email address as a mailto link plus a "Copy" button. No form, nothing is submitted.
+import site from '../data/site.json';
+interface Props { email?: string; class?: string }
+const { email = site.email, class: className } = Astro.props;
+---
+<span class:list={['copy-email', className]}>
+  <a href={`mailto:${email}`}>{email}</a>
+  <button type="button" class="copy-btn" data-copy={email}>
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+      <rect x="9" y="9" width="11" height="11" rx="2" /><path d="M5 15V5a2 2 0 0 1 2-2h10" />
+    </svg>
+    <span class="label">Copy</span>
+  </button>
+  <span class="sr-only" role="status" aria-live="polite"></span>
+</span>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.copy-btn').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const text = btn.dataset.copy || '';
+      const label = btn.querySelector('.label');
+      const status = btn.parentElement?.querySelector('[role="status"]');
+      let ok = false;
+      try {
+        await navigator.clipboard.writeText(text);
+        ok = true;
+      } catch {
+        // Fallback for browsers without clipboard access
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'absolute'; ta.style.left = '-9999px';
+        document.body.appendChild(ta); ta.select();
+        try { ok = document.execCommand('copy'); } catch { ok = false; }
+        ta.remove();
+      }
+      if (label) label.textContent = ok ? 'Copied' : 'Press Ctrl+C';
+      if (status) status.textContent = ok ? `${text} copied to clipboard` : 'Copy failed';
+      setTimeout(() => { if (label) label.textContent = 'Copy'; if (status) status.textContent = ''; }, 2000);
+    });
+  });
+</script>
+
+<style>
+  .copy-email { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+  .copy-email a { color: inherit; font-weight: 500; overflow-wrap: anywhere; }
+  .copy-btn {
+    display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px;
+    font: inherit; font-size: 14px; cursor: pointer; color: inherit;
+    background: transparent; border: 1px solid currentColor; border-radius: 999px; opacity: .85;
+  }
+  .copy-btn:hover { opacity: 1; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>

@@ -52,11 +52,39 @@ export function allProjects(): Project[] {
   return projects as Project[];
 }
 
+export type SupporterType = 'Founding supporter' | 'Alumni speaker' | 'Mentor';
+export const supporterTypes: SupporterType[] = ['Founding supporter', 'Alumni speaker', 'Mentor'];
+
 export interface Supporter {
   name: string;
-  note?: string;
-  permission: boolean;
+  type: SupporterType;
+  year: string;
+  permission: boolean; // only shown when true
 }
+
+/** Supporters with permission, grouped by type (empty groups left out). */
+export function supportersByType(): { type: SupporterType; names: Supporter[] }[] {
+  const ok = (supporters as Supporter[]).filter((s) => s.permission === true);
+  return supporterTypes
+    .map((type) => ({ type, names: ok.filter((s) => s.type === type) }))
+    .filter((g) => g.names.length > 0);
+}
+
+// ---------- Alumni ----------
+import alumniData from '../data/alumni.json';
+
+export interface Alum {
+  name: string;
+  years: string; // e.g. "2019–2023"
+  org: ('EES' | 'WEC' | 'ODE')[];
+  now: string; // current role
+  quote: string;
+  photo?: string;
+  linkedin?: string;
+  permission: boolean; // only shown when true
+}
+
+export const publicAlumni = () => (alumniData as Alum[]).filter((a) => a.permission === true);
 
 // Rows marked "draft" show in `npm run dev` only, never in the built site.
 const visible = <T extends { draft?: boolean }>(rows: T[]) =>
@@ -89,7 +117,7 @@ export function featuredProjects(limit = 3): Project[] {
 }
 
 export function publicSupporters(limit = 6): Supporter[] {
-  return (supporters as Supporter[]).filter((s) => s.permission).slice(0, limit);
+  return (supporters as Supporter[]).filter((s) => s.permission === true).slice(0, limit);
 }
 
 // ---------- About page ----------

@@ -1,12 +1,205 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import CopyEmail from '../components/CopyEmail.astro';
+import site from '../data/site.json';
+import { publicAlumni, supportersByType } from '../lib/content';
+
+const alumni = publicAlumni();
+const supporterGroups = supportersByType();
+const mailto = `mailto:${site.email}`;
+
+const orgColor: Record<string, string> = { EES: 'var(--esa-green)', WEC: 'var(--wec)', ODE: 'var(--ode)' };
+const initialsOf = (name: string) => name.trim().split(/\s+/).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
+
+const ways = [
+  { id: 'where', title: 'Tell us where you are now', cta: 'Reconnect', href: '#reconnect' },
+  { id: 'speak', title: 'Speak to students', note: 'In person or on Zoom.', cta: 'Email us', href: mailto },
+  { id: 'mentor', title: 'Mentor a student', cta: 'Email us', href: mailto },
+];
 ---
-<Layout title="Alumni">
-  <section class="page-intro wrap">
-    <p class="eyebrow">Alumni</p>
-    <h1>Alumni</h1>
+<Layout title="Alumni" description="Alumni of the Eller Economics Society, WEC and ODE: reconnect with the Economics Student Association at the University of Arizona.">
+
+  <!-- 1. Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Alumni</p>
+      <h1>Once an EconCat, <em>always an EconCat.</em></h1>
+      <p class="lede">Our alumni span generations of economics students at Arizona, across the Eller Economics Society, WEC and ODE. Wherever you are now, there's a place for you here.</p>
+      <div class="actions">
+        <a class="btn light" href="#reconnect">Reconnect with ESA <span aria-hidden="true">→</span></a>
+        <a class="btn ghost" href="#involved">Ways to get involved</a>
+      </div>
+    </div>
   </section>
-  <section class="wrap">
-    <p class="todo">Coming in step 3: spotlights, ways to get involved, supporters wall, reconnect form link.</p>
+
+  <!-- 2. Ways to get involved -->
+  <section class="section" id="involved">
+    <div class="wrap">
+      <p class="eyebrow">Get involved</p>
+      <h2>Ways to get <em>involved</em></h2>
+      <ol class="ways">
+        {ways.map((w, i) => (
+          <li id={w.id}>
+            <span class="num">0{i + 1}</span>
+            <h3>{w.title}</h3>
+            {w.note && <p>{w.note}</p>}
+            <a class="way-link" href={w.href}>{w.cta} <span aria-hidden="true">→</span></a>
+          </li>
+        ))}
+        <li id="support" class="support">
+          <span class="num">04</span>
+          <h3>Support ESA</h3>
+          <p>Gifts fund exam reviews, speaker events and ODE initiation fees. A giving link through the University of Arizona is coming soon. Email us in the meantime.</p>
+          <a class="way-link" href={mailto}>Email us <span aria-hidden="true">→</span></a>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 3. Alumni spotlights -->
+  <section class="section tint" id="spotlights">
+    <div class="wrap">
+      <p class="eyebrow">Spotlights</p>
+      <h2>Alumni <em>spotlights</em></h2>
+      {alumni.length > 0 ? (
+        <ul class="spotlights">
+          {alumni.map((a) => (
+            <li class="alum">
+              <div class="alum-head">
+                {a.photo
+                  ? <img class="avatar" src={a.photo} alt={`Portrait of ${a.name}`} width="72" height="72" loading="lazy" decoding="async" />
+                  : <span class="avatar initials" aria-hidden="true">{initialsOf(a.name)}</span>}
+                <div>
+                  <h3>{a.name}</h3>
+                  <p class="years">{a.years}</p>
+                </div>
+              </div>
+              <ul class="orgs" aria-label="Organizations">
+                {a.org.map((o) => <li style={`--c:${orgColor[o] ?? 'var(--esa-green)'}`}>{o}</li>)}
+              </ul>
+              {a.quote && <blockquote>“{a.quote}”</blockquote>}
+              <p class="now">{a.now}</p>
+              {a.linkedin && (
+                <a class="linkedin" href={a.linkedin} target="_blank" rel="noopener noreferrer">
+                  LinkedIn <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span>
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="empty">Our first alumni spotlights are coming soon.</p>
+      )}
+    </div>
+  </section>
+
+  <!-- 4. Supporters wall -->
+  <section class="section" id="supporters">
+    <div class="wrap">
+      <p class="eyebrow">Supporters</p>
+      <h2>Supporters <em>wall</em></h2>
+      {supporterGroups.length > 0 ? (
+        <div class="wall">
+          {supporterGroups.map((g) => (
+            <div class="wall-group">
+              <h3 class="wall-title">{g.type}</h3>
+              <ul>{g.names.map((s) => <li>{s.name}{s.year && <span class="year"> · {s.year}</span>}</li>)}</ul>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="wall-empty">
+          <ul class="slots" aria-hidden="true">
+            {Array.from({ length: 6 }).map(() => <li></li>)}
+          </ul>
+          <p>Be one of our founding supporters.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- 5. Reconnect -->
+  <section class="reconnect" id="reconnect">
+    <div class="wrap">
+      <h2>Reconnect with <em>ESA.</em></h2>
+      {site.alumniFormUrl
+        ? <a class="btn light" href={site.alumniFormUrl} target="_blank" rel="noopener noreferrer">Reconnect with ESA <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+        : (
+          <>
+            <p>Our alumni form is on its way. Until then, email us and tell us where you are now.</p>
+            <CopyEmail />
+          </>
+        )}
+    </div>
   </section>
 </Layout>
+
+<style>
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  h2 { margin-top: 16px; }
+  .tint { background: var(--paper); }
+  [id] { scroll-margin-top: calc(var(--header-h) + 16px); }
+  .empty { margin: 32px 0 0; padding: 24px; border: 1px dashed var(--rule); border-radius: 6px; color: var(--muted); background: var(--white); }
+
+  /* 1. Hero */
+  .hero { background: var(--deep); color: var(--white); padding: 56px 0 64px; }
+  .hero .eyebrow { color: var(--mint); }
+  .hero em { color: var(--mint); }
+  .hero h1 { margin: 20px 0 24px; max-width: 12em; }
+  .hero .lede { color: rgba(255, 255, 255, .78); }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  .btn.light { background: var(--mint); border-color: var(--mint); color: var(--deep); }
+  .btn.light:hover { background: var(--white); border-color: var(--white); }
+  .btn.ghost { border-color: rgba(255, 255, 255, .5); color: var(--white); }
+  .btn.ghost:hover { background: var(--white); color: var(--deep); }
+  @media (min-width: 768px) { .hero { padding: 112px 0 120px; } }
+
+  /* 2. Ways */
+  .ways { list-style: none; margin: 40px 0 0; padding: 0; display: grid; gap: 0; }
+  .ways li { padding: 24px 0; border-top: 1px solid var(--rule); display: flex; flex-direction: column; gap: 8px; }
+  .num { font-size: 13px; font-weight: 600; letter-spacing: .1em; color: var(--esa-green); }
+  .ways h3 { font-size: 26px; }
+  .ways p { margin: 0; color: var(--muted); }
+  .way-link { margin-top: 4px; font-weight: 500; color: var(--ink); text-decoration: none; align-self: flex-start; border-bottom: 1px solid var(--esa-green); }
+  .way-link:hover { color: var(--esa-green); }
+  .support { background: var(--paper); padding: 24px !important; border-radius: 6px; border-top: 4px solid var(--esa-green) !important; }
+  @media (min-width: 900px) {
+    .ways { grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  }
+
+  /* 3. Spotlights */
+  .spotlights { list-style: none; margin: 40px 0 0; padding: 0; display: grid; gap: 20px; }
+  .alum { background: var(--white); border: 1px solid var(--rule); border-radius: 6px; padding: 24px; display: flex; flex-direction: column; gap: 12px; }
+  .alum-head { display: flex; align-items: center; gap: 16px; }
+  .avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; flex: 0 0 72px; }
+  .initials { display: grid; place-items: center; border: 4px solid var(--esa-green); color: var(--esa-green); font-family: var(--serif); font-size: 26px; }
+  .alum h3 { font-size: 24px; }
+  .years { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+  .orgs { list-style: none; margin: 0; padding: 0; display: flex; gap: 8px; }
+  .orgs li { font-size: 12px; font-weight: 600; letter-spacing: .1em; color: var(--c); border: 1px solid var(--c); border-radius: 999px; padding: 3px 10px; }
+  blockquote { margin: 0; font-family: var(--serif); font-style: italic; font-size: 19px; line-height: 1.4; }
+  .now { margin: 0; font-size: 14px; color: var(--muted); }
+  .linkedin { font-size: 14px; font-weight: 500; color: var(--navy); }
+  @media (min-width: 640px) { .spotlights { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .spotlights { grid-template-columns: repeat(3, 1fr); } }
+
+  /* 4. Supporters */
+  .wall { margin-top: 40px; display: grid; gap: 32px; }
+  .wall-title { font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+  .wall ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px 24px; }
+  .wall li { font-family: var(--serif); font-size: 20px; padding: 8px 0; border-bottom: 1px solid var(--rule); }
+  .year { font-family: var(--sans); font-size: 14px; color: var(--muted); }
+  .wall-empty { margin-top: 40px; position: relative; }
+  .slots { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .slots li { height: 56px; border: 1.5px dashed color-mix(in srgb, var(--esa-green) 40%, transparent); border-radius: 6px; }
+  .wall-empty p { margin: 20px 0 0; font-family: var(--serif); font-style: italic; font-size: 24px; }
+  @media (min-width: 768px) { .slots { grid-template-columns: repeat(3, 1fr); } }
+
+  /* 5. Reconnect */
+  .reconnect { background: var(--esa-green); color: var(--white); padding: 64px 0; }
+  .reconnect em { color: var(--mint); }
+  .reconnect h2 { margin: 0 0 16px; }
+  .reconnect p { color: rgba(255, 255, 255, .85); max-width: 32em; margin: 0 0 20px; }
+  .reconnect :global(.copy-email) { font-size: 18px; }
+  @media (min-width: 768px) { .reconnect { padding: 96px 0; } }
+</style>
