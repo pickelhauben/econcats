@@ -1,10 +1,102 @@
 [
   {
+    "date": "2026-09-03",
+    "time": "",
+    "title": "First ESA general meeting",
+    "type": "General meeting",
+    "pillar": "Connect",
+    "location": "",
+    "summary": "The first meeting of ESA as one association, with members of EES, WEC and ODE in the same room for the semester ahead.",
+    "photos": [],
+    "recap": ""
+  },
+  {
+    "date": "2026-09-10",
+    "time": "",
+    "title": "Tax Foundation speaker",
+    "type": "Speaker",
+    "pillar": "Grow",
+    "location": "",
+    "summary": "A guest from the Tax Foundation joined our Thursday meeting to talk about tax policy research.",
+    "photos": [],
+    "recap": ""
+  },
+  {
+    "date": "2026-09-17",
+    "time": "",
+    "title": "Résumé and LinkedIn workshop",
+    "type": "Workshop",
+    "pillar": "Grow",
+    "location": "",
+    "summary": "A hands-on session on shaping a résumé and LinkedIn profile for economics, policy and finance roles.",
+    "photos": [],
+    "recap": ""
+  },
+  {
+    "date": "2026-10-01",
+    "time": "",
+    "title": "Midterm study session",
+    "type": "Exam review",
+    "pillar": "Grow",
+    "location": "",
+    "summary": "A peer-led study session to work through economics material ahead of midterms.",
+    "photos": [],
+    "recap": ""
+  },
+  {
+    "date": "2026-10-08",
+    "time": "",
+    "title": "ODE information session",
+    "type": "ODE",
+    "pillar": "Access",
+    "location": "",
+    "summary": "An introduction to Omicron Delta Epsilon’s Arizona Beta chapter: what the honor society is, who is eligible and how to apply.",
+    "photos": [],
+    "recap": ""
+  },
+  {
+    "date": "2026-10-17",
+    "time": "",
+    "title": "Eller Make a Difference Day",
+    "type": "Service",
+    "pillar": "Connect",
+    "location": "",
+    "summary": "EconCats joined Eller’s Make a Difference Day to spend a Saturday on community service.",
+    "photos": [],
+    "recap": ""
+  },
+  {
+    "date": "2026-10-29",
+    "time": "",
+    "title": "Halloween social with the Philosophy Club",
+    "type": "Collaboration",
+    "pillar": "Connect",
+    "location": "",
+    "summary": "A joint Halloween social with the Philosophy Club, where economics met its oldest sparring partner.",
+    "photos": [],
+    "recap": ""
+  },
+  {
+    "date": "2026-11-12",
+    "time": "",
+    "title": "TQL career talk",
+    "type": "Speaker",
+    "pillar": "Grow",
+    "location": "",
+    "summary": "A career talk with TQL on the roles open to economics students and what the path into them looks like.",
+    "photos": [],
+    "recap": ""
+  },
+  {
     "date": "2027-02-04",
+    "time": "5 PM",
     "title": "Alumni talk: microcredit and economics in practice",
-    "summary": "[ONE-LINE DESCRIPTION]",
+    "type": "Speaker",
+    "pillar": "Connect",
     "location": "Thursday meeting",
-    "tag": "Connect",
+    "summary": "[ONE-LINE DESCRIPTION]",
+    "photos": [],
+    "recap": "",
     "draft": true
   }
 ]

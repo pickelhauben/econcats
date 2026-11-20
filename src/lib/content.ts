@@ -6,13 +6,33 @@ import supporters from '../data/supporters.json';
 
 export type Pillar = 'Connect' | 'Grow' | 'Access';
 
+export type EventType =
+  | 'General meeting' | 'Speaker' | 'Workshop' | 'Exam review' | 'Social'
+  | 'ODE' | 'WEC' | 'Service' | 'Collaboration';
+
 export interface EventItem {
   date: string; // YYYY-MM-DD
+  time: string; // e.g. "5 PM"; may be empty
   title: string;
+  type: EventType;
+  pillar: Pillar;
+  location: string; // may be empty
   summary: string;
-  location: string;
-  tag: Pillar;
+  photos?: string[]; // image paths
+  recap?: string; // 2–3 sentences, for past events
   draft?: boolean;
+}
+
+/** Today's date in Arizona, as YYYY-MM-DD (computed at build time). */
+export function todayInArizona(): string {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Phoenix' }).format(new Date());
+}
+
+/** "Fall 2026", "Spring 2027", "Summer 2027" */
+export function semesterOf(date: string): string {
+  const [y, m] = date.split('-').map(Number);
+  const term = m <= 5 ? 'Spring' : m <= 7 ? 'Summer' : 'Fall';
+  return `${term} ${y}`;
 }
 
 export type ProjectStatus = 'Active' | 'Growing' | 'Planned';
@@ -42,12 +62,26 @@ export interface Supporter {
 const visible = <T extends { draft?: boolean }>(rows: T[]) =>
   rows.filter((r) => !r.draft || import.meta.env.DEV);
 
-export function upcomingEvents(limit = 3): EventItem[] {
-  const today = new Date().toISOString().slice(0, 10);
+export function upcomingEvents(limit = Infinity): EventItem[] {
+  const today = todayInArizona();
   return visible(events as EventItem[])
     .filter((e) => e.date >= today)
     .sort((a, b) => a.date.localeCompare(b.date))
     .slice(0, limit);
+}
+
+/** Past events grouped by semester, newest semester and newest event first. */
+export function pastEventsBySemester(): { semester: string; events: EventItem[] }[] {
+  const today = todayInArizona();
+  const past = visible(events as EventItem[])
+    .filter((e) => e.date < today)
+    .sort((a, b) => b.date.localeCompare(a.date));
+  const groups = new Map<string, EventItem[]>();
+  for (const e of past) {
+    const s = semesterOf(e.date);
+    groups.set(s, [...(groups.get(s) ?? []), e]);
+  }
+  return [...groups].map(([semester, events]) => ({ semester, events }));
 }
 
 export function featuredProjects(limit = 3): Project[] {

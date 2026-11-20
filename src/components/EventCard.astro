@@ -7,7 +7,9 @@ const { event } = Astro.props;
 const d = new Date(`${event.date}T12:00:00`);
 const month = d.toLocaleDateString('en-US', { month: 'short' });
 const day = d.toLocaleDateString('en-US', { day: 'numeric' });
+const weekday = d.toLocaleDateString('en-US', { weekday: 'long' });
 const full = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+const when = [weekday, event.time].filter(Boolean).join(' · ');
 ---
 <article class="event">
   <time datetime={event.date} title={full}>
@@ -15,10 +17,13 @@ const full = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day
     <span class="d">{day}</span>
   </time>
   <div class="body">
-    <Tag pillar={event.tag} />
+    <div class="labels">
+      <span class="type">{event.type}</span>
+      <Tag pillar={event.pillar} />
+    </div>
     <h3>{event.title}</h3>
-    <p>{event.summary}</p>
-    <p class="where">{event.location}</p>
+    {event.summary && <p>{event.summary}</p>}
+    <p class="where">{when}{event.location && <> · {event.location}</>}</p>
     {event.draft && <p class="draft">Draft: hidden on the live site until confirmed</p>}
   </div>
 </article>
@@ -31,7 +36,12 @@ const full = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day
   time { display: flex; flex-direction: column; align-items: center; line-height: 1; padding-top: 4px; }
   .m { font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: var(--esa-green); font-weight: 600; }
   .d { font-family: var(--serif); font-size: 40px; margin-top: 6px; }
-  h3 { margin: 8px 0 6px; }
+  .labels { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .type {
+    font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 999px;
+    background: var(--paper); border: 1px solid var(--rule); color: var(--ink);
+  }
+  h3 { margin: 10px 0 6px; }
   p { margin: 0; color: var(--muted); font-size: 15px; }
   .where { margin-top: 10px; font-size: 14px; color: var(--ink); }
   .draft {
