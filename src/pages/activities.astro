@@ -2,8 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import EventCard from '../components/EventCard.astro';
 import Tag from '../components/Tag.astro';
-import site from '../data/site.json';
-import { upcomingEvents, pastEventsBySemester } from '../lib/content';
+import { upcomingEvents, pastEventsBySemester, meetingsLine } from '../lib/content';
 
 const upcoming = upcomingEvents();
 const past = pastEventsBySemester();
@@ -37,7 +36,7 @@ const shortDate = (date: string) =>
       <div>
         {upcoming.length > 0
           ? <div class="events">{upcoming.map((e) => <EventCard event={e} />)}</div>
-          : <p class="empty">Our next schedule is coming soon. Meetings are {site.meetings}.</p>}
+          : <p class="empty">Our next schedule is coming soon. Meetings are {meetingsLine}.</p>}
       </div>
     </div>
   </section>

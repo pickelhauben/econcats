@@ -1,25 +1,173 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import SocialLink from '../components/SocialLink.astro';
+import CopyEmail from '../components/CopyEmail.astro';
+import RingsMark from '../components/RingsMark.astro';
 import site from '../data/site.json';
+
+const steps = [
+  {
+    title: 'Come to a meeting',
+    body: `${site.meetingDay} at ${site.meetingTime}, ${site.meetingPlace}.`,
+  },
+  {
+    title: 'Get the weekly email',
+    body: 'Room, topic and what’s coming up, every week of the semester.',
+    href: '#weekly-email',
+    cta: 'Sign up below',
+  },
+  {
+    title: 'Join and pay dues',
+    body: `${site.duesSemester} a semester or ${site.duesYear} a year. Dues fund food, speakers and events.`,
+  },
+];
 ---
-<Layout title="Join">
-  <section class="page-intro wrap">
+<Layout title="Join" description={`Join the Economics Student Association: ${site.meetingDay} at ${site.meetingTime}, ${site.meetingPlace}. No application needed.`}>
+
+  <!-- 1. Intro -->
+  <section class="page-intro wrap intro">
+    <RingsMark size={48} />
     <p class="eyebrow">Join / Contact</p>
-    <h1>Join ESA</h1>
+    <h1>Come once.<br /><em>You'll know if it's for you.</em></h1>
+    <p class="lede">No application needed. Pull up a chair at any Thursday meeting.</p>
   </section>
-  <section class="wrap">
-    <ul class="contact">
-      <li><SocialLink href={site.instagram} label={site.instagramHandle} /></li>
-      <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
-    </ul>
-    <p class="todo">Coming later: meetings, dues, weekly email sign-up.</p>
+
+  <!-- 2. Steps -->
+  <section class="section tint" id="steps">
+    <div class="wrap">
+      <p class="eyebrow">How to join</p>
+      <h2>Three <em>steps</em></h2>
+      <ol class="steps">
+        {steps.map((s, i) => (
+          <li>
+            <span class="num" aria-hidden="true">{i + 1}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+            {s.href && <a class="step-link" href={s.href}>{s.cta} <span aria-hidden="true">↓</span></a>}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 3. Weekly email -->
+  <section class="section" id="weekly-email">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Stay in the loop</p>
+        <h2>Get the weekly <em>email</em></h2>
+      </div>
+      <div class="panel">
+        {site.weeklyEmailUrl
+          ? (
+            <>
+              <p>Room, topic and what’s coming up, in your inbox every week of the semester.</p>
+              <a class="btn primary" href={site.weeklyEmailUrl} target="_blank" rel="noopener noreferrer">
+                Get the weekly email <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span>
+              </a>
+            </>
+          )
+          : (
+            <>
+              <p>Email us and we'll add you.</p>
+              <CopyEmail />
+            </>
+          )}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Contact cards -->
+  <section class="section tint" id="contact">
+    <div class="wrap">
+      <p class="eyebrow">Contact</p>
+      <h2>Find <em>us</em></h2>
+      <ul class="cards">
+        <li class="card">
+          <h3>Email</h3>
+          <CopyEmail />
+        </li>
+        <li class="card">
+          <h3>ESA on Instagram</h3>
+          <SocialLink class="card-link" href={site.instagram} label={site.instagramHandle} />
+        </li>
+        <li class="card wec">
+          <h3>WEC on Instagram</h3>
+          <SocialLink class="card-link" href={site.wecInstagram} label={site.wecInstagramHandle} />
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 5. Partners and speakers -->
+  <section class="partners">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Partners and speakers</p>
+        <h2>Speak or partner <em>with ESA</em></h2>
+      </div>
+      <p>Faculty, employers and alumni who'd like to speak or partner with ESA: <a href={`mailto:${site.email}`}>email us</a>.</p>
+    </div>
   </section>
 </Layout>
 
 <style>
-  .contact { list-style: none; margin: 0 0 32px; padding: 0; border-top: 1px solid var(--rule); }
-  .contact li { padding: 16px 0; border-bottom: 1px solid var(--rule); font-size: 18px; }
-  .contact a { text-decoration: none; }
-  .contact a:hover { color: var(--esa-green); }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  h2 { margin-top: 16px; }
+  .tint { background: var(--paper); }
+  [id] { scroll-margin-top: calc(var(--header-h) + 16px); }
+
+  /* 1. Intro */
+  .intro .eyebrow { margin-top: 24px; }
+  .intro h1 { text-wrap: balance; }
+  .intro .lede { margin-top: 24px; }
+
+  /* 2. Steps */
+  .steps { list-style: none; margin: 40px 0 0; padding: 0; display: grid; gap: 16px; counter-reset: step; }
+  .steps li {
+    position: relative; background: var(--white); border: 1px solid var(--rule); border-radius: 6px;
+    padding: 24px; display: flex; flex-direction: column; gap: 8px;
+  }
+  .num {
+    display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+    border: 3px solid var(--esa-green); color: var(--esa-green);
+    font-family: var(--serif); font-size: 22px; margin-bottom: 8px;
+  }
+  .steps li:nth-child(2) .num { border-color: var(--cyan); color: var(--deep); }
+  .steps li:nth-child(3) .num { border-color: var(--navy); color: var(--navy); }
+  .steps h3 { font-size: 26px; }
+  .steps p { margin: 0; color: var(--muted); }
+  .step-link { margin-top: 4px; align-self: flex-start; font-weight: 500; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--cyan); }
+  .step-link:hover { color: var(--esa-green); }
+  @media (min-width: 900px) {
+    .steps { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .steps li:not(:last-child)::after {
+      content: "→"; position: absolute; right: -24px; top: 34px; color: var(--muted);
+    }
+  }
+
+  /* 3. Weekly email */
+  .split { display: grid; gap: 24px; }
+  .panel { border: 1px solid var(--rule); border-radius: 6px; padding: 24px; }
+  .panel p { margin: 0 0 16px; font-size: 18px; }
+  @media (min-width: 900px) { .split { grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; } }
+
+  /* 4. Contact cards */
+  .cards { list-style: none; margin: 40px 0 0; padding: 0; display: grid; gap: 16px; }
+  .card {
+    background: var(--white); border: 1px solid var(--rule); border-top: 4px solid var(--esa-green);
+    border-radius: 6px; padding: 24px; display: flex; flex-direction: column; gap: 12px;
+  }
+  .card.wec { border-top-color: var(--wec); }
+  .card h3 { font-family: var(--sans); font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .card-link { font-size: 18px; font-weight: 500; min-height: 44px; }
+  @media (min-width: 900px) { .cards { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+
+  /* 5. Partners */
+  .partners { background: var(--esa-green); color: var(--white); padding: 64px 0; }
+  .partners .eyebrow { color: var(--mint); }
+  .partners em { color: var(--mint); }
+  .partners .split > p { margin: 0; font-size: 19px; color: rgba(255, 255, 255, .85); max-width: 30em; }
+  .partners a { color: var(--mint); }
+  @media (min-width: 768px) { .partners { padding: 96px 0; } }
 </style>

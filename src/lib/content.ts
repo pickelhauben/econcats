@@ -3,6 +3,10 @@
 import events from '../data/events.json';
 import projects from '../data/projects.json';
 import supporters from '../data/supporters.json';
+import site from '../data/site.json';
+
+/** "Thursdays at 5 PM during the semester", built from site.json */
+export const meetingsLine = `${site.meetingDay} at ${site.meetingTime} during the semester`;
 
 export type Pillar = 'Connect' | 'Grow' | 'Access';
 

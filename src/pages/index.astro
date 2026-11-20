@@ -5,7 +5,7 @@ import ProjectCard from '../components/ProjectCard.astro';
 import RingsMark from '../components/RingsMark.astro';
 import SocialLink from '../components/SocialLink.astro';
 import site from '../data/site.json';
-import { upcomingEvents, featuredProjects, publicSupporters, pillars as pillarData } from '../lib/content';
+import { upcomingEvents, featuredProjects, publicSupporters, pillars as pillarData, meetingsLine } from '../lib/content';
 
 const events = upcomingEvents(3);
 const projects = featuredProjects(3);
@@ -188,7 +188,7 @@ const pillars = pillarData.map((p) => ({ ...p, color: `var(--${p.color})` }));
       <div>
         {events.length > 0
           ? <div class="events">{events.map((e) => <EventCard event={e} />)}</div>
-          : <p class="empty">Our spring schedule is coming soon. Meetings are {site.meetings}.</p>}
+          : <p class="empty">Our spring schedule is coming soon. Meetings are {meetingsLine}.</p>}
       </div>
     </div>
   </section>
@@ -235,7 +235,7 @@ const pillars = pillarData.map((p) => ({ ...p, color: `var(--${p.color})` }));
     <div class="wrap">
       <RingsMark size={52} />
       <h2>Come once.<br /><em>You'll know if it's for you.</em></h2>
-      <p class="intro">No application needed. Meetings are Thursdays at 5 PM during the semester, usually in McClelland Hall. Room and topic go out in our weekly email.</p>
+      <p class="intro">No application needed. Meetings are {meetingsLine}, usually in McClelland Hall. Room and topic go out in our weekly email.</p>
       <div class="actions">
         <a class="btn primary" href="/join">Get the weekly email <span aria-hidden="true">→</span></a>
         <SocialLink class="btn" href={site.instagram} label={site.instagramHandle} />

@@ -22,6 +22,8 @@ Domain: econcats.org. Use "ESA" for the official name and "EconCats" as the site
 - ESA LinkedIn: https://www.linkedin.com/company/106468095
 - ODE International: https://www.omicrondeltaepsilon.org/
 External links open in a new tab. Social links use `SocialLink.astro` (icon + visible handle).
+Meeting day/time/place, dues, weeklyEmailUrl and alumniFormUrl also live in `site.json`; pages and the footer read them from there.
+No contact forms that submit anywhere: links and copy buttons (`CopyEmail.astro`) only.
 
 ## Facts to confirm before launch
 Shown on the site in [brackets] until confirmed:
