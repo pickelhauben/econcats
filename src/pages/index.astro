@@ -5,15 +5,17 @@ import ProjectCard from '../components/ProjectCard.astro';
 import RingsMark from '../components/RingsMark.astro';
 import SocialLink from '../components/SocialLink.astro';
 import site from '../data/site.json';
+import { Picture } from 'astro:assets';
+import { findPhoto } from '../lib/photos';
 import { upcomingEvents, featuredProjects, publicSupporters, pillars as pillarData, meetingsLine } from '../lib/content';
 
 const events = upcomingEvents(3);
 const projects = featuredProjects(3);
 const supporters = publicSupporters(6);
 
-// Hero photo: put your own event photo in public/images/ and set the path here, e.g. '/images/hero.jpg'.
-const heroImage: string | null = null;
-const heroAlt = '[DESCRIBE THE HERO PHOTO]';
+// Hero photo: save it as src/assets/photos/home/hero.jpg (or .png/.webp) and describe the scene here.
+const heroImage = findPhoto('home/hero');
+const heroAlt = '[DESCRIBE THE HERO PHOTO, e.g. "EconCats at a Thursday meeting in McClelland Hall"]';
 
 const proof = [
   { value: 'Eller Experience Award', caption: 'Won as the Eller Economics Society', text: true },
@@ -53,21 +55,21 @@ const pillars = pillarData.map((p) => ({ ...p, color: `var(--${p.color})` }));
 
   <!-- 1. Hero -->
   <section class="hero">
+    <figure class="hero-photo">
+      {heroImage
+        ? <Picture src={heroImage} alt={heroAlt} formats={['avif', 'webp']} widths={[640, 1024, 1600, 2000]} sizes="100vw" loading="eager" fetchpriority="high" />
+        : <div class="photo-placeholder" aria-hidden="true"></div>}
+    </figure>
     <div class="wrap hero-text">
       <p class="eyebrow">University of Arizona · Economics students for decades</p>
       <h1>Home of the <em>EconCats.</em></h1>
       <p class="lede">The Economics Student Association is where economics at Arizona comes together. Three student organizations, one community, and a seat at the table for anyone who cares about economics.</p>
       <div class="actions">
         <a class="btn primary" href="/join">Come to a meeting <span aria-hidden="true">→</span></a>
-        <a class="btn" href="/activities">See what we do</a>
+        <a class="btn ghost" href="/activities">See what we do</a>
       </div>
     </div>
-    <figure class="hero-photo">
-      {heroImage
-        ? <img src={heroImage} alt={heroAlt} />
-        : <div class="photo-placeholder"><span>[HERO PHOTO: a recent meeting or event]</span></div>}
-      <span class="hero-mark"><RingsMark size={44} /></span>
-    </figure>
+    <span class="hero-mark"><RingsMark size={44} /></span>
   </section>
 
   <!-- 2. Proof strip -->
@@ -259,27 +261,40 @@ const pillars = pillarData.map((p) => ({ ...p, color: `var(--${p.color})` }));
   }
 
   /* ---------- 1. Hero ---------- */
-  .hero-text { padding-top: 48px; padding-bottom: 40px; }
-  .hero h1 { margin: 20px 0 24px; max-width: 12em; }
-  .hero-photo { position: relative; margin: 0; }
-  .hero-photo img, .photo-placeholder { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
-  .photo-placeholder {
-    display: grid; place-items: center; padding: 24px; text-align: center;
-    background:
-      radial-gradient(circle at 25% 40%, rgba(141, 196, 160, .25) 0 18%, transparent 18.5%),
-      radial-gradient(circle at 70% 65%, rgba(42, 172, 204, .18) 0 24%, transparent 24.5%),
-      var(--deep);
-    color: rgba(255, 255, 255, .75); font-size: 13px; letter-spacing: .1em; text-transform: uppercase;
+  /* Text sits on the photo; a dark gradient keeps it readable whatever the photo looks like. */
+  .hero {
+    position: relative; isolation: isolate; overflow: hidden;
+    background: var(--deep); color: var(--white);
+    min-height: min(88vh, 760px); display: flex; align-items: flex-end;
   }
+  .hero-photo { position: absolute; inset: 0; margin: 0; z-index: -2; }
+  .hero-photo :global(img), .photo-placeholder { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero-photo :global(picture) { display: contents; }
+  .hero::before {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background:
+      linear-gradient(to top, rgba(16, 32, 29, .92) 0%, rgba(16, 32, 29, .7) 40%, rgba(16, 32, 29, .25) 75%, rgba(16, 32, 29, .15) 100%),
+      linear-gradient(to right, rgba(16, 32, 29, .55), transparent 70%);
+  }
+  .photo-placeholder {
+    background:
+      radial-gradient(circle at 72% 30%, rgba(141, 196, 160, .22) 0 16%, transparent 16.5%),
+      radial-gradient(circle at 85% 55%, rgba(42, 172, 204, .16) 0 22%, transparent 22.5%),
+      var(--deep);
+  }
+  .hero-text { width: 100%; padding-top: 120px; padding-bottom: 56px; }
+  .hero .eyebrow { color: var(--mint); }
+  .hero em { color: var(--mint); }
+  .hero h1 { margin: 20px 0 24px; max-width: 12em; text-shadow: 0 1px 24px rgba(0, 0, 0, .25); }
+  .hero .lede { color: rgba(255, 255, 255, .88); }
   .hero-mark {
-    position: absolute; right: var(--gutter); bottom: 16px;
+    position: absolute; right: var(--gutter); top: 24px;
     display: grid; place-items: center; width: 60px; height: 60px;
     background: var(--white); border-radius: 50%;
   }
   @media (min-width: 768px) {
-    .hero-text { padding-top: 96px; padding-bottom: 64px; }
-    .hero-photo img, .photo-placeholder { aspect-ratio: 21 / 9; }
-    .hero-mark { bottom: 24px; width: 72px; height: 72px; }
+    .hero-text { padding-top: 160px; padding-bottom: 96px; }
+    .hero-mark { top: auto; bottom: 32px; width: 72px; height: 72px; }
   }
 
   /* ---------- 2. Proof strip ---------- */

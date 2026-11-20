@@ -48,7 +48,8 @@ General rules for every tab:
 | `pillar` | One of: `Connect`, `Grow`, `Access` | `Grow` |
 | `location` | Where, optional | `McClelland Hall` |
 | `summary` | One sentence about the event | |
-| `photos` | Photo paths, comma-separated, optional | `fall-2026/odeinfo-1.jpg` |
+| `photos` | Photo paths, comma-separated, optional (see [Photos](#photos)) | `fall-2026/ode-info-1.jpg` |
+| `photo_alts` | One description per photo, same order, separated by `\|` | `Students at the October ODE information session` |
 | `recap` | 2–3 sentences after the event happens, optional | |
 | `draft` | `TRUE` hides the event from the live site until you're sure | `FALSE` |
 
@@ -110,6 +111,41 @@ While every `name` is blank, the page shows the roles with "Our spring 2027 boar
 `org` (`ees`, `wec` or `ode`, lowercase), `title`, `year` (optional).
 
 > **Alumni and supporters appear only when `permission` is `TRUE`.** Anything else, including a blank cell, keeps them off the site.
+
+---
+
+## Photos
+
+Photos are the one thing that isn't in the sheet: the files go into the website's code folder,
+and the sheet only lists their names.
+
+**Before adding any photo:**
+
+- **Resize it to at most 2000 px on the long edge.** Phone photos are often 4000 px or more; shrink them first
+  (Windows Photos → Resize, or Preview on a Mac). The site makes smaller, faster versions automatically.
+- **Only post people who've agreed to be photographed and to appear on the site.** If someone asks to be
+  removed, take the photo down.
+- **Describe what's in the photo** for people using screen readers, e.g.
+  "Students at the October ODE information session". Never "image", "photo" or a file name.
+
+**Where they go** (ask the site maintainer to add the files, or add them on GitHub):
+
+| What | Folder | Listed in |
+|---|---|---|
+| Home page hero | `src/assets/photos/home/hero.jpg` | Description goes in `src/pages/index.astro` (`heroAlt`) |
+| Event photos | `src/assets/photos/<semester>/`, e.g. `fall-2026/` | `events` tab: `photos` and `photo_alts` |
+| Board headshots | `src/assets/photos/board/` | `board` tab: `photo` |
+| Alumni headshots | `src/assets/photos/alumni/` | `alumni` tab: `photo` |
+
+In the sheet, write the path **after** `photos/`, for example `fall-2026/ode-info-1.jpg`.
+For events with several photos, separate the paths with commas in `photos`, and write one description per photo
+in `photo_alts`, **in the same order, separated by `|`**:
+
+| photos | photo_alts |
+|---|---|
+| `fall-2026/ode-info-1.jpg, fall-2026/ode-info-2.jpg` | `Students at the October ODE information session \| The VP of ODE explaining eligibility` |
+
+Board members and alumni without a photo get a circle with their initials instead.
 
 ---
 

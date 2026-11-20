@@ -2,10 +2,38 @@
 import Layout from '../layouts/Layout.astro';
 import EventCard from '../components/EventCard.astro';
 import Tag from '../components/Tag.astro';
-import { upcomingEvents, pastEventsBySemester, meetingsLine } from '../lib/content';
+import { Image, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { upcomingEvents, pastEventsBySemester, meetingsLine, type EventItem } from '../lib/content';
+import { resolvePhoto } from '../lib/photos';
 
 const upcoming = upcomingEvents();
 const past = pastEventsBySemester();
+
+// Build each past event's gallery: optimized thumbnail + large version for the lightbox, with alt text.
+type GalleryPhoto = { thumb: ImageMetadata; large: string; alt: string };
+const longDate = (date: string) =>
+  new Date(`${date}T12:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+async function galleryFor(e: EventItem): Promise<GalleryPhoto[]> {
+  const alts = (e.photo_alts ?? '').split('|').map((a) => a.trim());
+  const out: GalleryPhoto[] = [];
+  for (const [i, path] of (e.photos ?? []).entries()) {
+    const img = resolvePhoto(path);
+    if (!img) continue;
+    let alt = alts[i];
+    if (!alt) {
+      console.warn(`[photos] "${path}" (${e.title}) has no alt text; add it to the photo_alts column.`);
+      alt = `${e.title}, ${longDate(e.date)}`;
+    }
+    const large = await getImage({ src: img, width: Math.min(img.width, 1600), format: 'webp' });
+    out.push({ thumb: img, large: large.src, alt });
+  }
+  return out;
+}
+
+const galleries = new Map<EventItem, GalleryPhoto[]>();
+for (const group of past) for (const e of group.events) galleries.set(e, await galleryFor(e));
 
 const rhythm = [
   { week: 'Week 1', name: 'General meeting' },
@@ -79,24 +107,29 @@ const shortDate = (date: string) =>
                   <h4>{e.title}</h4>
                   <p>{e.summary}</p>
                   {e.recap && <p class="recap">{e.recap}</p>}
-                  {e.photos && e.photos.length > 0 && (
-                    <ul class="thumbs" aria-label={`Photos from ${e.title}`}>
-                      {e.photos.map((src, i) => (
-                        <li>
-                          <button
-                            type="button"
-                            class="thumb"
-                            data-gallery={JSON.stringify(e.photos)}
-                            data-title={e.title}
-                            data-index={i}
-                            aria-label={`Open photo ${i + 1} of ${e.photos!.length} from ${e.title}`}
-                          >
-                            <img src={src} alt="" width="96" height="72" loading="lazy" decoding="async" />
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                  {(() => {
+                    const gallery = galleries.get(e) ?? [];
+                    if (gallery.length === 0) return null;
+                    const data = JSON.stringify(gallery.map((g) => ({ src: g.large, alt: g.alt })));
+                    return (
+                      <ul class="thumbs" aria-label={`Photos from ${e.title}`}>
+                        {gallery.map((g, i) => (
+                          <li>
+                            <button
+                              type="button"
+                              class="thumb"
+                              data-gallery={data}
+                              data-title={e.title}
+                              data-index={i}
+                              aria-label={`Open photo ${i + 1} of ${gallery.length}: ${g.alt}`}
+                            >
+                              <Image src={g.thumb} alt="" width={96} height={72} densities={[1, 2]} format="webp" loading="lazy" />
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    );
+                  })()}
                 </div>
               </li>
             ))}
@@ -127,15 +160,15 @@ const shortDate = (date: string) =>
     const caption = dialog.querySelector<HTMLElement>('.lb-caption')!;
     const prev = dialog.querySelector<HTMLButtonElement>('.lb-prev')!;
     const next = dialog.querySelector<HTMLButtonElement>('.lb-next')!;
-    let photos: string[] = [];
+    let photos: { src: string; alt: string }[] = [];
     let index = 0;
     let title = '';
     let opener: HTMLElement | null = null;
 
     const show = (i: number) => {
       index = (i + photos.length) % photos.length;
-      img.src = photos[index];
-      img.alt = `Photo ${index + 1} of ${photos.length} from ${title}`;
+      img.src = photos[index].src;
+      img.alt = photos[index].alt;
       caption.textContent = `${title} · ${index + 1} / ${photos.length}`;
       const many = photos.length > 1;
       prev.hidden = !many;
@@ -216,8 +249,8 @@ const shortDate = (date: string) =>
 
   .thumbs { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
   .thumb { padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: 4px; overflow: hidden; display: block; }
-  .thumb img { width: 96px; height: 72px; object-fit: cover; transition: transform .3s; }
-  .thumb:hover img { transform: scale(1.05); }
+  .thumb :global(img) { width: 96px; height: 72px; object-fit: cover; transition: transform .3s; }
+  .thumb:hover :global(img) { transform: scale(1.05); }
 
   /* Lightbox */
   .lightbox {
@@ -239,5 +272,5 @@ const shortDate = (date: string) =>
   .lb-prev { left: 12px; top: 50%; transform: translateY(-50%); }
   .lb-next { right: 12px; top: 50%; transform: translateY(-50%); }
   .lb-prev[hidden], .lb-next[hidden] { display: none; }
-  @media (prefers-reduced-motion: reduce) { .thumb img { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .thumb :global(img) { transition: none; } }
 </style>

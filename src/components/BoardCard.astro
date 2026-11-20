@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import type { BoardMember } from '../lib/content';
+import { resolvePhoto } from '../lib/photos';
 interface Props { member: BoardMember }
 const { member } = Astro.props;
 
@@ -9,10 +11,12 @@ const name = (member.name ?? '').trim();
 const hasName = name !== '';
 const initials = name.split(/\s+/).filter(Boolean).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
 const details = [member.year, member.major].filter(Boolean).join(' · ');
+const photo = resolvePhoto(member.photo);
+const photoAlt = hasName ? `${name}, ${member.role} of the Economics Student Association` : `${member.role} of the Economics Student Association`;
 ---
 <article class:list={['member', { vacant: !hasName }]} style={`--c:${color}`}>
-  {member.photo
-    ? <img class="avatar" src={member.photo} alt={hasName ? `Portrait of ${member.name}, ${member.role}` : ''} width="96" height="96" loading="lazy" decoding="async" />
+  {photo
+    ? <Image class="avatar" src={photo} alt={photoAlt} width={96} height={96} densities={[1, 2]} format="webp" loading="lazy" />
     : <span class="avatar initials" aria-hidden="true">{initials}</span>}
   <div>
     {hasName ? (

@@ -18,7 +18,7 @@ import achievementsJson from '../data/achievements.json';
 const [events, projects, boardData, advisorsData, alumniData, supporters, achievementsData] = await Promise.all([
   loadCollection('events', sources.events, eventsJson as unknown[], {
     listFields: ['photos'],
-    expectedColumns: ['date', 'time', 'title', 'type', 'pillar', 'location', 'summary', 'photos', 'recap'],
+    expectedColumns: ['date', 'time', 'title', 'type', 'pillar', 'location', 'summary', 'photos', 'photo_alts', 'recap'],
   }),
   loadCollection('projects', sources.projects, projectsJson as unknown[], {
     expectedColumns: ['id', 'title', 'status', 'pillar', 'summary', 'lead_role', 'link'],
@@ -58,7 +58,8 @@ export interface EventItem {
   pillar: Pillar;
   location: string; // may be empty
   summary: string;
-  photos?: string[]; // image paths
+  photos?: string[]; // paths under src/assets/photos/, e.g. "fall-2026/ode-info-1.jpg"
+  photo_alts?: string; // one description per photo, in the same order, separated by "|"
   recap?: string; // 2–3 sentences, for past events
   draft?: boolean;
 }

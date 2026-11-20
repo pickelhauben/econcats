@@ -2,7 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import CopyEmail from '../components/CopyEmail.astro';
 import site from '../data/site.json';
+import { Image } from 'astro:assets';
 import { publicAlumni, supportersByType } from '../lib/content';
+import { resolvePhoto } from '../lib/photos';
 
 const alumni = publicAlumni();
 const supporterGroups = supportersByType();
@@ -63,11 +65,13 @@ const ways = [
       <h2>Alumni <em>spotlights</em></h2>
       {alumni.length > 0 ? (
         <ul class="spotlights">
-          {alumni.map((a) => (
+          {alumni.map((a) => {
+            const photo = resolvePhoto(a.photo);
+            return (
             <li class="alum">
               <div class="alum-head">
-                {a.photo
-                  ? <img class="avatar" src={a.photo} alt={`Portrait of ${a.name}`} width="72" height="72" loading="lazy" decoding="async" />
+                {photo
+                  ? <Image class="avatar" src={photo} alt={`${a.name}, ${a.now}`} width={72} height={72} densities={[1, 2]} format="webp" loading="lazy" />
                   : <span class="avatar initials" aria-hidden="true">{initialsOf(a.name)}</span>}
                 <div>
                   <h3>{a.name}</h3>
@@ -75,7 +79,7 @@ const ways = [
                 </div>
               </div>
               <ul class="orgs" aria-label="Organizations">
-                {a.org.map((o) => <li style={`--c:${orgColor[o] ?? 'var(--esa-green)'}`}>{o}</li>)}
+                {(a.org ?? []).map((o) => <li style={`--c:${orgColor[o] ?? 'var(--esa-green)'}`}>{o}</li>)}
               </ul>
               {a.quote && <blockquote>“{a.quote}”</blockquote>}
               <p class="now">{a.now}</p>
@@ -85,7 +89,8 @@ const ways = [
                 </a>
               )}
             </li>
-          ))}
+            );
+          })}
         </ul>
       ) : (
         <p class="empty">Our first alumni spotlights are coming soon.</p>
