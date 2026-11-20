@@ -1,23 +1,52 @@
 [
   {
-    "slug": "ode",
+    "id": "ode",
     "title": "ODE Arizona Beta",
-    "summary": "Growing the honor society chapter we reactivated in 2026.",
-    "tag": "Access",
+    "status": "Growing",
+    "pillar": "Access",
+    "summary": "Growing the honor society chapter we reactivated in 2026, with a new cohort every year.",
+    "lead_role": "VP of ODE",
+    "link": "",
     "featured": true
   },
   {
-    "slug": "exam-reviews",
+    "id": "exam-reviews",
     "title": "Exam reviews",
-    "summary": "Peer-led reviews for ECON 200, 361 and 332.",
-    "tag": "Grow",
+    "status": "Active",
+    "pillar": "Grow",
+    "summary": "Peer-led reviews before ECON 200, 361 and 332 exams. Free for members.",
+    "lead_role": "VP of Academic Programs",
+    "link": "",
     "featured": true
   },
   {
-    "slug": "reconnecting-alumni",
+    "id": "alumni",
     "title": "Reconnecting alumni",
-    "summary": "Finding the economics students who came before us.",
-    "tag": "Connect",
+    "status": "Active",
+    "pillar": "Connect",
+    "summary": "Finding the economics students who came before us, and bringing them back as speakers, mentors and supporters.",
+    "lead_role": "President",
+    "link": "/alumni",
     "featured": true
+  },
+  {
+    "id": "discussion-series",
+    "title": "Economics discussion series",
+    "status": "Planned",
+    "pillar": "Grow",
+    "summary": "Small-group sessions on big ideas in economics, starting with Elinor Ostrom's work on governing the commons.",
+    "lead_role": "VP of Academic Programs",
+    "link": "",
+    "featured": false
+  },
+  {
+    "id": "mentorship",
+    "title": "Peer mentorship",
+    "status": "Planned",
+    "pillar": "Grow",
+    "summary": "Pairing newer members with experienced students for classes, careers and campus life.",
+    "lead_role": "VP of Academic Programs",
+    "link": "",
+    "featured": false
   }
 ]

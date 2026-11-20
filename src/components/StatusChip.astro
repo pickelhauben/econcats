@@ -1,0 +1,16 @@
+---
+import type { ProjectStatus } from '../lib/content';
+interface Props { status: ProjectStatus }
+const { status } = Astro.props;
+---
+<span class={`chip chip-${status.toLowerCase()}`}>{status}</span>
+
+<style>
+  .chip {
+    display: inline-block; font-size: 12px; font-weight: 500; line-height: 1;
+    padding: 5px 10px; border-radius: 999px; white-space: nowrap;
+  }
+  .chip-active { background: var(--esa-green); color: var(--white); }
+  .chip-growing { background: color-mix(in srgb, var(--cyan) 18%, var(--white)); color: var(--deep); }
+  .chip-planned { border: 1px solid var(--rule); color: var(--muted); }
+</style>

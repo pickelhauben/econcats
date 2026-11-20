@@ -1,56 +1,139 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import StatusChip from '../components/StatusChip.astro';
+import Tag from '../components/Tag.astro';
 import SocialLink from '../components/SocialLink.astro';
 import site from '../data/site.json';
+import { allProjects } from '../lib/content';
+
+const projects = allProjects();
+const filters = ['All', 'Connect', 'Grow', 'Access'] as const;
 ---
-<Layout title="Projects">
+<Layout title="Projects" description="The long-running work behind the Economics Student Association: ODE Arizona Beta, exam reviews, alumni, discussion series and mentorship.">
+
+  <!-- 1. Intro -->
   <section class="page-intro wrap">
     <p class="eyebrow">Projects</p>
-    <h1>Projects</h1>
+    <h1>What we're <em>building.</em></h1>
+    <p class="lede">Projects are the long-running work behind ESA: things we build once and keep improving every semester.</p>
   </section>
 
-  <section class="ode" id="ode" aria-labelledby="ode-title">
-    <div class="wrap ode-grid">
-      <div>
-        <p class="eyebrow">Honor society</p>
-        <h2 id="ode-title">Omicron Delta Epsilon<span class="sr-only"> · </span> <span class="chapter">Arizona Beta Chapter</span></h2>
-      </div>
-      <div class="ode-body">
-        <p>Omicron Delta Epsilon (OΔE) is one of the world’s largest academic honor societies, recognizing scholarly achievement in economics since 1915. The University of Arizona’s Arizona Beta chapter returned in 2026 and is run by ESA with the Department of Economics.</p>
-
-        <h3>Eligibility</h3>
-        <ul class="criteria">
-          <li><strong>3.0</strong> GPA</li>
-          <li><strong>12</strong> economics credits, waived after one year of active ESA membership</li>
-        </ul>
-
-        <p class="apply">Applications open each semester. Follow <SocialLink href={site.instagram} label={site.instagramHandle} /> for the next cycle.</p>
-
-        <a class="btn ode-btn" href={site.odeInternational} target="_blank" rel="noopener noreferrer">
-          Visit ODE International <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span>
-        </a>
-      </div>
+  <!-- 2–3. Filters + cards -->
+  <section class="wrap overview" aria-label="All projects">
+    <div class="filters" role="group" aria-label="Filter projects by pillar">
+      {filters.map((f, i) => (
+        <button type="button" data-filter={f} aria-pressed={i === 0 ? 'true' : 'false'}>{f}</button>
+      ))}
     </div>
+    <p class="sr-only" aria-live="polite" id="filter-status"></p>
+    <ul class="cards">
+      {projects.map((p) => (
+        <li data-pillar={p.pillar}><ProjectCard project={p} href={`#${p.id}`} /></li>
+      ))}
+    </ul>
   </section>
 
-  <section class="wrap rest">
-    <p class="todo">Coming in step 3: exam reviews, mentorship, alumni campaign, discussion series.</p>
-  </section>
+  <!-- 4. Detail sections -->
+  <div class="details">
+    {projects.map((p) => p.id === 'ode' ? (
+      <section class="detail ode" id="ode" aria-labelledby="ode-title">
+        <div class="wrap detail-grid">
+          <div>
+            <div class="meta"><StatusChip status={p.status} /><Tag pillar={p.pillar} /></div>
+            <h2 id="ode-title">Omicron Delta Epsilon<span class="sr-only"> · </span> <span class="chapter">Arizona Beta Chapter</span></h2>
+            <p class="lead">Led by the {p.lead_role}</p>
+          </div>
+          <div class="ode-body">
+            <p>Omicron Delta Epsilon (OΔE) is one of the world’s largest academic honor societies, recognizing scholarly achievement in economics since 1915. The University of Arizona’s Arizona Beta chapter returned in 2026 and is run by ESA with the Department of Economics.</p>
+
+            <h3>Eligibility</h3>
+            <ul class="criteria">
+              <li><strong>3.0</strong> GPA</li>
+              <li><strong>12</strong> economics credits, waived after one year of active ESA membership</li>
+            </ul>
+
+            <p class="apply">Applications open each semester. Follow <SocialLink href={site.instagram} label={site.instagramHandle} /> for the next cycle.</p>
+
+            <a class="btn ode-btn" href={site.odeInternational} target="_blank" rel="noopener noreferrer">
+              Visit ODE International <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    ) : (
+      <section class="detail" id={p.id} aria-labelledby={`${p.id}-title`}>
+        <div class="wrap detail-grid">
+          <div>
+            <div class="meta"><StatusChip status={p.status} /><Tag pillar={p.pillar} /></div>
+            <h2 id={`${p.id}-title`}>{p.title}</h2>
+            <p class="lead">Led by the {p.lead_role}</p>
+          </div>
+          <div>
+            <p class="summary">{p.summary}</p>
+            {p.link && <a class="btn" href={p.link}>Learn more <span aria-hidden="true">→</span></a>}
+          </div>
+        </div>
+      </section>
+    ))}
+  </div>
 </Layout>
 
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filters button');
+  const cards = document.querySelectorAll<HTMLLIElement>('.cards li');
+  const status = document.getElementById('filter-status');
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const f = btn.dataset.filter;
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      let shown = 0;
+      cards.forEach((c) => {
+        const match = f === 'All' || c.dataset.pillar === f;
+        c.hidden = !match;
+        if (match) shown++;
+      });
+      if (status) status.textContent = `${shown} project${shown === 1 ? '' : 's'} shown`;
+    });
+  });
+</script>
+
 <style>
-  /* Honors accent: navy (the ODE ring color); the palette has no gold. */
-  .ode {
-    --accent: var(--ode);
-    border-top: 4px solid var(--accent);
-    background: color-mix(in srgb, var(--navy) 5%, var(--white));
-    padding: 56px 0;
-    scroll-margin-top: var(--header-h);
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .page-intro .lede { margin-top: 24px; }
+
+  /* Filters + cards */
+  .overview { padding-bottom: 64px; }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+  .filters button {
+    font: inherit; font-size: 14px; cursor: pointer; min-height: 44px;
+    background: none; border: 1px solid var(--rule); color: var(--muted);
+    padding: 8px 18px; border-radius: 999px; transition: background .2s, color .2s, border-color .2s;
   }
-  .ode .eyebrow { color: var(--accent); }
-  .ode h2 { margin-top: 16px; color: var(--accent); }
+  .filters button:hover { border-color: var(--ink); color: var(--ink); }
+  .filters button[aria-pressed='true'] { background: var(--ink); border-color: var(--ink); color: var(--white); }
+  .cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  .cards li[hidden] { display: none; }
+  @media (min-width: 640px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .cards { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+  @media (min-width: 768px) { .overview { padding-bottom: 96px; } }
+
+  /* Detail sections */
+  .detail { border-top: 1px solid var(--rule); padding: 56px 0; scroll-margin-top: var(--header-h); }
+  .detail-grid { display: grid; gap: 24px; }
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+  .detail h2 { margin-top: 16px; font-size: clamp(30px, 4.4vw, 48px); }
+  .lead { margin: 12px 0 0; font-size: 14px; color: var(--muted); }
+  .summary { margin: 0 0 24px; font-size: clamp(17px, 1.6vw, 20px); max-width: 36em; }
+  @media (min-width: 900px) {
+    .detail { padding: 88px 0; }
+    .detail-grid { grid-template-columns: 1fr 1.3fr; gap: 80px; }
+  }
+
+  /* ODE: honors accent is navy (the ODE ring color); the palette has no gold. */
+  .ode { --accent: var(--ode); border-top: 4px solid var(--accent); background: color-mix(in srgb, var(--navy) 5%, var(--white)); }
+  .ode h2 { color: var(--accent); }
   .ode h2 .chapter { display: block; font-style: italic; font-size: .6em; margin-top: 6px; }
-  .ode-grid { display: grid; gap: 32px; }
   .ode-body > p { margin: 0 0 24px; max-width: 38em; }
   .ode h3 { font-family: var(--sans); font-size: 12px; text-transform: uppercase; letter-spacing: .16em; color: var(--muted); font-weight: 500; margin: 0 0 12px; }
   .criteria { list-style: none; margin: 0 0 24px; padding: 0; border-top: 1px solid var(--rule); }
@@ -59,10 +142,4 @@ import site from '../data/site.json';
   .apply :global(.social) { color: var(--accent); font-weight: 500; vertical-align: bottom; }
   .ode-btn { border-color: var(--accent); color: var(--accent); }
   .ode-btn:hover { background: var(--accent); color: var(--white); }
-  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-  .rest { padding-top: 48px; }
-  @media (min-width: 900px) {
-    .ode { padding: 96px 0; }
-    .ode-grid { grid-template-columns: 1fr 1.3fr; gap: 80px; }
-  }
 </style>

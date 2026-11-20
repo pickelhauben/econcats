@@ -15,12 +15,21 @@ export interface EventItem {
   draft?: boolean;
 }
 
+export type ProjectStatus = 'Active' | 'Growing' | 'Planned';
+
 export interface Project {
-  slug: string;
+  id: string;
   title: string;
+  status: ProjectStatus;
+  pillar: Pillar;
   summary: string;
-  tag: Pillar;
-  featured?: boolean;
+  lead_role: string; // a role, never a person's name
+  link?: string;
+  featured?: boolean; // shown on the home page
+}
+
+export function allProjects(): Project[] {
+  return projects as Project[];
 }
 
 export interface Supporter {

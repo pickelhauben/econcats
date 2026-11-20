@@ -1,12 +1,16 @@
 ---
 import Tag from './Tag.astro';
+import StatusChip from './StatusChip.astro';
 import type { Project } from '../lib/content';
-interface Props { project: Project; index?: number }
-const { project, index } = Astro.props;
+interface Props { project: Project; index?: number; href?: string }
+const { project, index, href = `/projects#${project.id}` } = Astro.props;
 ---
-<a class="project" href={`/projects#${project.slug}`}>
-  {index !== undefined && <span class="num">{String(index + 1).padStart(2, '0')}</span>}
-  <Tag pillar={project.tag} />
+<a class="project" href={href}>
+  <span class="top">
+    {index !== undefined && <span class="num">{String(index + 1).padStart(2, '0')}</span>}
+    <StatusChip status={project.status} />
+  </span>
+  <Tag pillar={project.pillar} />
   <h3>{project.title}</h3>
   <p>{project.summary}</p>
   <span class="more" aria-hidden="true">→</span>
@@ -15,12 +19,14 @@ const { project, index } = Astro.props;
 <style>
   .project {
     position: relative; display: flex; flex-direction: column; gap: 10px;
-    padding: 28px 24px 56px; border: 1px solid var(--rule); border-radius: 6px;
+    padding: 24px 24px 56px; border: 1px solid var(--rule); border-radius: 6px;
     background: var(--white); text-decoration: none; height: 100%;
     transition: border-color .2s, transform .2s;
   }
   .project:hover { border-color: var(--esa-green); transform: translateY(-2px); }
+  .top { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 24px; }
   .num { font-family: var(--serif); font-size: 15px; color: var(--muted); }
+  .top :global(.chip) { margin-left: auto; }
   h3 { font-size: 26px; }
   p { margin: 0; color: var(--muted); font-size: 15px; }
   .more { position: absolute; left: 24px; bottom: 20px; color: var(--esa-green); transition: transform .2s; }

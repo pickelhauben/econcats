@@ -74,6 +74,9 @@ Its center is transparent, so it always sits on a white disc. Ask for an SVG exp
 - Keyboard focus must stay visible; check every page at phone width (375px).
 - One build step per session: check in the browser, commit, then move on.
 
+## Build prompts
+The step-by-step prompts for the remaining pages live in `docs/build-prompts.md`. Run one per session, in order.
+
 ## Build order
 0. Setup ✅ · 1. Foundation (layout, nav, empty pages) · 2. Home and About · 3. Data-driven pages with sample JSON ·
 4. Google Sheet as CSV at build time + daily rebuild · 5. Photos with Astro `<Image>` · 6. Polish (favicon, meta, 404) ·
