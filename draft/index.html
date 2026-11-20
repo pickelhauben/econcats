@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EconCats · Economics Student Association</title>
+  <meta name="description" content="The Economics Student Association at the University of Arizona: events, student leaders and alumni.">
+  <meta name="theme-color" content="#1C3430">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="EconCats home">
+      <!-- LOGO: replace this div with <img src="assets/logo.svg" alt="" class="logo-mark"> -->
+      <div class="logo-slot logo-mark" aria-hidden="true">Logo</div>
+      <span>EconCats<small>Economics Student Association</small></span>
+    </a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav class="nav" id="nav">
+      <a href="#about">About</a>
+      <a href="#activities">Activities</a>
+      <a href="#leaders">Leaders</a>
+      <a href="#alumni">Alumni</a>
+      <a href="#partners">ODE &amp; WEC</a>
+      <a class="nav-cta" href="#join">Join ESA</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">University of Arizona · Est. [YEAR]</p>
+        <h1>Economics,<br>in <em>good company.</em></h1>
+        <p class="lede">EconCats is the Economics Student Association: three student organizations working as one, so economics students can learn, connect and build careers together.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#activities">See what we do <span class="arrow">→</span></a>
+          <a class="btn" href="#join">Get involved</a>
+        </div>
+      </div>
+      <!-- LOGO: replace this div with <img class="hero-art" src="assets/logo.svg" alt="ESA logo"> -->
+      <div class="logo-slot hero-art" role="img" aria-label="[ESA LOGO]">[ESA LOGO]</div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow"><span class="num">01</span> About</p>
+          <h2>Three rings,<br><em>one association.</em></h2>
+        </div>
+        <p>ESA was formed by three organizations. [ONE OR TWO SENTENCES ON WHY THEY CAME TOGETHER AND WHAT ESA DOES.]</p>
+      </div>
+      <div class="founders reveal">
+        <article class="founder" style="--c: var(--esa-green)">
+          <div class="ring"></div>
+          <h3>ESA</h3>
+          <div class="full">Economics Student Association</div>
+          <p>[WHAT ESA COVERS: e.g. socials, career events, speaker nights.]</p>
+        </article>
+        <article class="founder" style="--c: var(--ode)">
+          <div class="ring"></div>
+          <h3>ODE</h3>
+          <div class="full">Omicron Delta Epsilon</div>
+          <p>[WHAT THE UA CHAPTER OF ODE DOES.]</p>
+        </article>
+        <article class="founder" style="--c: var(--wec)">
+          <div class="ring"></div>
+          <h3>WEC</h3>
+          <div class="full">[WEC FULL NAME]</div>
+          <p>[WHAT WEC DOES.]</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Activities -->
+  <section class="section tint" id="activities">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow"><span class="num">02</span> Activities</p>
+          <h2>Selected <em>work.</em></h2>
+        </div>
+        <p>A look at what EconCats get up to during the year.</p>
+      </div>
+
+      <div class="filters" role="group" aria-label="Filter activities">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="career" aria-pressed="false">Career</button>
+        <button type="button" data-filter="social" aria-pressed="false">Social</button>
+        <button type="button" data-filter="academic" aria-pressed="false">Academic</button>
+      </div>
+
+      <div class="works">
+        <!-- To use a real photo: put it in /assets and replace the .placeholder div with
+             <img src="assets/your-photo.jpg" alt="Describe the photo"> -->
+        <a class="work wide reveal" data-cat="career" href="#">
+          <div class="frame" style="--c: var(--esa-green)"><div class="placeholder">Photo</div></div>
+          <div class="work-meta"><h3>Epic Hire</h3><span class="tag">Career · [DATE]</span></div>
+          <p>[SHORT DESCRIPTION OF EPIC HIRE.]</p>
+        </a>
+        <a class="work reveal" data-cat="social" href="#">
+          <div class="frame" style="--c: var(--cyan)"><div class="placeholder">Photo</div></div>
+          <div class="work-meta"><h3>Meet the EconCats</h3><span class="tag">Social · [DATE]</span></div>
+          <p>A bingo mixer for meeting new members.</p>
+        </a>
+        <a class="work half reveal" data-cat="career" href="#">
+          <div class="frame" style="--c: var(--navy)"><div class="placeholder">Photo</div></div>
+          <div class="work-meta"><h3>Eller Club Fair</h3><span class="tag">Career · [DATE]</span></div>
+          <p>[WHAT ESA DID AT THE CLUB FAIR.]</p>
+        </a>
+        <a class="work half reveal" data-cat="academic" href="#">
+          <div class="frame" style="--c: var(--esa-green)"><div class="placeholder">Photo</div></div>
+          <div class="work-meta"><h3>[EVENT NAME]</h3><span class="tag">Academic · [DATE]</span></div>
+          <p>[SHORT DESCRIPTION.]</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Student leaders -->
+  <section class="section" id="leaders">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow"><span class="num">03</span> Student leaders</p>
+          <h2>The people<br><em>behind it.</em></h2>
+        </div>
+        <p>The [YEAR–YEAR] executive board.</p>
+      </div>
+      <div class="people">
+        <article class="person reveal">
+          <div class="frame" style="--c: var(--esa-green)"><div class="placeholder">Portrait</div></div>
+          <h3>[NAME]</h3>
+          <div class="role">President</div>
+          <p>[MAJOR], [CLASS YEAR]</p>
+        </article>
+        <article class="person reveal">
+          <div class="frame" style="--c: var(--cyan)"><div class="placeholder">Portrait</div></div>
+          <h3>[NAME]</h3>
+          <div class="role">[ROLE]</div>
+          <p>[MAJOR], [CLASS YEAR]</p>
+        </article>
+        <article class="person reveal">
+          <div class="frame" style="--c: var(--navy)"><div class="placeholder">Portrait</div></div>
+          <h3>[NAME]</h3>
+          <div class="role">[ROLE]</div>
+          <p>[MAJOR], [CLASS YEAR]</p>
+        </article>
+        <article class="person reveal">
+          <div class="frame" style="--c: var(--esa-green)"><div class="placeholder">Portrait</div></div>
+          <h3>[NAME]</h3>
+          <div class="role">[ROLE]</div>
+          <p>[MAJOR], [CLASS YEAR]</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Alumni -->
+  <section class="section dark" id="alumni">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow"><span class="num">04</span> Alumni spotlight</p>
+          <h2>Where EconCats<br><em>go next.</em></h2>
+        </div>
+        <p>A shout-out to the alumni who built ESA and the paths they've taken since.</p>
+      </div>
+      <ul class="alumni">
+        <li class="alum reveal">
+          <span class="yr">’[YY]</span>
+          <h3>[ALUM NAME]</h3>
+          <blockquote>“[QUOTE FROM THE ALUM, WITH THEIR PERMISSION.]”</blockquote>
+          <span class="now">[ROLE] at [ORGANIZATION]</span>
+        </li>
+        <li class="alum reveal">
+          <span class="yr">’[YY]</span>
+          <h3>[ALUM NAME]</h3>
+          <blockquote>“[QUOTE FROM THE ALUM, WITH THEIR PERMISSION.]”</blockquote>
+          <span class="now">[ROLE] at [ORGANIZATION]</span>
+        </li>
+        <li class="alum reveal">
+          <span class="yr">’[YY]</span>
+          <h3>[ALUM NAME]</h3>
+          <blockquote>“[QUOTE FROM THE ALUM, WITH THEIR PERMISSION.]”</blockquote>
+          <span class="now">[ROLE] at [ORGANIZATION]</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Partner orgs -->
+  <section class="section" id="partners">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow"><span class="num">05</span> Partner organizations</p>
+          <h2>A special <em>shout-out.</em></h2>
+        </div>
+        <p>ODE and WEC are two of the three rings that make up ESA.</p>
+      </div>
+      <div class="partners">
+        <article class="partner reveal" style="--c: var(--ode)">
+          <p class="eyebrow">Honor society</p>
+          <h3>ODE</h3>
+          <div class="full">Omicron Delta Epsilon · [CHAPTER NAME]</div>
+          <p>[WHAT ODE DOES AND WHO CAN JOIN.]</p>
+          <a class="btn" href="[ODE LINK]">Learn about ODE <span class="arrow">→</span></a>
+        </article>
+        <article class="partner reveal" style="--c: var(--wec)">
+          <p class="eyebrow">[WEC TYPE]</p>
+          <h3>WEC</h3>
+          <div class="full">[WEC FULL NAME]</div>
+          <p>[WHAT WEC DOES AND WHO CAN JOIN.]</p>
+          <a class="btn" href="[WEC LINK]">Learn about WEC <span class="arrow">→</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Join -->
+  <section class="section tint join" id="join">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow"><span class="num">06</span> Join</p>
+        <h2>Become an<br><em>EconCat.</em></h2>
+      </div>
+      <ul class="join-links reveal">
+        <li><a href="[INSTAGRAM URL]">Instagram <span>[@HANDLE] ↗</span></a></li>
+        <li><a href="mailto:[CONTACT EMAIL]">Email <span>[CONTACT EMAIL] →</span></a></li>
+        <li><a href="[SIGN-UP LINK]">Membership sign-up <span>[PLATFORM] ↗</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <span><strong>EconCats</strong> · Economics Student Association, University of Arizona</span>
+    <span>© <span id="year">2026</span> ESA</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+---
+// ESA logo. Source: Canva PDF, merged into public/logo.png (540×540, transparent outside the ring).
+interface Props { size?: number; alt?: string }
+const { size = 44, alt = '' } = Astro.props;
+---
+<img class="logo" src="/logo.png" width={size} height={size} alt={alt} decoding="async" />
+
+<style>
+  .logo {
+    height: auto; flex: 0 0 auto;
+    border-radius: 50%;
+    background: var(--white); /* the ring's center is transparent in the source file */
+  }
+</style>
