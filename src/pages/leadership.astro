@@ -1,12 +1,90 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import BoardCard from '../components/BoardCard.astro';
+import AdvisorList from '../components/AdvisorList.astro';
+import { board, boardGroups, boardHasNames } from '../lib/content';
+
+const groups = boardGroups
+  .map((g) => ({ name: g, members: board.filter((m) => m.group === g) }))
+  .filter((g) => g.members.length > 0);
+const forming = !boardHasNames();
 ---
-<Layout title="Leadership">
+<Layout title="Leadership" description="The student board and faculty advisors who run the Economics Student Association at the University of Arizona.">
+
+  <!-- 1. Intro -->
   <section class="page-intro wrap">
     <p class="eyebrow">Leadership</p>
-    <h1>Leadership</h1>
+    <h1>Who runs the <em>EconCats.</em></h1>
+    <p class="lede">ESA is run by students who give their time to build something that lasts beyond them. Every board member goes through onboarding and training before they start.</p>
   </section>
-  <section class="wrap">
-    <p class="todo">Coming in step 3: current board by role, advisors, “Lead with us”.</p>
+
+  <!-- 2–3. Board -->
+  <section class="section tint" id="board">
+    <div class="wrap">
+      <p class="eyebrow">The board</p>
+      <h2>Our student <em>board.</em></h2>
+      {forming && <p class="forming">Our spring 2027 board is forming. Meet them here soon.</p>}
+
+      {groups.map((g) => (
+        <div class="group">
+          <h3 class="group-title">{g.name}</h3>
+          <ul class="grid">
+            {g.members.map((m) => <li><BoardCard member={m} /></li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- 4. Advisors -->
+  <section class="section" id="advisors">
+    <div class="wrap">
+      <p class="eyebrow">Advisors</p>
+      <h2>Our faculty <em>advisors.</em></h2>
+      <AdvisorList />
+    </div>
+  </section>
+
+  <!-- 5. Lead with us -->
+  <section class="lead" id="lead">
+    <div class="wrap lead-grid">
+      <div>
+        <p class="eyebrow">Lead with us</p>
+        <h2>Interested in <em>leading?</em></h2>
+      </div>
+      <div>
+        <p>Board and committee roles open each semester. Every new leader is trained before they start.</p>
+        <a class="btn light" href="/join">Get in touch <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
   </section>
 </Layout>
+
+<style>
+  .page-intro .lede { margin-top: 24px; }
+  h2 { margin-top: 16px; }
+  .tint { background: var(--paper); }
+
+  .forming {
+    margin: 24px 0 0; padding: 16px 20px; border-left: 3px solid var(--esa-green);
+    background: var(--white); font-family: var(--serif); font-size: 20px; font-style: italic;
+  }
+  .group { margin-top: 48px; }
+  .group-title {
+    font-family: var(--sans); font-size: 13px; font-weight: 600; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 16px;
+  }
+  .grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  @media (min-width: 640px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 20px; } }
+  @media (min-width: 1000px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+
+  .lead { background: var(--deep); color: var(--white); padding: 64px 0; }
+  .lead .eyebrow { color: var(--mint); }
+  .lead em { color: var(--mint); }
+  .lead p { color: rgba(255, 255, 255, .8); margin: 0 0 24px; max-width: 32em; }
+  .lead-grid { display: grid; gap: 24px; }
+  .btn.light { background: var(--mint); border-color: var(--mint); color: var(--deep); }
+  .btn.light:hover { background: var(--white); border-color: var(--white); }
+  @media (min-width: 768px) { .lead { padding: 112px 0; } }
+  @media (min-width: 900px) { .lead-grid { grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; } }
+</style>

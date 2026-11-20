@@ -104,12 +104,32 @@ export type OrgId = 'esa' | 'ees' | 'wec' | 'ode';
 export interface PillarInfo { name: Pillar; color: string; line: string; examples: string[] }
 export interface Achievement { org: OrgId; title: string; year?: string }
 export interface President { org: OrgId; name: string; term?: string }
-export interface Advisor { name: string; role: string }
+export interface Advisor { name: string; title: string; department: string }
 export interface Milestone { when: string; text: string; org: OrgId }
 
 export const pillars = pillarsData as PillarInfo[];
 export const timeline = timelineData as Milestone[];
 export const advisors = advisorsData as Advisor[];
+
+// ---------- Leadership ----------
+import boardData from '../data/board.json';
+
+export type BoardGroup = 'Coordination' | 'Domain leads' | 'Directors';
+export const boardGroups: BoardGroup[] = ['Coordination', 'Domain leads', 'Directors'];
+
+export interface BoardMember {
+  role: string;
+  name: string; // empty until the board is announced
+  year: string;
+  major: string;
+  photo?: string;
+  bio?: string;
+  linkedin?: string;
+  group: BoardGroup;
+}
+
+export const board = boardData as BoardMember[];
+export const boardHasNames = () => board.some((m) => m.name.trim() !== '');
 
 export const achievementsFor = (org: OrgId) =>
   (achievementsData as Achievement[]).filter((a) => a.org === org);

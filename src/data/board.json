@@ -1,0 +1,11 @@
+[
+  { "role": "President", "name": "", "year": "", "major": "", "photo": "", "bio": "", "linkedin": "", "group": "Coordination" },
+  { "role": "Vice President", "name": "", "year": "", "major": "", "photo": "", "bio": "", "linkedin": "", "group": "Coordination" },
+  { "role": "Secretary", "name": "", "year": "", "major": "", "photo": "", "bio": "", "linkedin": "", "group": "Coordination" },
+  { "role": "Treasurer", "name": "", "year": "", "major": "", "photo": "", "bio": "", "linkedin": "", "group": "Coordination" },
+  { "role": "VP of ODE", "name": "", "year": "", "major": "", "photo": "", "bio": "", "linkedin": "","group": "Domain leads" },
+  { "role": "VP of Academic Programs", "name": "", "year": "", "major": "", "photo": "", "bio": "", "linkedin": "", "group": "Domain leads" },
+  { "role": "VP of WEC Programs", "name": "", "year": "", "major": "", "photo": "", "bio": "", "linkedin": "", "group": "Domain leads" },
+  { "role": "Director of Media", "name": "", "year": "", "major": "", "photo": "", "bio": "", "linkedin": "", "group": "Directors" },
+  { "role": "Director of Engagement", "name": "", "year": "", "major": "", "photo": "", "bio": "", "linkedin": "", "group": "Directors" }
+]

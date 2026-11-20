@@ -1,0 +1,24 @@
+---
+import { advisors } from '../lib/content';
+---
+{advisors.length > 0
+  ? (
+    <ul class="advisors">
+      {advisors.map((a) => (
+        <li>
+          <h3>{a.name}</h3>
+          <p>{[a.title, a.department].filter(Boolean).join(', ')}</p>
+        </li>
+      ))}
+    </ul>
+  )
+  : <p class="soon">Coming soon.</p>}
+
+<style>
+  .advisors { list-style: none; margin: 32px 0 0; padding: 0; display: grid; gap: 24px; }
+  .advisors li { border-top: 1px solid var(--rule); padding-top: 16px; }
+  .advisors h3 { font-size: 24px; }
+  .advisors p { margin: 4px 0 0; color: var(--muted); }
+  .soon { margin: 24px 0 0; color: var(--muted); font-size: 18px; font-style: italic; }
+  @media (min-width: 900px) { .advisors { grid-template-columns: repeat(3, 1fr); } }
+</style>

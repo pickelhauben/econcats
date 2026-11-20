@@ -1,9 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import SocialLink from '../components/SocialLink.astro';
+import AdvisorList from '../components/AdvisorList.astro';
 import site from '../data/site.json';
 import {
-  pillars, timeline, advisors, achievementsFor, presidentsFor, type OrgId,
+  pillars, timeline, achievementsFor, presidentsFor, type OrgId,
 } from '../lib/content';
 
 type Link = { text: string; href: string; external?: boolean; instagram?: boolean };
@@ -140,9 +141,7 @@ const orgColor: Record<OrgId, string> = {
     <div class="wrap">
       <p class="eyebrow">Advisors</p>
       <h2>Our faculty <em>advisors.</em></h2>
-      {advisors.length > 0
-        ? <ul class="advisors">{advisors.map((a) => <li><h3>{a.name}</h3><p>{a.role}</p></li>)}</ul>
-        : <p class="soon big">Coming soon.</p>}
+      <AdvisorList />
     </div>
   </section>
 
@@ -218,11 +217,6 @@ const orgColor: Record<OrgId, string> = {
   .when { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--c); }
   .what { font-family: var(--serif); font-size: 22px; line-height: 1.3; }
   @media (min-width: 900px) { .timeline-grid { grid-template-columns: 1fr 2fr; gap: 80px; } }
-
-  /* 5. Advisors */
-  .advisors { list-style: none; margin: 32px 0 0; padding: 0; display: grid; gap: 24px; }
-  .advisors p { margin: 4px 0 0; color: var(--muted); }
-  @media (min-width: 900px) { .advisors { grid-template-columns: repeat(3, 1fr); } }
 
   /* 6. Closing */
   .closing { padding: 72px 0; text-align: center; border-top: 1px solid var(--rule); }

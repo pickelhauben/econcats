@@ -1,0 +1,65 @@
+---
+import type { BoardMember } from '../lib/content';
+interface Props { member: BoardMember }
+const { member } = Astro.props;
+
+// Ring color: ODE roles navy, WEC roles cyan, everyone else ESA green.
+const color = /ODE/.test(member.role) ? 'var(--ode)' : /WEC/.test(member.role) ? 'var(--wec)' : 'var(--esa-green)';
+const hasName = member.name.trim() !== '';
+const initials = member.name.trim().split(/\s+/).filter(Boolean).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
+const details = [member.year, member.major].filter(Boolean).join(' · ');
+---
+<article class:list={['member', { vacant: !hasName }]} style={`--c:${color}`}>
+  {member.photo
+    ? <img class="avatar" src={member.photo} alt={hasName ? `Portrait of ${member.name}, ${member.role}` : ''} width="96" height="96" loading="lazy" decoding="async" />
+    : <span class="avatar initials" aria-hidden="true">{initials}</span>}
+  <div>
+    {hasName ? (
+      <>
+        <h3>{member.name}</h3>
+        <p class="role">{member.role}</p>
+      </>
+    ) : (
+      <h3 class="role-only">{member.role}</h3>
+    )}
+    {details && <p class="details">{details}</p>}
+    {member.bio && <p class="bio">{member.bio}</p>}
+    {member.linkedin && (
+      <a class="linkedin" href={member.linkedin} target="_blank" rel="noopener noreferrer" aria-label={`${member.name} on LinkedIn (opens in a new tab)`}>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+          <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.6 4.77 6v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4z" />
+        </svg>
+      </a>
+    )}
+  </div>
+</article>
+
+<style>
+  .member {
+    display: grid; grid-template-columns: 72px 1fr; gap: 16px; align-items: start; align-content: start;
+    padding: 20px; background: var(--white); border: 1px solid var(--rule); border-radius: 6px; height: 100%;
+  }
+  .avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; }
+  .initials {
+    display: grid; place-items: center;
+    border: 4px solid var(--c); color: var(--c);
+    font-family: var(--serif); font-size: 26px;
+  }
+  .vacant .initials { border-style: dashed; border-width: 2px; opacity: .7; }
+  h3 { font-size: 22px; }
+  .role { margin: 2px 0 0; color: var(--c); font-weight: 500; font-size: 15px; }
+  .role-only { font-size: 22px; padding-top: 18px; }
+  .details { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
+  .bio { margin: 8px 0 0; font-size: 15px; }
+  .linkedin {
+    display: inline-grid; place-items: center; width: 44px; height: 44px; margin: 4px 0 -8px -12px;
+    color: var(--muted); border-radius: 8px;
+  }
+  .linkedin:hover { color: var(--navy); }
+  @media (min-width: 640px) {
+    .member { grid-template-columns: 1fr; padding: 24px; }
+    .avatar { width: 96px; height: 96px; }
+    .initials { font-size: 34px; }
+    .role-only { padding-top: 0; }
+  }
+</style>
