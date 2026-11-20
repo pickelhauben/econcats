@@ -68,7 +68,10 @@ Its center is transparent, so it always sits on a white disc. Ask for an SVG exp
 
 ## Rules
 - Mobile-first: write base styles for phones, add `min-width` media queries for larger screens.
-- Content comes from data files (`src/data/*.json`, later the Google Sheet), never hard-coded into pages.
+- Content comes from data, never hard-coded into pages. Pages read it only through `src/lib/content.ts`.
+  Seven collections (events, projects, board, advisors, alumni, supporters, achievements) load from the
+  "ESA Website Content" Google Sheet at build time (CSV URLs in `src/data/sources.json`, loader `src/lib/sheet.ts`),
+  falling back to `src/data/*.json`. Board-member guide: `docs/updating-the-site.md`.
   Exception: Home hero/pillars and About are mostly static and may be written into the page.
 - No University of Arizona logos or trademarks (no Wilbur/Wildcat marks, no block A).
 - Never invent facts: names, dates, quotes, numbers, links. Unknown values go in `[SQUARE BRACKETS]`.

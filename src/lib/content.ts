@@ -1,9 +1,45 @@
-// Read content from src/data. In step 4 these functions will fetch the
-// Website Content Google Sheet (CSV) instead; pages should only use these helpers.
-import events from '../data/events.json';
-import projects from '../data/projects.json';
-import supporters from '../data/supporters.json';
+// All site content goes through this file. Pages only use these helpers.
+//
+// The seven sheet-backed collections are loaded once per build from the
+// "ESA Website Content" Google Sheet (published CSV URLs in src/data/sources.json).
+// If a URL is empty or the fetch fails, the matching src/data/*.json file is used instead.
 import site from '../data/site.json';
+import sources from '../data/sources.json';
+import { loadCollection } from './sheet';
+
+import eventsJson from '../data/events.json';
+import projectsJson from '../data/projects.json';
+import boardJson from '../data/board.json';
+import advisorsJson from '../data/advisors.json';
+import alumniJson from '../data/alumni.json';
+import supportersJson from '../data/supporters.json';
+import achievementsJson from '../data/achievements.json';
+
+const [events, projects, boardData, advisorsData, alumniData, supporters, achievementsData] = await Promise.all([
+  loadCollection('events', sources.events, eventsJson as unknown[], {
+    listFields: ['photos'],
+    expectedColumns: ['date', 'time', 'title', 'type', 'pillar', 'location', 'summary', 'photos', 'recap'],
+  }),
+  loadCollection('projects', sources.projects, projectsJson as unknown[], {
+    expectedColumns: ['id', 'title', 'status', 'pillar', 'summary', 'lead_role', 'link'],
+  }),
+  loadCollection('board', sources.board, boardJson as unknown[], {
+    expectedColumns: ['role', 'name', 'year', 'major', 'photo', 'bio', 'linkedin', 'group'],
+  }),
+  loadCollection('advisors', sources.advisors, advisorsJson as unknown[], {
+    expectedColumns: ['name', 'title', 'department'],
+  }),
+  loadCollection('alumni', sources.alumni, alumniJson as unknown[], {
+    listFields: ['org'],
+    expectedColumns: ['name', 'years', 'org', 'now', 'quote', 'photo', 'linkedin', 'permission'],
+  }),
+  loadCollection('supporters', sources.supporters, supportersJson as unknown[], {
+    expectedColumns: ['name', 'type', 'year', 'permission'],
+  }),
+  loadCollection('achievements', sources.achievements, achievementsJson as unknown[], {
+    expectedColumns: ['org', 'title', 'year'],
+  }),
+]);
 
 /** "Thursdays at 5 PM during the semester", built from site.json */
 export const meetingsLine = `${site.meetingDay} at ${site.meetingTime} during the semester`;
@@ -75,7 +111,6 @@ export function supportersByType(): { type: SupporterType; names: Supporter[] }[
 }
 
 // ---------- Alumni ----------
-import alumniData from '../data/alumni.json';
 
 export interface Alum {
   name: string;
@@ -125,10 +160,9 @@ export function publicSupporters(limit = 6): Supporter[] {
 }
 
 // ---------- About page ----------
+// Pillars, presidents and the timeline stay in JSON (not in the sheet).
 import pillarsData from '../data/pillars.json';
-import achievementsData from '../data/achievements.json';
 import presidentsData from '../data/presidents.json';
-import advisorsData from '../data/advisors.json';
 import timelineData from '../data/timeline.json';
 
 export type OrgId = 'esa' | 'ees' | 'wec' | 'ode';
@@ -144,7 +178,6 @@ export const timeline = timelineData as Milestone[];
 export const advisors = advisorsData as Advisor[];
 
 // ---------- Leadership ----------
-import boardData from '../data/board.json';
 
 export type BoardGroup = 'Coordination' | 'Domain leads' | 'Directors';
 export const boardGroups: BoardGroup[] = ['Coordination', 'Domain leads', 'Directors'];
@@ -161,7 +194,7 @@ export interface BoardMember {
 }
 
 export const board = boardData as BoardMember[];
-export const boardHasNames = () => board.some((m) => m.name.trim() !== '');
+export const boardHasNames = () => board.some((m) => (m.name ?? '').trim() !== '');
 
 export const achievementsFor = (org: OrgId) =>
   (achievementsData as Achievement[]).filter((a) => a.org === org);

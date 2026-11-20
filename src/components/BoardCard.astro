@@ -5,8 +5,9 @@ const { member } = Astro.props;
 
 // Ring color: ODE roles navy, WEC roles cyan, everyone else ESA green.
 const color = /ODE/.test(member.role) ? 'var(--ode)' : /WEC/.test(member.role) ? 'var(--wec)' : 'var(--esa-green)';
-const hasName = member.name.trim() !== '';
-const initials = member.name.trim().split(/\s+/).filter(Boolean).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
+const name = (member.name ?? '').trim();
+const hasName = name !== '';
+const initials = name.split(/\s+/).filter(Boolean).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
 const details = [member.year, member.major].filter(Boolean).join(' · ');
 ---
 <article class:list={['member', { vacant: !hasName }]} style={`--c:${color}`}>
