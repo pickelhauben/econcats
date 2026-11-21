@@ -33,7 +33,7 @@ const orgs: { short: string; name: string; color: string; body: string; links: O
   },
   {
     short: 'WEC', name: 'Women in Economics', color: 'var(--wec)',
-    body: 'Founded in fall 2018 by economics lecturer Erin Yetter to create a space for women in economics. WEC’s women-only socials remain a permanent part of ESA, and its professional events are open to everyone.',
+    body: 'Founded in fall 2018 by economics lecturer Erin Yetter to create a space for women in economics. WEC’s women-only socials remain a permanent part of ESA, and its professional events welcome every EconCat.',
     links: [
       { text: 'Read WEC’s story', href: '/about#wec' },
       { text: 'Follow WEC on Instagram', href: site.wecInstagram, instagram: true },
@@ -94,7 +94,7 @@ const pillars = pillarData.map((p) => ({ ...p, color: `var(--${p.color})` }));
       </div>
       <div class="orgs">
         {orgs.map((o) => (
-          <article class="org" style={`--c:${o.color}`}>
+          <article class="org" style={`--c:${o.color}; --c-ink:${o.color === 'var(--wec)' ? 'var(--wec-ink)' : o.color}`}>
             <span class="ring" aria-hidden="true"></span>
             <span class="short">{o.short}</span>
             <h3>{o.name}</h3>
@@ -323,16 +323,16 @@ const pillars = pillarData.map((p) => ({ ...p, color: `var(--${p.color})` }));
     padding: 28px 24px; border: 1px solid var(--rule); border-radius: 6px;
     border-top: 4px solid var(--c);
   }
-  .org-links { list-style: none; margin: auto 0 0; padding: 16px 0 0; display: flex; flex-direction: column; gap: 10px; }
+  .org-links { list-style: none; margin: auto 0 0; padding: 8px 0 0; display: flex; flex-direction: column; gap: 0; }
   .org-link {
-    font-size: 14px; font-weight: 500; color: var(--ink); text-decoration: none;
-    border-bottom: 1px solid var(--c); padding-bottom: 1px;
+    font-size: 14px; font-weight: 500; color: var(--ink);
+    text-decoration: underline; text-decoration-color: var(--c); text-underline-offset: 4px;
   }
   .org-link:hover { color: var(--esa-green); }
   .org-links li { display: flex; }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .ring { width: 36px; height: 36px; border-radius: 50%; border: 5px solid var(--c); margin-bottom: 12px; }
-  .short { font-size: 13px; font-weight: 600; letter-spacing: .12em; color: var(--c); }
+  .short { font-size: 13px; font-weight: 600; letter-spacing: .12em; color: var(--c-ink, var(--c)); }
   .org p { margin: 4px 0 0; color: var(--muted); font-size: 15px; }
   @media (min-width: 900px) { .orgs { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
 

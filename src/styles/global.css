@@ -16,6 +16,11 @@
   --ode: var(--navy);
   --wec: var(--cyan);
 
+  /* Brand cyan is too light for text on white (2.6:1). Use this darker cyan for any cyan *text*
+     (5.1:1 on white, 4.7:1 on --paper); keep --cyan for rings, borders and lines. */
+  --cyan-ink: #177890;
+  --wec-ink: var(--cyan-ink);
+
   /* Derived neutrals */
   --paper: #F5F7F4;
   --ink: var(--deep);
@@ -40,7 +45,17 @@
 *, *::before, *::after { box-sizing: border-box; }
 
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Respect "reduce motion": no smooth scrolling, transitions or animations anywhere. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
 
 body {
   margin: 0;
@@ -78,7 +93,12 @@ em { font-style: italic; color: var(--esa-green); }
 
 .skip-link {
   position: absolute; left: -9999px; top: 8px; z-index: 100;
-  background: var(--deep); color: var(--white); padding: 8px 14px;
+  background: var(--deep); color: var(--white); padding: 12px 16px; min-height: 44px;
+}
+
+/* Tap targets: standalone links get a hit area at least 44 px tall. Inline links in text are exempt. */
+.org-link, .way-link, .step-link, .link, .social, .copy-email a, .site-footer a, .linkedin {
+  display: inline-flex; align-items: center; min-height: 44px;
 }
 .skip-link:focus { left: 8px; }
 

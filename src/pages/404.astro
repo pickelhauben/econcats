@@ -1,0 +1,24 @@
+---
+import Layout from '../layouts/Layout.astro';
+import RingsMark from '../components/RingsMark.astro';
+---
+<Layout title="Page not found" description="This page doesn't exist on the EconCats site." noindex>
+  <section class="nf wrap">
+    <RingsMark size={56} />
+    <p class="eyebrow">404</p>
+    <h1>This page is <em>out of equilibrium.</em></h1>
+    <p class="lede">We couldn't find what you were looking for. It may have moved, or the link may be off by a character.</p>
+    <div class="actions">
+      <a class="btn primary" href="/">Back to home <span aria-hidden="true">→</span></a>
+      <a class="btn" href="/join">Come to a meeting</a>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .nf { padding-top: 72px; padding-bottom: 96px; }
+  .eyebrow { margin-top: 28px; }
+  h1 { margin: 16px 0 20px; max-width: 12em; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+  @media (min-width: 768px) { .nf { padding-top: 128px; padding-bottom: 160px; } }
+</style>

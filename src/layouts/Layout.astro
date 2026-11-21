@@ -7,9 +7,23 @@ import site from '../data/site.json';
 interface Props {
   title?: string;
   description?: string;
+  /** Share image path in /public; defaults to the green "Home of the EconCats" card. */
+  image?: string;
+  /** Keep a page out of search results (e.g. 404). */
+  noindex?: boolean;
 }
-const { title, description = `${site.fullName} at the ${site.school}.` } = Astro.props;
+const {
+  title,
+  description = `${site.fullName} at the ${site.school}.`,
+  image = '/og-image.png',
+  noindex = false,
+} = Astro.props;
 const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.fullName}`;
+const base = Astro.site ?? new URL(Astro.url.origin);
+const canonical = new URL(Astro.url.pathname, base).href;
+const imageUrl = new URL(image, base).href;
+const fontsUrl =
+  'https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&family=Inter:wght@400;500;600&display=swap';
 ---
 <!doctype html>
 <html lang="en">
@@ -19,12 +33,27 @@ const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.f
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#1C3430" />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={`${site.name} · ${site.fullName}`} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Home of the EconCats: Economics Student Association, University of Arizona" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,400&family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Fonts load without blocking the first paint; system fonts show until they arrive. -->
+    <link rel="preload" as="style" href={fontsUrl} />
+    <link rel="stylesheet" href={fontsUrl} media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href={fontsUrl} /></noscript>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>

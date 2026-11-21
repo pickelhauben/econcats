@@ -31,7 +31,7 @@ const orgs: { id: OrgId; name: string; short: string; color: string; body: strin
 ];
 
 const orgColor: Record<OrgId, string> = {
-  esa: 'var(--deep)', ees: 'var(--esa-green)', wec: 'var(--wec)', ode: 'var(--ode)',
+  esa: 'var(--deep)', ees: 'var(--esa-green)', wec: 'var(--wec-ink)', ode: 'var(--ode)',
 };
 ---
 <Layout title="About" description="How three student organizations came together as the Economics Student Association at the University of Arizona.">
@@ -47,6 +47,7 @@ const orgColor: Record<OrgId, string> = {
   <section class="section" id="mission">
     <div class="wrap">
       <p class="eyebrow">Mission</p>
+      <h2 class="sr-only">Our mission</h2>
       <p class="mission">ESA builds an inclusive, high-performing economics community: connecting students to each other, developing their academic and professional abilities, and opening doors to opportunities in economics, policy and finance.</p>
       <ol class="pillars">
         {pillars.map((p, i) => (
@@ -71,7 +72,7 @@ const orgColor: Record<OrgId, string> = {
           const achievements = achievementsFor(o.id);
           const presidents = presidentsFor(o.id);
           return (
-            <article class="org" id={o.id} style={`--c:${o.color}`} aria-labelledby={`${o.id}-title`}>
+            <article class="org" id={o.id} style={`--c:${o.color}; --c-ink:${o.color === 'var(--wec)' ? 'var(--wec-ink)' : o.color}`} aria-labelledby={`${o.id}-title`}>
               <header>
                 <span class="dot" aria-hidden="true"></span>
                 <span class="short">{o.short}</span>
@@ -184,11 +185,11 @@ const orgColor: Record<OrgId, string> = {
   }
   .org header { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
   .dot { width: 14px; height: 14px; border-radius: 50%; background: var(--c); }
-  .short { font-size: 13px; font-weight: 600; letter-spacing: .12em; color: var(--c); }
+  .short { font-size: 13px; font-weight: 600; letter-spacing: .12em; color: var(--c-ink, var(--c)); }
   .org h3 { flex-basis: 100%; font-size: clamp(26px, 3vw, 34px); }
   .org-body > p { margin: 0; max-width: 40em; }
   .org-links { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px 24px; }
-  .org-link { font-size: 14px; font-weight: 500; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--c); }
+  .org-link { font-size: 14px; font-weight: 500; color: var(--ink); text-decoration: underline; text-decoration-color: var(--c); text-underline-offset: 4px; }
   .org-link:hover { color: var(--esa-green); }
   .lists { margin-top: 24px; display: grid; gap: 20px; }
   h4 { margin: 0 0 8px; font-size: 12px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }

@@ -10,7 +10,7 @@ const alumni = publicAlumni();
 const supporterGroups = supportersByType();
 const mailto = `mailto:${site.email}`;
 
-const orgColor: Record<string, string> = { EES: 'var(--esa-green)', WEC: 'var(--wec)', ODE: 'var(--ode)' };
+const orgColor: Record<string, string> = { EES: 'var(--esa-green)', WEC: 'var(--wec-ink)', ODE: 'var(--ode)' };
 const initialsOf = (name: string) => name.trim().split(/\s+/).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
 
 const ways = [
@@ -165,7 +165,7 @@ const ways = [
   .num { font-size: 13px; font-weight: 600; letter-spacing: .1em; color: var(--esa-green); }
   .ways h3 { font-size: 26px; }
   .ways p { margin: 0; color: var(--muted); }
-  .way-link { margin-top: 4px; font-weight: 500; color: var(--ink); text-decoration: none; align-self: flex-start; border-bottom: 1px solid var(--esa-green); }
+  .way-link { margin-top: 4px; font-weight: 500; color: var(--ink); align-self: flex-start; text-decoration: underline; text-decoration-color: var(--esa-green); text-underline-offset: 4px; }
   .way-link:hover { color: var(--esa-green); }
   .support { background: var(--paper); padding: 24px !important; border-radius: 6px; border-top: 4px solid var(--esa-green) !important; }
   @media (min-width: 900px) {

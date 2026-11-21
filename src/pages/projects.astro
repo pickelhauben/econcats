@@ -20,7 +20,8 @@ const filters = ['All', 'Connect', 'Grow', 'Access'] as const;
   </section>
 
   <!-- 2–3. Filters + cards -->
-  <section class="wrap overview" aria-label="All projects">
+  <section class="wrap overview" aria-labelledby="all-projects">
+    <h2 class="sr-only" id="all-projects">All projects</h2>
     <div class="filters" role="group" aria-label="Filter projects by pillar">
       {filters.map((f, i) => (
         <button type="button" data-filter={f} aria-pressed={i === 0 ? 'true' : 'false'}>{f}</button>
@@ -139,7 +140,8 @@ const filters = ['All', 'Connect', 'Grow', 'Access'] as const;
   .criteria { list-style: none; margin: 0 0 24px; padding: 0; border-top: 1px solid var(--rule); }
   .criteria li { padding: 14px 0; border-bottom: 1px solid var(--rule); }
   .criteria strong { font-family: var(--serif); font-weight: 400; font-size: 28px; color: var(--accent); margin-right: 8px; }
-  .apply :global(.social) { color: var(--accent); font-weight: 500; vertical-align: bottom; }
+  /* Inline in a sentence, so no 44 px box here (inline links are exempt) */
+  .apply :global(.social) { color: var(--accent); font-weight: 500; vertical-align: bottom; min-height: 0; }
   .ode-btn { border-color: var(--accent); color: var(--accent); }
   .ode-btn:hover { background: var(--accent); color: var(--white); }
 </style>

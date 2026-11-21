@@ -5,8 +5,8 @@ import { resolvePhoto } from '../lib/photos';
 interface Props { member: BoardMember }
 const { member } = Astro.props;
 
-// Ring color: ODE roles navy, WEC roles cyan, everyone else ESA green.
-const color = /ODE/.test(member.role) ? 'var(--ode)' : /WEC/.test(member.role) ? 'var(--wec)' : 'var(--esa-green)';
+// Ring color: ODE roles navy, WEC roles cyan (the darker text cyan, since it colors text too), everyone else ESA green.
+const color = /ODE/.test(member.role) ? 'var(--ode)' : /WEC/.test(member.role) ? 'var(--wec-ink)' : 'var(--esa-green)';
 const name = (member.name ?? '').trim();
 const hasName = name !== '';
 const initials = name.split(/\s+/).filter(Boolean).map((w) => w[0]).slice(0, 2).join('').toUpperCase();
