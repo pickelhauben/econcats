@@ -1,6 +1,6 @@
 // All site content goes through this file. Pages only use these helpers.
 //
-// The seven sheet-backed collections are loaded once per build from the
+// The eight sheet-backed collections are loaded once per build from the
 // "ESA Website Content" Google Sheet (published CSV URLs in src/data/sources.json).
 // If a URL is empty or the fetch fails, the matching src/data/*.json file is used instead.
 import site from '../data/site.json';
@@ -14,8 +14,9 @@ import advisorsJson from '../data/advisors.json';
 import alumniJson from '../data/alumni.json';
 import supportersJson from '../data/supporters.json';
 import achievementsJson from '../data/achievements.json';
+import membersJson from '../data/members.json';
 
-const [events, projects, boardData, advisorsData, alumniData, supporters, achievementsData] = await Promise.all([
+const [events, projects, boardData, advisorsData, alumniData, supporters, achievementsData, membersData] = await Promise.all([
   loadCollection('events', sources.events, eventsJson as unknown[], {
     listFields: ['photos'],
     expectedColumns: ['date', 'time', 'title', 'type', 'pillar', 'location', 'summary', 'photos', 'photo_alts', 'recap'],
@@ -38,6 +39,9 @@ const [events, projects, boardData, advisorsData, alumniData, supporters, achiev
   }),
   loadCollection('achievements', sources.achievements, achievementsJson as unknown[], {
     expectedColumns: ['org', 'title', 'year'],
+  }),
+  loadCollection('members', sources.members, membersJson as unknown[], {
+    expectedColumns: ['name', 'year', 'through', 'permission'],
   }),
 ]);
 
@@ -196,6 +200,37 @@ export interface BoardMember {
 
 export const board = boardData as BoardMember[];
 export const boardHasNames = () => board.some((m) => (m.name ?? '').trim() !== '');
+
+// ---------- Members (dues-paying) ----------
+
+export interface Member {
+  name: string;
+  year?: string; // e.g. "Junior", "Grad student"
+  through: string; // last semester their dues cover, e.g. "Spring 2027"
+  permission: boolean; // only shown when true
+}
+
+/** "Fall 2026" → sortable number. Unknown text → NaN. */
+function termIndex(term: string): number {
+  const m = /^(Spring|Summer|Fall)\s+(\d{4})$/i.exec((term ?? '').trim());
+  if (!m) return NaN;
+  const order = { spring: 0, summer: 1, fall: 2 } as Record<string, number>;
+  return Number(m[2]) * 3 + order[m[1].toLowerCase()];
+}
+
+/** The membership semester right now. Over the summer, spring members stay listed. */
+export function currentTerm(): string {
+  const s = semesterOf(todayInArizona());
+  return s.startsWith('Summer') ? s.replace('Summer', 'Spring') : s;
+}
+
+/** Members who opted in and whose dues cover the current semester, A–Z. */
+export function currentMembers(): Member[] {
+  const now = termIndex(currentTerm());
+  return (membersData as Member[])
+    .filter((m) => m.permission === true && (m.name ?? '').trim() !== '' && termIndex(m.through) >= now)
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
 
 export const achievementsFor = (org: OrgId) =>
   (achievementsData as Achievement[]).filter((a) => a.org === org);

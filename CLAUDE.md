@@ -28,7 +28,7 @@ No contact forms that submit anywhere: links and copy buttons (`CopyEmail.astro`
 ## Facts to confirm before launch
 Shown on the site in [brackets] until confirmed:
 1. ODE member count ([19]) and "first time since 2007".
-2. Permission from any alumni or supporters named on the site.
+2. Permission from any alumni, supporters or members named on the site.
 Do not mention EpicHire anywhere on the site.
 
 ## Stack
@@ -62,14 +62,14 @@ Its center is transparent, so it always sits on a white disc. Ask for an SVG exp
 | About | `/about` | Mission, the merger story, heritage (`#heritage`, `#ees`, `#wec`) |
 | Activities | `/activities` | Upcoming and past events, photo gallery |
 | Projects | `/projects` | ODE chapter, exam reviews, mentorship, alumni campaign, discussion series |
-| Leadership | `/leadership` | Current board by role, advisors, "Lead with us" |
+| Leadership | `/leadership` | Current board by role, member wall (`#members`, opt-in dues payers for the current semester), advisors, "Lead with us" |
 | Alumni | `/alumni` | Spotlights, ways to get involved, supporters wall, reconnect form link |
 | Join / Contact | `/join` | Meetings, dues, email, Instagram |
 
 ## Rules
 - Mobile-first: write base styles for phones, add `min-width` media queries for larger screens.
 - Content comes from data, never hard-coded into pages. Pages read it only through `src/lib/content.ts`.
-  Seven collections (events, projects, board, advisors, alumni, supporters, achievements) load from the
+  Eight collections (events, projects, board, advisors, alumni, supporters, achievements, members) load from the
   "ESA Website Content" Google Sheet at build time (CSV URLs in `src/data/sources.json`, loader `src/lib/sheet.ts`),
   falling back to `src/data/*.json`. Board-member guide: `docs/updating-the-site.md`.
   Exception: Home hero/pillars and About are mostly static and may be written into the page.

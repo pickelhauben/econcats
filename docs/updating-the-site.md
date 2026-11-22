@@ -20,6 +20,7 @@ You don't need to touch any code. Almost everything on the site comes from one G
 | `alumni` | Alumni spotlights | Alumni |
 | `supporters` | Supporters wall | Alumni, Home (alumni band) |
 | `achievements` | Awards for EES, WEC and ODE | About (Our heritage) |
+| `members` | Dues-paying members who want to be listed | Leadership (member wall) |
 
 **Row 1 of every tab holds the column names. Don't rename, reorder-and-rename, or delete them.**
 You can add extra columns for your own notes; the site ignores columns it doesn't know.
@@ -110,7 +111,22 @@ While every `name` is blank, the page shows the roles with "Our spring 2027 boar
 
 `org` (`ees`, `wec` or `ode`, lowercase), `title`, `year` (optional).
 
-> **Alumni and supporters appear only when `permission` is `TRUE`.** Anything else, including a blank cell, keeps them off the site.
+### `members`
+
+The Treasurer adds a row when someone pays dues.
+
+| Column | What to put | Example |
+|---|---|---|
+| `name` | Name as they want it shown | `Alex Rivera` |
+| `year` | Optional, e.g. class year or `Grad student` | `Sophomore` |
+| `through` | Last semester their dues cover: `Spring YYYY` or `Fall YYYY` | `Spring 2027` |
+| `permission` | **`TRUE` only if they said yes to being listed.** Ask when they pay. | `TRUE` |
+
+- Semester dues: `through` is that semester. Year dues paid in fall: `through` is the next spring.
+- Names drop off the wall by themselves once `through` is in the past, so renewing puts them back. Over the summer, spring members stay listed.
+- Keep everyone who paid in this tab, listed or not. It doubles as the dues record.
+
+> **Alumni, supporters and members appear only when `permission` is `TRUE`.** Anything else, including a blank cell, keeps them off the site.
 
 ---
 
