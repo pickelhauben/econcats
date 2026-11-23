@@ -1,0 +1,117 @@
+---
+// Link-in-bio page for Instagram: econcats.com/links. Every URL comes from site.json.
+import Layout from '../layouts/Layout.astro';
+import Logo from '../components/Logo.astro';
+import CopyEmail from '../components/CopyEmail.astro';
+import site from '../data/site.json';
+import { upcomingEvents, meetingsLine } from '../lib/content';
+
+const next = upcomingEvents(1)[0];
+const nextDate = next
+  ? new Date(`${next.date}T12:00:00`).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
+  : '';
+
+type Item = { label: string; sub?: string; href: string; external?: boolean; primary?: boolean; icon?: 'instagram' | 'linkedin' };
+const items: Item[] = [
+  site.duesPaymentUrl && {
+    label: 'Pay membership dues', sub: `${site.duesSemester} a semester · ${site.duesYear} a year`,
+    href: site.duesPaymentUrl, external: true, primary: true,
+  },
+  site.weeklyEmailUrl && {
+    label: 'Get the weekly email', sub: 'Room, topic and what’s coming up',
+    href: site.weeklyEmailUrl, external: true,
+  },
+  next
+    ? { label: `Next up: ${next.title}`, sub: [nextDate, next.time, next.location].filter(Boolean).join(' · '), href: '/activities' }
+    : { label: 'Events and photos', sub: meetingsLine, href: '/activities' },
+  { label: 'How to join', sub: 'No application needed', href: '/join' },
+  { label: 'Our website', sub: 'econcats.com', href: '/' },
+  { label: site.instagramHandle, sub: 'ESA on Instagram', href: site.instagram, external: true, icon: 'instagram' },
+  { label: site.wecInstagramHandle, sub: 'Women in Economics Club', href: site.wecInstagram, external: true, icon: 'instagram' },
+  { label: 'LinkedIn', sub: 'Economics Student Association', href: site.linkedin, external: true, icon: 'linkedin' },
+].filter(Boolean) as Item[];
+---
+<Layout title="Links" description={`Pay dues, get the weekly email and find ${site.name} everywhere.`} bare>
+  <div class="links">
+    <header class="top">
+      <Logo size={96} />
+      <h1>{site.name}</h1>
+      <p class="org">{site.fullName}<br />{site.school}</p>
+      <p class="meet">{site.meetingDay} · {site.meetingTime} · {site.meetingPlace.replace(/\s*\(.*\)$/, '')}</p>
+    </header>
+
+    <ul class="list">
+      {items.map((it) => (
+        <li>
+          <a class:list={['item', { primary: it.primary }]} href={it.href}
+             {...(it.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+            {it.icon === 'instagram' && (
+              <svg class="ico" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4.2" /><circle cx="17.4" cy="6.6" r="1" fill="currentColor" stroke="none" />
+              </svg>
+            )}
+            {it.icon === 'linkedin' && (
+              <svg class="ico" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.6h.06c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.77 2.6 4.77 6v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4z" />
+              </svg>
+            )}
+            <span class="text">
+              <span class="label">{it.label}</span>
+              {it.sub && <span class="sub">{it.sub}</span>}
+            </span>
+            <span class="arrow" aria-hidden="true">{it.external ? '↗' : '→'}</span>
+            {it.external && <span class="sr-only"> (opens in a new tab)</span>}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="email">
+      <p>Email us</p>
+      <CopyEmail />
+    </div>
+
+    <p class="foot">ESA · EES · WEC · ΟΔΕ</p>
+  </div>
+</Layout>
+
+<style>
+  :global(body) { background: var(--paper); }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .links { max-width: 520px; margin: 0 auto; padding: 48px var(--gutter) 40px; }
+
+  .top { text-align: center; display: grid; justify-items: center; gap: 4px; }
+  .top :global(.logo) { box-shadow: 0 0 0 6px var(--white), 0 6px 24px rgba(28, 52, 48, .12); margin-bottom: 16px; }
+  h1 { font-size: 40px; }
+  .org { margin: 4px 0 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
+  .meet {
+    margin: 14px 0 0; padding: 6px 14px; border-radius: 999px; background: var(--white);
+    border: 1px solid var(--rule); font-size: 13px; font-weight: 500; color: var(--esa-green);
+  }
+
+  .list { list-style: none; margin: 32px 0 0; padding: 0; display: grid; gap: 12px; }
+  .item {
+    display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 12px 18px;
+    background: var(--white); border: 1px solid var(--rule); border-radius: 14px;
+    color: var(--ink); text-decoration: none;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+  }
+  .item:hover { border-color: var(--esa-green); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(28, 52, 48, .08); }
+  .ico { flex: 0 0 auto; color: var(--esa-green); }
+  .text { flex: 1; display: grid; gap: 2px; min-width: 0; }
+  .label { font-weight: 600; font-size: 16px; }
+  .sub { font-size: 13px; color: var(--muted); }
+  .arrow { flex: 0 0 auto; color: var(--muted); }
+
+  .item.primary { background: var(--esa-green); border-color: var(--esa-green); color: var(--white); min-height: 76px; }
+  .item.primary .label { font-family: var(--serif); font-weight: 400; font-size: 22px; }
+  .item.primary .sub, .item.primary .arrow { color: rgba(255, 255, 255, .85); }
+  .item.primary:hover { background: var(--deep); border-color: var(--deep); }
+
+  .email { margin-top: 28px; text-align: center; }
+  .email p { margin: 0 0 8px; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .email :global(.copy-email) { justify-content: center; }
+  .foot { margin: 36px 0 0; text-align: center; font-size: 12px; letter-spacing: .2em; color: var(--muted); }
+
+  @media (prefers-reduced-motion: reduce) { .item:hover { transform: none; } }
+</style>

@@ -19,8 +19,9 @@ const steps = [
   {
     title: 'Join and pay dues',
     body: `${site.duesSemester} a semester or ${site.duesYear} a year. Dues fund food, speakers and events, and put your name on our member wall if you'd like.`,
-    href: '/leadership#members',
-    cta: 'See the member wall',
+    href: site.duesPaymentUrl || '/leadership#members',
+    cta: site.duesPaymentUrl ? 'Pay dues online' : 'See the member wall',
+    external: !!site.duesPaymentUrl,
   },
 ];
 ---
@@ -45,7 +46,9 @@ const steps = [
             <span class="num" aria-hidden="true">{i + 1}</span>
             <h3>{s.title}</h3>
             <p>{s.body}</p>
-            {s.href && <a class="step-link" href={s.href}>{s.cta} <span aria-hidden="true">{s.href.startsWith('#') ? '↓' : '→'}</span></a>}
+            {s.href && (s.external
+              ? <a class="step-link" href={s.href} target="_blank" rel="noopener noreferrer">{s.cta} <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+              : <a class="step-link" href={s.href}>{s.cta} <span aria-hidden="true">{s.href.startsWith('#') ? '↓' : '→'}</span></a>)}
           </li>
         ))}
       </ol>

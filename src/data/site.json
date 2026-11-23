@@ -12,9 +12,10 @@
   "meetingDay": "Thursdays",
   "meetingTime": "5 PM",
   "meetingPlace": "McClelland Hall (room in the weekly email)",
-  "weeklyEmailUrl": "",
+  "weeklyEmailUrl": "https://arizona.campusgroups.com/EES/club_signup",
   "duesSemester": "$15",
   "duesYear": "$25",
+  "duesPaymentUrl": "https://square.link/u/cQSfEUfs",
   "alumniFormUrl": "",
   "disclaimer": "A registered student organization. Not an official University of Arizona website."
 }

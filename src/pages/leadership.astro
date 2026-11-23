@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import BoardCard from '../components/BoardCard.astro';
 import AdvisorList from '../components/AdvisorList.astro';
+import site from '../data/site.json';
 import { board, boardGroups, boardHasNames, currentMembers, currentTerm } from '../lib/content';
 
 const members = currentMembers();
@@ -48,7 +49,7 @@ const forming = !boardHasNames();
         {members.length > 0
           ? <p class="count"><span class="num">{members.length}</span> {members.length === 1 ? 'member' : 'members'} this semester</p>
           : null}
-        <p class="note">Dues-paying members who chose to be listed. <a href="/join#steps">Pay dues</a> and tell us to add your name.</p>
+        <p class="note">Dues-paying members who chose to be listed. <a href={site.duesPaymentUrl || '/join#steps'} {...(site.duesPaymentUrl ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>Pay dues</a> and tell us to add your name.</p>
       </div>
       {members.length > 0
         ? (

@@ -11,12 +11,15 @@ interface Props {
   image?: string;
   /** Keep a page out of search results (e.g. 404). */
   noindex?: boolean;
+  /** No header or footer (link-in-bio page). */
+  bare?: boolean;
 }
 const {
   title,
   description = `${site.fullName} at the ${site.school}.`,
   image = '/og-image.png',
   noindex = false,
+  bare = false,
 } = Astro.props;
 const fullTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.fullName}`;
 const base = Astro.site ?? new URL(Astro.url.origin);
@@ -56,11 +59,11 @@ const fontsUrl =
     <noscript><link rel="stylesheet" href={fontsUrl} /></noscript>
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
-    <Header />
+    {!bare && <a class="skip-link" href="#main">Skip to content</a>}
+    {!bare && <Header />}
     <main id="main">
       <slot />
     </main>
-    <Footer />
+    {!bare && <Footer />}
   </body>
 </html>

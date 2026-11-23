@@ -22,7 +22,7 @@ Domain: econcats.com (registered at GoDaddy, DNS pointed to Vercel). Use "ESA" f
 - ESA LinkedIn: https://www.linkedin.com/company/106468095
 - ODE International: https://www.omicrondeltaepsilon.org/
 External links open in a new tab. Social links use `SocialLink.astro` (icon + visible handle).
-Meeting day/time/place, dues, weeklyEmailUrl and alumniFormUrl also live in `site.json`; pages and the footer read them from there.
+Meeting day/time/place, dues, duesPaymentUrl (Square), weeklyEmailUrl (CampusGroups signup), and alumniFormUrl also live in `site.json`; pages and the footer read them from there.
 No contact forms that submit anywhere: links and copy buttons (`CopyEmail.astro`) only.
 
 ## Facts to confirm before launch
@@ -65,6 +65,7 @@ Its center is transparent, so it always sits on a white disc. Ask for an SVG exp
 | Leadership | `/leadership` | Current board by role, member wall (`#members`, opt-in dues payers for the current semester), advisors, "Lead with us" |
 | Alumni | `/alumni` | Spotlights, ways to get involved, supporters wall, reconnect form link |
 | Join / Contact | `/join` | Meetings, dues, email, Instagram |
+| Links | `/links` | Link-in-bio for Instagram: pay dues (Square), weekly email, next event, socials. No header/footer (`Layout bare`) |
 
 ## Rules
 - Mobile-first: write base styles for phones, add `min-width` media queries for larger screens.
