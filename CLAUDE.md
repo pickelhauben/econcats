@@ -3,7 +3,7 @@
 Website for the Economics Student Association (ESA, "EconCats") at the University of Arizona.
 ESA was formed by three organizations: EES ([EES FULL NAME]), WEC ([WEC FULL NAME]) and ODE (Omicron Delta Epsilon, ΟΔΕ).
 The logo reads "Arizona · EES · WEC · ΟΔΕ · Est. 2026 · Economics Student Association".
-Domain: econcats.org. Use "ESA" for the official name and "EconCats" as the site's voice and identity.
+Domain: econcats.com (registered at GoDaddy, DNS pointed to Vercel). Use "ESA" for the official name and "EconCats" as the site's voice and identity.
 
 ## Voice
 - ESA welcomes undergraduates, graduate students and faculty. Show this through who we describe at events, never with phrases like "we represent all undergraduates" or "open to everyone". Keep the tone confident and specific.
