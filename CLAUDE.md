@@ -55,8 +55,7 @@ Fonts: Fraunces (display serif), Inter (body). Style: clean, editorial, art-port
 Logo: `public/logo.png` (540×540, merged from the Canva PDF), used through `src/components/Logo.astro`.
 Its center is transparent, so it always sits on a white disc. Ask for an SVG export from Canva for sharper large sizes.
 Favicon (`public/favicon.png`), Apple touch icon and `og-image.png` use this logo; the old three-ring placeholder mark is retired.
-Heritage logos in `public/logos/`: `ees.png` (Eller Economics Society) and `wec.jpg` (Women in Economics Club), shown on the Home and About org cards.
-ODE has no logo file yet (it keeps the navy ring); get the official emblem from ODE International before adding one.
+Heritage logos in `public/logos/`: `ees.png` (Eller Economics Society), `wec.jpg` (Women in Economics Club) and `ode.png` (ODE key emblem, low-res source; swap in an official high-res file from ODE International when available), shown on the Home and About org cards.
 
 ## Site map
 | Page | Route | Content |
