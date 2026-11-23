@@ -8,15 +8,15 @@ import {
 } from '../lib/content';
 
 type Link = { text: string; href: string; external?: boolean; instagram?: boolean };
-const orgs: { id: OrgId; name: string; short: string; color: string; body: string; links: Link[]; showPresidents?: boolean }[] = [
+const orgs: { id: OrgId; name: string; short: string; color: string; logo?: string; body: string; links: Link[]; showPresidents?: boolean }[] = [
   {
-    id: 'ees', short: 'EES', name: 'Eller Economics Society', color: 'var(--esa-green)',
+    id: 'ees', short: 'EES', name: 'Eller Economics Society', color: 'var(--esa-green)', logo: '/logos/ees.png',
     body: 'Generations of economics students at Arizona have met through the economics society. In its most recent era it adopted a constitution on November 13, 2024, rebuilt its board and programming, and won the Eller Experience Award.',
     links: [],
     showPresidents: true,
   },
   {
-    id: 'wec', short: 'WEC', name: 'Women in Economics Club', color: 'var(--wec)',
+    id: 'wec', short: 'WEC', name: 'Women in Economics Club', color: 'var(--wec)', logo: '/logos/wec.jpg',
     body: 'Founded in fall 2018 by economics lecturer Erin Yetter to create a space for women in economics. Its first meeting, on April 9, 2019, drew more than 20 students from a range of majors. WEC grew through professional development workshops, community service and social events. Its women-only socials remain a permanent part of ESA.',
     links: [{ text: site.wecInstagramHandle, href: site.wecInstagram, instagram: true }],
   },
@@ -74,7 +74,9 @@ const orgColor: Record<OrgId, string> = {
           return (
             <article class="org" id={o.id} style={`--c:${o.color}; --c-ink:${o.color === 'var(--wec)' ? 'var(--wec-ink)' : o.color}`} aria-labelledby={`${o.id}-title`}>
               <header>
-                <span class="dot" aria-hidden="true"></span>
+                {o.logo
+                  ? <img class="org-logo" src={o.logo} width="56" height="56" alt={`${o.name} logo`} loading="lazy" decoding="async" />
+                  : <span class="dot" aria-hidden="true"></span>}
                 <span class="short">{o.short}</span>
                 <h3 id={`${o.id}-title`}>{o.name}</h3>
               </header>
@@ -184,6 +186,7 @@ const orgColor: Record<OrgId, string> = {
     padding: 28px 24px; display: grid; gap: 20px;
   }
   .org header { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .org-logo { display: block; width: 56px; height: 56px; border-radius: 50%; object-fit: cover; flex: 0 0 auto; }
   .dot { width: 14px; height: 14px; border-radius: 50%; background: var(--c); }
   .short { font-size: 13px; font-weight: 600; letter-spacing: .12em; color: var(--c-ink, var(--c)); }
   .org h3 { flex-basis: 100%; font-size: clamp(26px, 3vw, 34px); }
