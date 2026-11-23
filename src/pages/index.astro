@@ -21,7 +21,6 @@ const proof = [
   { value: 'Eller Experience Award', caption: 'Won as the Eller Economics Society', text: true },
   { value: '3', caption: 'student organizations, one association' },
   { value: '2026', caption: 'ODE Arizona Beta reactivated, first time since 2007' },
-  { value: '[19]', caption: 'ODE honor society members', text: true },
 ];
 
 type OrgLink = { text: string; href: string; external?: boolean; instagram?: boolean };
@@ -299,17 +298,15 @@ const pillars = pillarData.map((p) => ({ ...p, color: `var(--${p.color})` }));
 
   /* ---------- 2. Proof strip ---------- */
   .proof { border-bottom: 1px solid var(--rule); }
-  .proof ul { list-style: none; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; }
-  .proof li { padding: 28px 16px 28px 0; display: flex; flex-direction: column; gap: 6px; }
-  .proof li:nth-child(odd) { border-right: 1px solid var(--rule); }
-  .proof li:nth-child(even) { padding-left: 16px; }
-  .proof li:nth-child(-n + 2) { border-bottom: 1px solid var(--rule); }
+  .proof ul { list-style: none; margin: 0 auto; display: grid; grid-template-columns: 1fr; }
+  .proof li { padding: 24px 0; display: flex; flex-direction: column; gap: 6px; }
+  .proof li:not(:last-child) { border-bottom: 1px solid var(--rule); }
   .value { font-family: var(--serif); font-size: 36px; line-height: 1; color: var(--esa-green); }
   .value.text { font-size: 22px; line-height: 1.2; }
   .caption { font-size: 14px; color: var(--muted); line-height: 1.4; }
   @media (min-width: 900px) {
-    .proof ul { grid-template-columns: repeat(4, 1fr); }
-    .proof li, .proof li:nth-child(even) { padding: 36px 24px; border-bottom: 0; border-right: 1px solid var(--rule); }
+    .proof ul { grid-template-columns: repeat(3, 1fr); }
+    .proof li, .proof li:not(:last-child) { padding: 36px 24px; border-bottom: 0; border-right: 1px solid var(--rule); }
     .proof li:first-child { padding-left: 0; }
     .proof li:last-child { border-right: 0; }
     .value { font-size: 48px; }

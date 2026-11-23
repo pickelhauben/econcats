@@ -27,7 +27,7 @@ No contact forms that submit anywhere: links and copy buttons (`CopyEmail.astro`
 
 ## Facts to confirm before launch
 Shown on the site in [brackets] until confirmed:
-1. ODE member count ([19]) and "first time since 2007".
+1. ODE "first time since 2007". (Member count removed from the home page for now: 19 admitted, 11 in the first inducted class.)
 2. Permission from any alumni, supporters or members named on the site.
 Do not mention EpicHire anywhere on the site.
 
