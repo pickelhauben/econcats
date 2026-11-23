@@ -4,10 +4,14 @@ import EventCard from '../components/EventCard.astro';
 import Tag from '../components/Tag.astro';
 import { Image, getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-import { upcomingEvents, pastEventsBySemester, meetingsLine, type EventItem } from '../lib/content';
+import { upcomingEvents, pastEventsBySemester, meetingsLine, pastSpeakers, type EventItem } from '../lib/content';
 import { resolvePhoto } from '../lib/photos';
 
 const upcoming = upcomingEvents();
+const speakers = pastSpeakers();
+const speakerOrgs = new Set(speakers.map((s) => s.org)).size;
+const monthYear = (date: string) =>
+  new Date(`${date}T12:00:00`).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 const past = pastEventsBySemester();
 
 // Build each past event's gallery: optimized thumbnail + large version for the lightbox, with alt text.
@@ -88,6 +92,25 @@ const shortDate = (date: string) =>
   </section>
 
   <!-- 4. Past events -->
+  <!-- Speakers we've hosted -->
+  <section class="section" id="speakers">
+    <div class="wrap">
+      <p class="eyebrow">Speaker series</p>
+      <h2>Who's come to <em>talk</em></h2>
+      <p class="intro">Researchers, employers and public leaders from {speakerOrgs} organizations have spoken to EconCats.</p>
+      <ul class="speakers">
+        {speakers.map((s) => (
+          <li>
+            <span class="sp-date">{monthYear(s.date)}</span>
+            <span class="sp-org">{s.org}</span>
+            {s.speaker && <span class="sp-name">{s.speaker}</span>}
+            <span class="sp-topic">{s.topic}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
   <section class="section" id="past">
     <div class="wrap">
       <p class="eyebrow">Archive</p>
@@ -273,4 +296,14 @@ const shortDate = (date: string) =>
   .lb-next { right: 12px; top: 50%; transform: translateY(-50%); }
   .lb-prev[hidden], .lb-next[hidden] { display: none; }
   @media (prefers-reduced-motion: reduce) { .thumb :global(img) { transition: none; } }
+
+  .speakers { list-style: none; margin: 32px 0 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--rule); }
+  .speakers li { display: grid; gap: 4px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+  .sp-date { font-size: 13px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+  .sp-org { font-family: var(--serif); font-size: 22px; line-height: 1.2; color: var(--esa-green); }
+  .sp-name { font-weight: 600; }
+  .sp-topic { color: var(--muted); }
+  @media (min-width: 900px) {
+    .speakers { grid-template-columns: 1fr 1fr; column-gap: 48px; }
+  }
 </style>

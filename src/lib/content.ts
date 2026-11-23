@@ -15,6 +15,7 @@ import alumniJson from '../data/alumni.json';
 import supportersJson from '../data/supporters.json';
 import achievementsJson from '../data/achievements.json';
 import membersJson from '../data/members.json';
+import speakersJson from '../data/speakers.json';
 
 const [events, projects, boardData, advisorsData, alumniData, supporters, achievementsData, membersData] = await Promise.all([
   loadCollection('events', sources.events, eventsJson as unknown[], {
@@ -236,3 +237,10 @@ export const achievementsFor = (org: OrgId) =>
   (achievementsData as Achievement[]).filter((a) => a.org === org);
 export const presidentsFor = (org: OrgId) =>
   (presidentsData as President[]).filter((p) => p.org === org);
+
+
+/** Speakers and organizations ESA (and EES before it) has hosted, newest first. Static list in src/data/speakers.json. */
+export interface Speaker { date: string; org: string; speaker: string; topic: string }
+export function pastSpeakers(): Speaker[] {
+  return [...(speakersJson as Speaker[])].sort((a, b) => b.date.localeCompare(a.date));
+}
