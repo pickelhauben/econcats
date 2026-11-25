@@ -1,9 +1,12 @@
 {
+  "preorderUrl": "",
   "items": [
     {
       "id": "polo",
       "name": "The club polo",
-      "status": "Coming soon",
+      "status": "Preorder",
+      "stock": null,
+      "low": false,
       "blurb": "Our dress-for-the-speaker-event shirt, embroidered with the club mark. Made for meetings, career fairs and the ODE induction photo.",
       "detail": "[CONFIRM: polo uses the new ESA logo, sizes and colors]",
       "photo": "",
@@ -12,21 +15,24 @@
     {
       "id": "pin",
       "name": "The lapel pin",
-      "status": "Coming soon",
+      "status": "In stock",
+      "stock": null,
+      "low": true,
       "blurb": "Small enough for a blazer, a backpack strap or a lanyard. The quiet way to say you're an economics student.",
-      "detail": "[CONFIRM: pin design and how many are left]",
+      "detail": "",
       "photo": "",
       "photo_alt": "ESA lapel pin"
     },
     {
       "id": "stickers",
-      "name": "Sticker sheet",
-      "status": "Idea",
-      "blurb": "A few laptop stickers: the club mark, a supply-and-demand cross, and an EconCats cat with an invisible hand.",
-      "detail": "[CONFIRM: designs and whether to make them]",
+      "name": "Stickers",
+      "status": "In stock",
+      "stock": null,
+      "low": true,
+      "blurb": "For your laptop, water bottle or the back of your calculator.",
+      "detail": "[CONFIRM: sticker designs]",
       "photo": "",
-      "photo_alt": ""
+      "photo_alt": "ESA stickers"
     }
-  ],
-  "interestUrl": ""
+  ]
 }

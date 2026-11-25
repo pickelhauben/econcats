@@ -247,12 +247,15 @@ export function pastSpeakers(): Speaker[] {
 }
 
 // ---- Merch & keepsakes (/merch). Static JSON, not sheet-backed yet. ----
-export type MerchStatus = 'Available' | 'Coming soon' | 'Idea';
+// Board guide: "Merch page" in docs/updating-the-site.md.
+export type MerchStatus = 'In stock' | 'Preorder' | 'Idea';
 
 export interface MerchItem {
   id: string;
   name: string;
   status: MerchStatus;
+  stock?: number | null; // how many are left; null = not counted yet. 0 = sold out (preorder the next batch)
+  low?: boolean; // show "Running low"
   blurb: string;
   detail?: string; // facts still to confirm, in [brackets]
   photo?: string; // path under src/assets/photos/, e.g. "merch/polo.jpg"
@@ -263,5 +266,5 @@ export function allMerch(): MerchItem[] {
   return merchJson.items as MerchItem[];
 }
 
-/** Link to a merch interest form. Empty until the board decides how to take interest or sell. */
-export const merchInterestUrl: string = merchJson.interestUrl;
+/** Link the Preorder buttons open (e.g. a preorder form). Empty = buttons show "Preorder opens soon". */
+export const merchPreorderUrl: string = merchJson.preorderUrl;

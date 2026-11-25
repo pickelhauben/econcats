@@ -183,6 +183,22 @@ These need a small code change (ask whoever maintains the site):
 
 ---
 
+## Merch page (stock and preorders)
+
+The Merch page reads `src/data/merch.json` (not the sheet yet). Each item has:
+
+| Field | What to put |
+|---|---|
+| `status` | `In stock`, `Preorder` or `Idea` (ideas get no button) |
+| `stock` | How many are left, e.g. `12`. `null` = not counted. `0` shows "Sold out" and still offers preorder |
+| `low` | `true` shows "Running low" |
+| `photo` | A photo in `src/assets/photos/merch/`, e.g. `merch/pin.jpg`, with `photo_alt` describing it |
+
+`preorderUrl` at the top is the link every Preorder button opens. While it's empty, the buttons read "Preorder opens soon".
+Nothing on the site takes payment.
+
+---
+
 ## If something looks wrong
 
 - **Your change didn't show up:** wait for the 9 AM rebuild, or run it now (above). Check the tab was published (File → Share → Publish to web) and the row isn't marked `draft` = `TRUE`.

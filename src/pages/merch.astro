@@ -3,10 +3,19 @@ import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import SocialLink from '../components/SocialLink.astro';
 import site from '../data/site.json';
-import { allMerch, merchInterestUrl } from '../lib/content';
+import { allMerch, merchPreorderUrl } from '../lib/content';
 import { resolvePhoto } from '../lib/photos';
 
-const items = allMerch().map((m) => ({ ...m, img: resolvePhoto(m.photo) }));
+const items = allMerch().map((m) => {
+  const counted = typeof m.stock === 'number';
+  const soldOut = counted && m.stock === 0;
+  const stockLine = soldOut
+    ? 'Sold out. Preorder the next batch.'
+    : counted
+      ? `${m.stock} left${m.low ? ', running low' : ''}`
+      : m.low ? 'Running low' : '';
+  return { ...m, img: resolvePhoto(m.photo), stockLine, soldOut };
+});
 ---
 <Layout title="Merch" description="EconCats merch and keepsakes from the Economics Student Association: the club polo, the lapel pin and a few things worth keeping.">
 
@@ -46,19 +55,25 @@ const items = allMerch().map((m) => ({ ...m, img: resolvePhoto(m.photo) }));
               )}
           </div>
           <div class="body">
-            <span class={`chip chip-${m.status.toLowerCase().replace(' ', '-')}`}>{m.status}</span>
+            <span class={`chip chip-${(m.soldOut ? 'Sold out' : m.status).toLowerCase().replace(' ', '-')}`}>{m.soldOut ? 'Sold out' : m.status}</span>
             <h3>{m.name}</h3>
             <p>{m.blurb}</p>
             {m.detail && <p class="todo-line">{m.detail}</p>}
+            <div class="buy">
+              {m.stockLine && <p class={`stock${m.low || m.soldOut ? ' stock-low' : ''}`}>{m.stockLine}</p>}
+              {m.status !== 'Idea' && (merchPreorderUrl
+                ? <a class="btn primary" href={merchPreorderUrl} target="_blank" rel="noopener noreferrer">Preorder<span class="sr-only"> {m.name} (opens in a new tab)</span> <span aria-hidden="true">↗</span></a>
+                : <span class="btn pending" aria-disabled="true">Preorder opens soon</span>)}
+            </div>
           </div>
         </li>
       ))}
     </ul>
 
     <div class="interest">
-      {merchInterestUrl
-        ? <a class="btn primary" href={merchInterestUrl} target="_blank" rel="noopener noreferrer">Tell us what you'd wear <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
-        : <p class="soon">Nothing is for sale yet. <span class="todo-line">[INTEREST FORM OR SHOP LINK, once the board decides how to sell]</span> Until then, follow <SocialLink href={site.instagram} label={site.instagramHandle} /> for the first drop.</p>}
+      <p class="soon">{merchPreorderUrl
+        ? 'Preorders tell us what to make and how many.'
+        : 'Preorders open soon.'} <span class="todo-line">{merchPreorderUrl ? '[CONFIRM: pickup and payment details]' : '[PREORDER FORM LINK]'}</span> Follow <SocialLink href={site.instagram} label={site.instagramHandle} /> for each new drop.</p>
     </div>
   </section>
 
@@ -158,12 +173,19 @@ const items = allMerch().map((m) => ({ ...m, img: resolvePhoto(m.photo) }));
   .ph path, .ph circle, .ph rect { fill: var(--white); stroke: var(--esa-green); stroke-width: 2.5; stroke-linejoin: round; }
   .ph .line { fill: none; stroke: var(--cyan); }
   .ph .mark { fill: var(--esa-green); stroke: none; }
-  .body { padding: 20px 20px 24px; }
+  .body { padding: 20px 20px 24px; display: flex; flex-direction: column; flex: 1; }
+  .buy { margin-top: auto; padding-top: 12px; display: grid; gap: 10px; justify-items: start; }
+  .stock { margin: 0; font-size: 14px; color: var(--muted); }
+  .stock-low { color: var(--esa-green); font-weight: 600; }
+  .buy .btn { min-height: 44px; }
+  .btn.pending { border-style: dashed; color: var(--muted); border-color: var(--rule); cursor: default; }
+  .btn.pending:hover { background: transparent; color: var(--muted); }
   .body h3 { margin: 12px 0 8px; }
   .body p { margin: 0 0 8px; }
   .chip { display: inline-block; font-size: 12px; font-weight: 500; line-height: 1; padding: 5px 10px; border-radius: 999px; }
-  .chip-available { background: var(--esa-green); color: var(--white); }
-  .chip-coming-soon { background: color-mix(in srgb, var(--cyan) 18%, var(--white)); color: var(--deep); }
+  .chip-in-stock { background: var(--esa-green); color: var(--white); }
+  .chip-preorder { background: color-mix(in srgb, var(--cyan) 18%, var(--white)); color: var(--deep); }
+  .chip-sold-out { background: var(--deep); color: var(--white); }
   .chip-idea { border: 1px solid var(--rule); color: var(--muted); }
   .interest { margin-top: 32px; }
   .soon { margin: 0; max-width: 40em; }
