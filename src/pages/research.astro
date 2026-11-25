@@ -1,0 +1,284 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CopyEmail from '../components/CopyEmail.astro';
+import site from '../data/site.json';
+import { featuredResearch, modelsInProgress, memberResearch, modelStages } from '../lib/content';
+
+const featured = featuredResearch();
+const models = modelsInProgress();
+const members = memberResearch();
+
+const submitSteps = [
+  {
+    title: 'Pick your work',
+    body: 'A class paper, an independent study, a data project, or a model or theorem you are still working out. Unfinished is fine.',
+  },
+  {
+    title: 'Email us an abstract',
+    body: 'One paragraph on your question and what you found, plus a link or PDF. Use the subject line "Research showcase: your title".',
+  },
+  {
+    title: 'We review it with you',
+    body: 'The VP of Academic Programs reads it, asks questions if needed, and confirms how you want it shown before anything goes up.',
+  },
+];
+---
+<Layout title="Research" description="Research by economics students at the University of Arizona: papers, case studies, and models and theorems in progress.">
+
+  <!-- 1. Intro -->
+  <section class="page-intro wrap">
+    <p class="eyebrow">Research</p>
+    <h1>What we're <em>studying.</em></h1>
+    <p class="lede">Papers, case studies, and the models and theorems our members are still working out. Economics is something you do, not only something you take.</p>
+    <nav class="jump" aria-label="On this page">
+      <a href="#featured">Featured research</a>
+      <a href="#models">Models in progress</a>
+      <a href="#members">Member projects</a>
+      <a href="#submit">Share your work</a>
+    </nav>
+  </section>
+
+  <!-- 2. Featured research -->
+  <section class="section tint" id="featured" aria-labelledby="featured-title">
+    <div class="wrap">
+      <p class="eyebrow">Featured research</p>
+      <h2 id="featured-title">Recent <em>work</em></h2>
+      <div class="papers">
+        {featured.map((r) => (
+          <article class="paper" id={r.id} aria-labelledby={`${r.id}-title`}>
+            <div class="paper-meta">
+              <span class:list={['status', r.status === 'Complete' ? 'done' : 'wip']}>{r.status}</span>
+              <span class="field">{r.field}</span>
+              <span class="year">{r.year}</span>
+            </div>
+            <h3 id={`${r.id}-title`}>{r.title}</h3>
+            <p class="authors">{r.authors}</p>
+            <p class="question"><span class="label">Question</span>{r.question}</p>
+            <p class="summary">{r.summary}</p>
+            {r.findings.length > 0 && (
+              <>
+                <h4>Findings</h4>
+                <ul class="findings">
+                  {r.findings.map((f) => <li>{f}</li>)}
+                </ul>
+              </>
+            )}
+            {r.sources && <p class="sources"><span class="label">Data</span>{r.sources}</p>}
+            {r.link && (
+              <a class="btn" href={r.link} target="_blank" rel="noopener noreferrer">
+                Read the paper <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span>
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Models and theorems in progress -->
+  <section class="section" id="models" aria-labelledby="models-title">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <p class="eyebrow">Models and theorems</p>
+          <h2 id="models-title">Still being <em>worked out</em></h2>
+        </div>
+        <p class="intro-copy">Ideas at every stage, from a first question to a claim ready to defend. Each one names its question, its working claim and the lenses it borrows from economics and beyond.</p>
+      </div>
+
+      <ol class="stages" aria-label="Stages">
+        {modelStages.map((s) => <li>{s}</li>)}
+      </ol>
+
+      <ul class="models">
+        {models.map((m) => (
+          <li class="model" id={m.id}>
+            <div class="model-top">
+              <span class="stage" data-stage={m.stage}>{m.stage}</span>
+              <span class="author">{m.author}</span>
+            </div>
+            <h3>{m.title}</h3>
+            <p class="question"><span class="label">Question</span>{m.question}</p>
+            <p class="claim"><span class="label">Working claim</span>{m.claim}</p>
+            <ul class="lenses" aria-label="Lenses">
+              {m.lenses.map((l) => <li>{l}</li>)}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 4. Member projects -->
+  <section class="section tint" id="members" aria-labelledby="members-title">
+    <div class="wrap">
+      <p class="eyebrow">Member projects</p>
+      <h2 id="members-title">From our <em>members</em></h2>
+      {members.length > 0 ? (
+        <ul class="member-list">
+          {members.map((r) => (
+            <li class="member-card">
+              <span class="field">{r.field}</span>
+              <h3>{r.title}</h3>
+              <p class="authors">{r.authors}</p>
+              <p>{r.question}</p>
+              {r.link && <a class="link" href={r.link} target="_blank" rel="noopener noreferrer">Read it <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>}
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div class="empty">
+          <p><strong>No member projects yet.</strong> Yours could be the first one here.</p>
+          <a class="btn primary" href="#submit">Share your work <span aria-hidden="true">↓</span></a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- 5. How to share your work -->
+  <section class="section" id="submit" aria-labelledby="submit-title">
+    <div class="wrap">
+      <p class="eyebrow">Share your work</p>
+      <h2 id="submit-title">Three <em>steps</em></h2>
+      <ol class="steps">
+        {submitSteps.map((s, i) => (
+          <li>
+            <span class="num" aria-hidden="true">{i + 1}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="send">
+        <p>Send it to</p>
+        <CopyEmail />
+      </div>
+      <ul class="rules">
+        <li>Share only your own work. Every co-author has to agree before it goes up.</li>
+        <li>Class papers are welcome. Check with your professor first if the assignment has rules about sharing.</li>
+        <li>You can ask us to take your work down at any time.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6. Coming later -->
+  <section class="later">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Coming later</p>
+        <h2>A research <em>competition</em></h2>
+      </div>
+      <p>We're exploring a member research competition, judged on the quality of the research. Nothing is set yet. Follow <a href={site.instagram} target="_blank" rel="noopener noreferrer">{site.instagramHandle}<span class="sr-only"> (opens in a new tab)</span></a> to hear first.</p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  h2 { margin-top: 16px; }
+  .tint { background: var(--paper); }
+  [id] { scroll-margin-top: calc(var(--header-h) + 16px); }
+  .page-intro .lede { margin-top: 24px; }
+  .label {
+    display: block; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 4px;
+  }
+
+  /* Jump links */
+  .jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+  .jump a {
+    display: inline-flex; align-items: center; min-height: 44px; padding: 8px 18px;
+    border: 1px solid var(--rule); border-radius: 999px; font-size: 14px; color: var(--muted); text-decoration: none;
+  }
+  .jump a:hover { border-color: var(--ink); color: var(--ink); }
+
+  /* Featured research */
+  .papers { display: grid; gap: 24px; margin-top: 40px; }
+  .paper {
+    background: var(--white); border: 1px solid var(--rule); border-top: 4px solid var(--esa-green);
+    border-radius: 6px; padding: 24px; display: flex; flex-direction: column; gap: 12px;
+  }
+  .paper-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; font-size: 13px; color: var(--muted); }
+  .status { font-size: 12px; font-weight: 500; line-height: 1; padding: 5px 10px; border-radius: 999px; }
+  .status.done { background: var(--esa-green); color: var(--white); }
+  .status.wip { background: color-mix(in srgb, var(--cyan) 18%, var(--white)); color: var(--deep); }
+  .field { text-transform: uppercase; letter-spacing: .08em; font-size: 12px; font-weight: 500; color: var(--muted); }
+  .paper h3 { font-size: clamp(24px, 3vw, 32px); }
+  .authors { margin: 0; font-size: 15px; font-weight: 500; }
+  .paper .question { margin: 8px 0 0; font-family: var(--serif); font-size: 20px; line-height: 1.35; }
+  .summary { margin: 0; color: var(--muted); max-width: 42em; }
+  .paper h4 { margin: 8px 0 0; font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+  .findings { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--rule); }
+  .findings li { padding: 12px 0 12px 24px; border-bottom: 1px solid var(--rule); position: relative; }
+  .findings li::before { content: ""; position: absolute; left: 0; top: 21px; width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--esa-green); }
+  .sources { margin: 0; font-size: 14px; color: var(--muted); }
+  .paper .btn { align-self: flex-start; margin-top: 8px; }
+  @media (min-width: 768px) { .paper { padding: 40px; } }
+  @media (min-width: 1000px) { .papers { grid-template-columns: 1.4fr 1fr; align-items: start; } }
+
+  /* Models */
+  .split { display: grid; gap: 24px; }
+  .intro-copy { margin: 0; color: var(--muted); font-size: 18px; max-width: 32em; }
+  @media (min-width: 900px) { .split { grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: end; } }
+
+  .stages { list-style: none; margin: 40px 0 24px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; font-size: 13px; color: var(--muted); }
+  .stages li { display: inline-flex; align-items: center; gap: 8px; }
+  .stages li:not(:last-child)::after { content: "→"; }
+
+  .models { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  .model {
+    border: 1px solid var(--rule); border-radius: 6px; padding: 24px;
+    display: flex; flex-direction: column; gap: 12px; background: var(--white);
+  }
+  .model-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 13px; color: var(--muted); }
+  .stage { font-size: 12px; font-weight: 500; line-height: 1; padding: 5px 10px; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted); }
+  .stage[data-stage='Drafted'] { border-color: var(--cyan); color: var(--deep); }
+  .stage[data-stage='Tested'] { background: color-mix(in srgb, var(--cyan) 18%, var(--white)); border-color: transparent; color: var(--deep); }
+  .stage[data-stage='Ready to share'] { background: var(--esa-green); border-color: var(--esa-green); color: var(--white); }
+  .model h3 { font-size: 26px; }
+  .model p { margin: 0; }
+  .model .question { font-family: var(--serif); font-size: 19px; line-height: 1.35; }
+  .model .claim { color: var(--muted); font-size: 15px; }
+  .lenses { list-style: none; margin: auto 0 0; padding: 8px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .lenses li { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--paper); color: var(--deep); }
+  @media (min-width: 640px) { .models { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .models { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+
+  /* Member projects */
+  .member-list { list-style: none; margin: 40px 0 0; padding: 0; display: grid; gap: 16px; }
+  .member-card { background: var(--white); border: 1px solid var(--rule); border-radius: 6px; padding: 24px; display: flex; flex-direction: column; gap: 8px; }
+  .member-card p { margin: 0; color: var(--muted); }
+  @media (min-width: 640px) { .member-list { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .member-list { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+  .empty {
+    margin-top: 40px; border: 1px dashed var(--rule); border-radius: 6px; padding: 32px 24px;
+    display: flex; flex-direction: column; align-items: flex-start; gap: 16px; background: var(--white);
+  }
+  .empty p { margin: 0; font-size: 18px; }
+
+  /* Submit */
+  .steps { list-style: none; margin: 40px 0 0; padding: 0; display: grid; gap: 16px; }
+  .steps li { border: 1px solid var(--rule); border-radius: 6px; padding: 24px; display: flex; flex-direction: column; gap: 8px; }
+  .num {
+    display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%;
+    border: 3px solid var(--esa-green); color: var(--esa-green);
+    font-family: var(--serif); font-size: 22px; margin-bottom: 8px;
+  }
+  .steps li:nth-child(2) .num { border-color: var(--cyan); color: var(--deep); }
+  .steps li:nth-child(3) .num { border-color: var(--navy); color: var(--navy); }
+  .steps h3 { font-size: 24px; }
+  .steps p { margin: 0; color: var(--muted); }
+  @media (min-width: 900px) { .steps { grid-template-columns: repeat(3, 1fr); gap: 32px; } }
+  .send { margin-top: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; font-size: 18px; }
+  .send p { margin: 0; color: var(--muted); }
+  .rules { margin: 24px 0 0; padding-left: 20px; color: var(--muted); font-size: 15px; max-width: 40em; }
+  .rules li + li { margin-top: 6px; }
+
+  /* Coming later */
+  .later { background: var(--deep); color: var(--white); padding: 64px 0; }
+  .later .eyebrow { color: rgba(255, 255, 255, .9); }
+  .later em { color: var(--mint); }
+  .later .split > p { margin: 0; font-size: 19px; color: rgba(255, 255, 255, .85); max-width: 30em; }
+  .later a { color: var(--white); text-decoration-color: var(--mint); text-underline-offset: 4px; }
+  @media (min-width: 768px) { .later { padding: 96px 0; } }
+</style>

@@ -64,6 +64,7 @@ Heritage logos in `public/logos/`: `ees.png` (Eller Economics Society), `wec.jpg
 | About | `/about` | Mission, the merger story, heritage (`#heritage`, `#ees`, `#wec`) |
 | Activities | `/activities` | Upcoming and past events, photo gallery |
 | Projects | `/projects` | ODE chapter, exam reviews, mentorship, alumni campaign, discussion series |
+| Research | `/research` | Featured research, models and theorems in progress, member projects, how to share your work (email only), research competition teaser. Data: `src/data/research.json` |
 | Leadership | `/leadership` | Current board by role, member wall (`#members`, opt-in dues payers for the current semester), advisors, "Lead with us" |
 | Alumni | `/alumni` | Spotlights, ways to get involved, supporters wall, reconnect form link |
 | Join / Contact | `/join` | Meetings, dues, email, Instagram |

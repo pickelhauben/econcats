@@ -244,3 +244,47 @@ export interface Speaker { date: string; org: string; speaker: string; topic: st
 export function pastSpeakers(): Speaker[] {
   return [...(speakersJson as Speaker[])].sort((a, b) => b.date.localeCompare(a.date));
 }
+
+// ---------------------------------------------------------------------------
+// Research showcase (/research). Local JSON for now: src/data/research.json.
+// Only list work whose authors have agreed to have it on the site.
+import researchJson from '../data/research.json';
+
+export type ResearchStatus = 'Complete' | 'In progress';
+/** Where a model or theorem stands, from first question to ready to share. */
+export type ModelStage = 'Question' | 'Drafted' | 'Tested' | 'Ready to share' | 'Parked';
+export const modelStages: ModelStage[] = ['Question', 'Drafted', 'Tested', 'Ready to share'];
+
+export interface ResearchItem {
+  id: string;
+  title: string;
+  authors: string;
+  status: ResearchStatus;
+  field: string;
+  year: string;
+  question: string;
+  summary: string;
+  findings: string[];
+  sources: string;
+  link: string;
+}
+
+export interface ModelItem {
+  id: string;
+  title: string;
+  author: string;
+  stage: ModelStage;
+  lenses: string[];
+  question: string;
+  claim: string;
+}
+
+export function featuredResearch(): ResearchItem[] {
+  return researchJson.featured as ResearchItem[];
+}
+export function modelsInProgress(): ModelItem[] {
+  return (researchJson.models as ModelItem[]).filter((m) => m.stage !== 'Parked');
+}
+export function memberResearch(): ResearchItem[] {
+  return researchJson.members as ResearchItem[];
+}

@@ -1,0 +1,64 @@
+{
+  "featured": [
+    {
+      "id": "michigan-highways",
+      "title": "The Political Economy of Highway Construction in Michigan during the Great Depression, 1929–1940",
+      "authors": "Lawrence Zhang [confirm co-authors]",
+      "status": "Complete",
+      "field": "Economic history",
+      "year": "2026",
+      "question": "How did Michigan keep building roads when the Depression wiped out the auto-sector tax base that paid for them?",
+      "summary": "Michigan funded its highways with consumption taxes tied to the auto industry, so the Depression hit its road program through every channel that industry touched. The paper traces the collapse of that financing model, the politics under Governors Comstock and Murphy, and the federal New Deal programs. Where federal aid came, roads were built; where it was delayed, construction fell.",
+      "findings": [
+        "Real construction spending peaked in 1932, not 1936.",
+        "WPA labor in 1934–35 built the cheapest roads per mile of the decade.",
+        "Non-tax charges in 1937–39 nearly matched federal grants, yet they are missing from the literature."
+      ],
+      "sources": "U.S. Bureau of the Census, State Financial Statistics 1929–1940; Census of Governments 1932; Michigan State Highway Department Biennial Reports; Ford Motor Company production records",
+      "link": ""
+    },
+    {
+      "id": "uranium-cartel",
+      "title": "The 1970s uranium cartel and the Westinghouse case",
+      "authors": "Lawrence Zhang",
+      "status": "In progress",
+      "field": "Antitrust and industrial organization",
+      "year": "2026",
+      "question": "How did an international uranium cartel form in the 1970s, and what did the Westinghouse litigation reveal about antitrust across borders?",
+      "summary": "[One or two sentences on the argument, once the case study is finished.]",
+      "findings": [],
+      "sources": "",
+      "link": ""
+    }
+  ],
+  "models": [
+    {
+      "id": "four-baselines",
+      "title": "Four baselines, three steps",
+      "author": "Lawrence Zhang",
+      "stage": "Tested",
+      "lenses": ["Strategy", "Organizational economics"],
+      "question": "How should a small organization decide where to grow next?",
+      "claim": "Measure four baselines: current reality, optimized potential, the market standard and the vision. Then move in three steps: close the gap to optimized, reach the market standard, and innovate past it."
+    },
+    {
+      "id": "small-institutions",
+      "title": "Organize small before you scale",
+      "author": "Lawrence Zhang",
+      "stage": "Question",
+      "lenses": ["Institutional economics", "Philosophy"],
+      "question": "What is the best way to organize a small organization, and what carries over when you scale it to a society?",
+      "claim": "Before designing for a whole society, find what makes small institutions work, building on Elinor Ostrom's study of self-governing institutions."
+    },
+    {
+      "id": "merit-allocation",
+      "title": "A structural critique of merit-based allocation",
+      "author": "Lawrence Zhang",
+      "stage": "Question",
+      "lenses": ["Welfare economics", "Philosophy"],
+      "question": "When resources are allocated by merit, what does the system reward, and what does it miss?",
+      "claim": "[Working claim to come.]"
+    }
+  ],
+  "members": []
+}
