@@ -250,7 +250,7 @@ export function pastSpeakers(): Speaker[] {
 // Only list work whose authors have agreed to have it on the site.
 import researchJson from '../data/research.json';
 
-export type ResearchStatus = 'Complete' | 'In progress';
+export type ResearchStatus = 'Complete' | 'In revision' | 'In progress';
 /** Where a model or theorem stands, from first question to ready to share. */
 export type ModelStage = 'Question' | 'Drafted' | 'Tested' | 'Ready to share' | 'Parked';
 export const modelStages: ModelStage[] = ['Question', 'Drafted', 'Tested', 'Ready to share'];
