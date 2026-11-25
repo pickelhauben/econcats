@@ -16,6 +16,7 @@ import supportersJson from '../data/supporters.json';
 import achievementsJson from '../data/achievements.json';
 import membersJson from '../data/members.json';
 import speakersJson from '../data/speakers.json';
+import merchJson from '../data/merch.json';
 
 const [events, projects, boardData, advisorsData, alumniData, supporters, achievementsData, membersData] = await Promise.all([
   loadCollection('events', sources.events, eventsJson as unknown[], {
@@ -244,3 +245,23 @@ export interface Speaker { date: string; org: string; speaker: string; topic: st
 export function pastSpeakers(): Speaker[] {
   return [...(speakersJson as Speaker[])].sort((a, b) => b.date.localeCompare(a.date));
 }
+
+// ---- Merch & keepsakes (/merch). Static JSON, not sheet-backed yet. ----
+export type MerchStatus = 'Available' | 'Coming soon' | 'Idea';
+
+export interface MerchItem {
+  id: string;
+  name: string;
+  status: MerchStatus;
+  blurb: string;
+  detail?: string; // facts still to confirm, in [brackets]
+  photo?: string; // path under src/assets/photos/, e.g. "merch/polo.jpg"
+  photo_alt?: string;
+}
+
+export function allMerch(): MerchItem[] {
+  return merchJson.items as MerchItem[];
+}
+
+/** Link to a merch interest form. Empty until the board decides how to take interest or sell. */
+export const merchInterestUrl: string = merchJson.interestUrl;

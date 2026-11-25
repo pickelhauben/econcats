@@ -1,0 +1,203 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import SocialLink from '../components/SocialLink.astro';
+import site from '../data/site.json';
+import { allMerch, merchInterestUrl } from '../lib/content';
+import { resolvePhoto } from '../lib/photos';
+
+const items = allMerch().map((m) => ({ ...m, img: resolvePhoto(m.photo) }));
+---
+<Layout title="Merch" description="EconCats merch and keepsakes from the Economics Student Association: the club polo, the lapel pin and a few things worth keeping.">
+
+  <!-- 1. Intro -->
+  <section class="page-intro wrap">
+    <p class="eyebrow">Merch &amp; keepsakes</p>
+    <h1>Things worth <em>keeping.</em></h1>
+    <p class="lede">Not swag that ends up in a drawer. A few well-made pieces that mark the years you spent with ESA, and still mean something after you graduate.</p>
+  </section>
+
+  <!-- 2. The collection -->
+  <section class="wrap collection" aria-labelledby="collection-title">
+    <h2 id="collection-title" class="sr-only">The collection</h2>
+    <ul class="items">
+      {items.map((m) => (
+        <li class="item" id={m.id}>
+          <div class="art">
+            {m.img
+              ? <Image src={m.img} alt={m.photo_alt ?? ''} widths={[400, 800]} sizes="(min-width: 1000px) 360px, (min-width: 640px) 45vw, 100vw" />
+              : (
+                <svg viewBox="0 0 120 120" aria-hidden="true" class={`ph ph-${m.id}`}>
+                  {m.id === 'polo' && <>
+                    <path d="M42 22 L28 28 L14 46 L26 56 L34 48 L34 100 L86 100 L86 48 L94 56 L106 46 L92 28 L78 22 L70 30 L60 34 L50 30 Z" />
+                    <path d="M50 30 L60 46 L70 30" class="line" />
+                    <circle cx="74" cy="54" r="5" class="mark" />
+                  </>}
+                  {m.id === 'pin' && <>
+                    <circle cx="60" cy="60" r="34" />
+                    <circle cx="60" cy="60" r="24" class="line" />
+                    <circle cx="60" cy="60" r="14" class="mark" />
+                  </>}
+                  {m.id === 'stickers' && <>
+                    <rect x="20" y="20" width="80" height="80" rx="10" />
+                    <path d="M34 40 L86 84 M34 84 L86 40" class="line" />
+                  </>}
+                </svg>
+              )}
+          </div>
+          <div class="body">
+            <span class={`chip chip-${m.status.toLowerCase().replace(' ', '-')}`}>{m.status}</span>
+            <h3>{m.name}</h3>
+            <p>{m.blurb}</p>
+            {m.detail && <p class="todo-line">{m.detail}</p>}
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <div class="interest">
+      {merchInterestUrl
+        ? <a class="btn primary" href={merchInterestUrl} target="_blank" rel="noopener noreferrer">Tell us what you'd wear <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+        : <p class="soon">Nothing is for sale yet. <span class="todo-line">[INTEREST FORM OR SHOP LINK, once the board decides how to sell]</span> Until then, follow <SocialLink href={site.instagram} label={site.instagramHandle} /> for the first drop.</p>}
+    </div>
+  </section>
+
+  <!-- 3. The year pin -->
+  <section class="section tint" id="year-pin" aria-labelledby="year-pin-title">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Idea · The year pin</p>
+        <h2 id="year-pin-title">One pin a year. <em>Never reprinted.</em></h2>
+        <p>Each academic year gets its own pin, in a new color, given to that year's members. When the year ends, the design is retired. Four years in ESA leaves you with four pins, and nobody else has your set.</p>
+        <p>That's the whole economics of a keepsake: hold supply fixed and let the value come from who was there. Drag the slider to see it.</p>
+        <p class="todo-line">[CONFIRM: whether to do this, and how many to make each year]</p>
+      </div>
+
+      <figure class="market" aria-labelledby="market-cap">
+        <svg viewBox="0 0 320 240" role="img" aria-labelledby="market-desc">
+          <desc id="market-desc">A supply and demand graph. Supply is a fixed vertical line; as demand shifts right, the price where they cross rises.</desc>
+          <line x1="40" y1="20" x2="40" y2="200" class="axis" />
+          <line x1="40" y1="200" x2="300" y2="200" class="axis" />
+          <text x="14" y="28" class="lbl">P</text>
+          <text x="292" y="220" class="lbl">Q</text>
+          <line x1="170" y1="20" x2="170" y2="200" class="supply" />
+          <text x="176" y="34" class="lbl s">Supply: fixed</text>
+          <line id="demand" x1="40" y1="60" x2="230" y2="200" class="demand" />
+          <text id="demand-lbl" x="210" y="190" class="lbl d">Demand</text>
+          <line id="price-line" x1="40" y1="0" x2="170" y2="0" class="guide" />
+          <circle id="eq" cx="170" cy="0" r="6" class="eq" />
+        </svg>
+        <label class="slider">
+          <span>How many people want this year's pin</span>
+          <input id="demand-range" type="range" min="0" max="100" value="20" />
+        </label>
+        <figcaption id="market-cap"><span id="market-read">Price stays low.</span> <span class="small">An illustration, not a price list.</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 4. The EconCats economy -->
+  <section class="section" id="economy" aria-labelledby="economy-title">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Idea · The EconCats economy</p>
+        <h2 id="economy-title">Merch you <em>earn,</em> not just buy.</h2>
+      </div>
+      <div>
+        <p class="lead-p">A club economy with its own currency, <span class="todo-line">[POINTS NAME]</span>. Members earn it by showing up and helping out, then spend it.</p>
+        <ol class="flow">
+          <li><strong>Earn</strong> at meetings, exam reviews, events and by volunteering.</li>
+          <li><strong>Spend</strong> on merch, or save up for the pieces that are hard to get.</li>
+          <li><strong>Vote</strong> with it on what ESA does next: speakers, socials, the next design.</li>
+        </ol>
+        <p class="todo-line">[CONFIRM: earning rules, what points buy, and when it starts]</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const range = document.getElementById('demand-range') as HTMLInputElement | null;
+  const demand = document.getElementById('demand');
+  const lbl = document.getElementById('demand-lbl');
+  const priceLine = document.getElementById('price-line');
+  const eq = document.getElementById('eq');
+  const read = document.getElementById('market-read');
+  // Demand is a straight line from (40, y0) to (40 + 190, 200), shifted right by s.
+  function draw() {
+    if (!range || !demand || !lbl || !priceLine || !eq || !read) return;
+    const v = Number(range.value);
+    const s = v * 0.9; // shift in px
+    const x1 = 40, y1 = 60 - s * 0.4, x2 = 230 + s, y2 = 200;
+    demand.setAttribute('x1', String(x1)); demand.setAttribute('y1', String(Math.max(20, y1)));
+    demand.setAttribute('x2', String(Math.min(300, x2))); demand.setAttribute('y2', String(y2));
+    lbl.setAttribute('x', String(Math.min(250, x2 - 30)));
+    // Where demand crosses x = 170
+    const t = (170 - x1) / (x2 - x1);
+    const y = Math.max(20, y1) + t * (y2 - Math.max(20, y1));
+    priceLine.setAttribute('y1', String(y)); priceLine.setAttribute('y2', String(y));
+    eq.setAttribute('cy', String(y));
+    read.textContent = v < 34 ? 'Price stays low.' : v < 67 ? 'More people want one; the same number exist. The price climbs.' : 'Everyone wants this year’s pin. Supply can’t move, so value does.';
+  }
+  range?.addEventListener('input', draw);
+  draw();
+</script>
+
+<style>
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .page-intro .lede { margin-top: 24px; }
+  .todo-line { color: var(--muted); font-size: 14px; font-style: italic; }
+
+  /* Collection */
+  .collection { padding-bottom: 64px; }
+  .items { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+  .item { border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; scroll-margin-top: var(--header-h); }
+  .art { background: var(--paper); aspect-ratio: 4 / 3; display: grid; place-items: center; }
+  .art img { width: 100%; height: 100%; object-fit: cover; }
+  .ph { width: 45%; height: auto; }
+  .ph path, .ph circle, .ph rect { fill: var(--white); stroke: var(--esa-green); stroke-width: 2.5; stroke-linejoin: round; }
+  .ph .line { fill: none; stroke: var(--cyan); }
+  .ph .mark { fill: var(--esa-green); stroke: none; }
+  .body { padding: 20px 20px 24px; }
+  .body h3 { margin: 12px 0 8px; }
+  .body p { margin: 0 0 8px; }
+  .chip { display: inline-block; font-size: 12px; font-weight: 500; line-height: 1; padding: 5px 10px; border-radius: 999px; }
+  .chip-available { background: var(--esa-green); color: var(--white); }
+  .chip-coming-soon { background: color-mix(in srgb, var(--cyan) 18%, var(--white)); color: var(--deep); }
+  .chip-idea { border: 1px solid var(--rule); color: var(--muted); }
+  .interest { margin-top: 32px; }
+  .soon { margin: 0; max-width: 40em; }
+  .soon :global(.social) { vertical-align: bottom; min-height: 0; color: var(--esa-green); font-weight: 500; }
+  @media (min-width: 640px) { .items { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .items { grid-template-columns: repeat(3, 1fr); gap: 24px; } }
+  @media (min-width: 768px) { .collection { padding-bottom: 96px; } }
+
+  /* Shared two-column sections */
+  .tint { background: var(--paper); }
+  .split { display: grid; gap: 32px; }
+  .split h2 { margin: 16px 0 20px; }
+  .split p { max-width: 36em; }
+  @media (min-width: 900px) { .split { grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; } }
+
+  /* Year-pin market */
+  .market { margin: 0; background: var(--white); border: 1px solid var(--rule); border-radius: 8px; padding: 16px; }
+  .market svg { width: 100%; height: auto; display: block; }
+  .axis { stroke: var(--ink); stroke-width: 1.5; }
+  .supply { stroke: var(--navy); stroke-width: 3; }
+  .demand { stroke: var(--esa-green); stroke-width: 3; }
+  .guide { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 4 4; }
+  .eq { fill: var(--cyan); }
+  .lbl { font: 500 12px var(--sans); fill: var(--muted); }
+  .lbl.s { fill: var(--navy); }
+  .lbl.d { fill: var(--esa-green); }
+  .slider { display: grid; gap: 8px; margin-top: 12px; font-size: 14px; color: var(--muted); }
+  .slider input { width: 100%; min-height: 44px; accent-color: var(--esa-green); }
+  figcaption { margin-top: 8px; font-size: 15px; min-height: 3em; }
+  figcaption .small { display: block; font-size: 12px; color: var(--muted); }
+
+  /* Economy */
+  .lead-p { font-size: clamp(17px, 1.6vw, 20px); margin-top: 0; }
+  .flow { margin: 0 0 16px; padding: 0; list-style: none; counter-reset: f; border-top: 1px solid var(--rule); }
+  .flow li { counter-increment: f; padding: 14px 0 14px 44px; border-bottom: 1px solid var(--rule); position: relative; }
+  .flow li::before { content: counter(f); position: absolute; left: 0; top: 10px; font-family: var(--serif); font-size: 26px; color: var(--esa-green); }
+</style>

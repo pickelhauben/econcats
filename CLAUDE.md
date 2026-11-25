@@ -66,6 +66,7 @@ Heritage logos in `public/logos/`: `ees.png` (Eller Economics Society), `wec.jpg
 | Projects | `/projects` | ODE chapter, exam reviews, mentorship, alumni campaign, discussion series |
 | Leadership | `/leadership` | Current board by role, member wall (`#members`, opt-in dues payers for the current semester), advisors, "Lead with us" |
 | Alumni | `/alumni` | Spotlights, ways to get involved, supporters wall, reconnect form link |
+| Merch | `/merch` | Merch & keepsakes from `src/data/merch.json`: items with status chips, year-pin idea with a supply/demand slider, EconCats points idea. Nothing for sale: `interestUrl` stays empty until the board decides how to sell |
 | Join / Contact | `/join` | Meetings, dues, email, Instagram |
 | Links | `/links` | Link-in-bio for Instagram: pay dues (Square), weekly email, next event, socials. No header/footer (`Layout bare`) |
 
