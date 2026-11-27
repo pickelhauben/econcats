@@ -1,0 +1,197 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout
+  title="Speed and the Floor"
+  description="A model of what social order costs and who pays for it: economic voice sets how fast a society grows, political voice sets how far it falls. By Lawrence Zhang."
+>
+<div class="sf">
+  <script is:inline src="/research/speed-and-the-floor/page.js"></script>
+
+  <section class="page-intro wrap sf-intro">
+    <p class="sf-back"><a href="/research#models">&larr; All research</a></p>
+    <p class="eyebrow">Research · Model</p>
+    <h1>Economic voice sets how fast a society grows. Political voice sets how <em>far it falls.</em></h1>
+    <p class="sf-by">Lawrence Zhang · Economics Student Association, University of Arizona · November 2026</p>
+    <p class="lede">A model of what social order costs and who pays for it, built for the manuscript <em>Blut und Wille</em>. Its economic core is borrowed from standard growth economics; its parameters are partly fitted to growth since 1970, to about a thousand crises since 1972, and to how autocracies survive, and partly chosen by hand.</p>
+    <div class="hero">
+<div><div class="fig" id="fig" role="img" aria-label="Simulated output over time for four societies; a large mistake strikes at the midpoint; the two with narrow political voice collapse"><svg id="s"></svg></div>
+<p class="small">Model simulation, illustrative parameters. Each line is one society. A large mistake cuts productivity by 35% at the marked point. The shape is the claim, not the numbers.</p></div>
+<div><ul class="key" id="key"></ul>
+<p>Before the mistake, the two societies with wide economic voice pull ahead. After it, the two that can hear objections correct course. The two that cannot hear objections fall into a legitimacy spiral: the promise outruns what people receive, belief erodes, friction rises and order collapses.</p></div>
+</div>
+  </section>
+
+<section class="sf-band tint"><div class="wrap">
+<h2>What the data says</h2>
+<div class="cols">
+<div><div class="stat" style="color:var(--car)">+0.8</div><p>points of growth a year for one standard deviation more <strong>economic voice</strong> (private credit and trade openness), 87 countries, 1996 to 2023, after starting income.</p></div>
+<div><div class="stat" style="color:var(--pru)">≈ 0</div><p>effect of <strong>political voice</strong> (free expression, electoral democracy) on average growth once economic voice is counted.</p></div>
+<div><div class="stat" style="color:var(--pru)">+3.6</div><p>points a year shallower worst five-year stretch for one standard deviation more <strong>political voice</strong>, 145 countries, 1970 to 2019. Year-to-year volatility is 2.2 points lower.</p></div>
+</div></div></section>
+
+<section class="sf-band"><div class="wrap sf-w860">
+<h2>The explainer, in one minute</h2>
+<video src="/research/speed-and-the-floor/explainer.mp4" controls preload="metadata" playsinline></video>
+<p class="small">57 seconds, no sound. Six parts: the question, the stack, the tipping point, two kinds of voice, the check against the world, what it means.</p>
+</div></section>
+
+<section class="sf-band"><div class="wrap sf-w1000">
+<h2>What the full model finds</h2>
+<p>Ten societies run through the final model. A system that forces saving can match or beat an open one on output. What it cannot match is what its people consume, how large a mistake it survives, and how much of their lives they govern themselves. How much a state taxes changes little by itself; what it does with the money changes a lot. Repression is what hollows out the repressing reformer, not running short of resources: it behaves the same when resources renew.</p>
+<table class="stack"><thead><tr><th>Society</th><th>Output</th><th>Consumption</th><th>Largest political mistake survived</th><th>Largest economic crisis survived</th><th>Sovereignty</th></tr></thead><tbody id="final"></tbody></table>
+<p class="small" style="margin-top:14px">Illustrative units after 120 periods. A floor is the largest shock, as a share of output, the society absorbs without order collapsing. Sovereignty (0 to 1) averages the share of saving people chose, genuine political voice, freedom from coercion, output not taken as rent, and freedom to leave. Consumption here is private: under higher taxes the rest comes back as schooling, roads and order. The orderings hold across every robustness check; the exact numbers do not.</p>
+</div></section>
+
+<section class="sf-band try" id="try"><div class="wrap sf-w1000">
+<h2>Try the model</h2>
+<p class="sf-lede">The full model runs in your browser. Pick a society, change how it is governed, then hit it with a shock and see whether order holds. Or put three societies side by side and see what openness, nationalism and a pandemic do to all of them.</p>
+<div class="try-tabs" role="tablist"><button type="button" role="tab" aria-selected="true" data-t="one">One society</button><button type="button" role="tab" aria-selected="false" data-t="two">Between societies</button></div>
+<div id="sm-root"><div id="sm-one" data-p="one"></div></div>
+<div id="sm-two" data-p="two" hidden></div>
+<p class="small" style="margin-top:14px">Every number is from the model, not from data, and depends on parameters that are partly chosen. Output and consumption are per person, in the units of the table above. War in the second view is drawn at random; the table there summarizes 40 runs.</p>
+</div></section>
+<script is:inline src="/research/speed-and-the-floor/sm.js"></script>
+<script is:inline src="/research/speed-and-the-floor/structure.js"></script>
+
+<section class="sf-band tint"><div class="wrap sf-w860">
+<h2>Plague, war and what we leave behind</h2>
+<p>The final model also counts people, wars and a resource base that is finite but not fixed. The same pathogen kills 40% of a society with no medicine, 20% with 1918 medicine and 4% with modern medicine; a 1918-sized toll costs about 4% of output in the first year, close to the 6% the typical country lost. What happens after a plague depends on voice. Where workers can be heard, scarce labour bargains rent down and incomes end higher, as in Western Europe after the Black Death. Where they cannot, lords tighten their grip and incomes end lower, as in the second serfdom east of the Elbe.</p>
+<p>A war destroys capital, infrastructure and people and diverts output while it lasts: output falls by about two-fifths and is still 7% below its peaceful path twenty years on. Belief rallies at first, then falls furthest where saving was forced.</p>
+<p>Extraction can be borrowed from the future. Pulling resources out fast makes the first generation about 13% richer and the generation a century later about 36% poorer than steady extraction would. Reinvesting resource rents in other capital and cleaning up pollution cut that later loss to about a fifth; they do not erase it. Every cost assigned a zero is a cost exported, to the environment and to the unborn.</p>
+<h2 style="margin-top:32px">Between societies</h2>
+<p>Openness spreads ideas, capital and people. In data on 455 country-decades since 1970, doubling a country's trade share goes with 0.7 more points of growth a year, foreign investment speeds catch-up more the further behind a country is, and people move toward richer countries at about 0.15% of the population a year per log point of income gap. In the model, three societies that halve their openness lose a third to a half of their consumption and fight four times as many wars, because less trade means less to lose by fighting. A nationalist narrative, which grows where voice is narrow and results fall short, closes borders, raises arms spending and makes war likelier, and the nationalist society pays most of the cost itself.</p>
+<p>COVID-19 is the clearest test of a shared threat. The OECD countries that aimed to eliminate the virus (Australia, Iceland, Japan, New Zealand, South Korea) had about no excess deaths in 2020–21 against about 2,000 per million elsewhere, lost 4.6 points of GDP against 8.6, and spent fewer weeks under strict measures, as Oliu-Barton and colleagues reported in The Lancet. A model fitted to those outcomes says giving up output early to stamp a virus out costs less than half as much as living with it, and saves nearly every life. One society that does nothing pays the least in output, loses a hundred times more lives, and raises every cooperator's cost by half, since they must keep their borders closed longer.</p>
+</div></section>
+
+<section class="sf-band tint"><div class="wrap sf-w860">
+<h2>The model</h2>
+<p>A society is a stack: resources, production, allocation, coordination and belief. Each layer pays for its order from the layer below. Production grows with headcount; friction grows faster, because each new member adds links to everyone already there. Shared belief absorbs divergence and makes rules cheap to keep.</p>
+<div class="eq">Margin per person: m = (1 − r)·α·A·(R/N)<sup>a</sup> − (τ + δ·D·(1 − b))·ln N<br>Tipping point: order collapses below C* = σ / m<br>Innovation: A grows by φ · h<sub>e</sub> · ln N / (1 + 5τ) each period<br>Correction: a shock fades at a rate set by political voice h<sub>p</sub></div>
+<p class="small">r rent · α allocation efficiency · A technology · R fixed resources · N people · τ transmission cost · D divergence · b shared belief · h<sub>e</sub> economic voice · h<sub>p</sub> political voice</p>
+<p>Underneath sits a standard economic core: capital, educated labor and resources (the augmented Solow model), saving chosen as in the Ramsey model or forced by the state, taxes that raise prices and fund schooling and infrastructure, technology that grows by catching up to the world frontier and, near it, by creative destruction, and rent that creeps up with stability. Crises come in two kinds, economic and political, and land on different people: a stock crash hits owners, a broad recession hits everyone, and belief erodes by how many people fall short of what they expected. Those in power can concede or repress.</p><p>The first version used one variable for “ideas heard” and claimed it drove growth. Free expression did not predict growth, and China grew fastest with narrow political voice, so the variable was split in two. The split passed the tests that the single variable failed.</p>
+</div></section>
+
+<section class="sf-band"><div class="wrap sf-w960">
+<h2>The tests</h2>
+<table class="stack"><thead><tr><th>Claim</th><th>Test</th><th>Result</th></tr></thead><tbody id="tests"></tbody></table>
+<p class="small" style="margin-top:14px">Effects are per standard deviation, from ordinary least squares with starting income controlled. Cross-country regressions are associations; rich countries can also afford good institutions.</p>
+</div></section>
+
+<section class="sf-band tint"><div class="wrap sf-w960">
+<h2>History as a check</h2>
+<p>Of sixteen well-known cases, twelve fit the model, three fit in part, and one, China after 1978, contradicted the first version. The final model explains China's speed through catch-up from far behind the frontier and forced saving; with those included, its growth beyond prediction falls from about 4 points a year to under 2.</p>
+<table class="stack"><thead><tr><th>Case</th><th>Model reading</th><th>Fit</th></tr></thead><tbody id="hist"></tbody></table>
+</div></section>
+
+<section class="sf-band tint"><div class="wrap sf-w860">
+<h2>Limits</h2>
+<p>The model explains at most about a fifth of the differences in growth across countries out of sample, which is typical for growth models but modest. Several parameters are still chosen rather than estimated, the sovereignty index is constructed rather than measured, and historical readings are made with hindsight. It is a way to organize the question, not a verdict on any system.</p>
+<p class="small">Data: World Bank Worldwide Governance Indicators, World Development Indicators and Global Financial Development (banking crises); V-Dem, UCDP conflict data, Maddison Project, Penn World Table, trust surveys and harmonized learning outcomes via Our World in Data.</p>
+</div></section>
+</div>
+</Layout>
+
+<style is:global>
+  /* Speed and the Floor. Everything is scoped under .sf, because the simulator builds its own markup in the browser. */
+  .sf {
+    --mut: var(--muted);
+    --car: #B3261E;
+    --pru: var(--navy);
+    --bg: var(--white);
+    --soft: var(--paper);
+    font-size: 17px;
+  }
+  .sf h1 { font-size: clamp(34px, 5.4vw, 64px); line-height: 1.05; max-width: 20ch; text-wrap: balance; }
+  .sf h2 { font-size: clamp(28px, 4vw, 40px); line-height: 1.1; margin: 0 0 16px; text-wrap: balance; }
+  .sf p { margin: 0 0 14px; }
+  .sf .small { font-size: 14px; color: var(--muted); }
+  .sf a { color: var(--esa-green); text-underline-offset: 3px; }
+
+  .sf-back { font-size: 14px; }
+  .sf-back a { display: inline-flex; align-items: center; min-height: 44px; color: var(--muted); text-decoration: none; }
+  .sf-back a:hover { color: var(--ink); }
+  .sf-by { font-size: 14px; color: var(--muted); margin-top: 20px !important; }
+  .sf-intro .lede { margin-bottom: 0; }
+
+  .sf-band { padding: 56px 0; border-top: 1px solid var(--rule); }
+  .sf-band.tint { background: var(--paper); }
+  @media (min-width: 768px) { .sf-band { padding: 88px 0; } }
+  .sf-w860 { max-width: 860px; }
+  .sf-w960 { max-width: 960px; }
+  .sf-w1000 { max-width: 1000px; }
+  .sf-lede { font-size: 18px; color: var(--muted); max-width: 40em; }
+
+  /* The figure */
+  .sf .hero { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; align-items: start; margin-top: 40px; border-top: 2px solid var(--ink); padding-top: 24px; }
+  @media (min-width: 860px) { .sf .hero { grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: 48px; } }
+  .sf .fig { position: relative; min-height: 340px; }
+  @media (min-width: 860px) { .sf .fig { min-height: 420px; } }
+  .sf .fig > svg { position: absolute; inset: 0; width: 100%; height: 100%; font-family: var(--sans); }
+  .sf .key { list-style: none; padding: 0; margin: 0 0 18px; font-size: 15px; }
+  .sf .key li { display: flex; gap: 10px; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--rule); }
+  .sf .sw { flex: none; width: 22px; height: 3px; transform: translateY(-4px); }
+
+  /* Data and tables */
+  .sf .cols { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  @media (min-width: 860px) { .sf .cols { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .sf .stat { font-family: var(--serif); font-size: 52px; line-height: 1; margin-bottom: 12px; }
+  .sf table { border-collapse: collapse; width: 100%; font-size: 15px; }
+  .sf th, .sf td { text-align: left; padding: 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  .sf th { font-weight: 600; border-bottom: 2px solid var(--ink); }
+  .sf td.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .sf video { width: 100%; border-radius: 6px; background: var(--deep); display: block; }
+  .sf code { font-size: 15px; }
+  .sf pre, .sf .scroll { overflow-x: auto; }
+  .sf .eq { font-size: 16px; line-height: 1.9; padding: 14px 18px; border-left: 3px solid var(--esa-green); background: var(--white); margin-bottom: 14px; overflow-x: auto; }
+  @media (max-width: 600px) {
+    .sf table { font-size: 14px; }
+    .sf .stack thead { display: none; }
+    .sf .stack tr { display: grid; padding-block: 10px; border-bottom: 1px solid var(--rule); }
+    .sf .stack td { display: flow-root; border: 0; padding: 3px 0; padding-inline-start: 8em; text-align: start; }
+    .sf .stack td::before { content: attr(data-l); float: inline-start; width: 7.5em; margin-inline-start: -8em; white-space: normal; color: var(--muted); }
+    .sf .stack td:empty { display: none; }
+  }
+
+  /* Try the model */
+  .sf .try label { display: grid; gap: 2px; font-size: 14px; color: var(--muted); }
+  .sf .try select { font: inherit; font-size: 15px; color: var(--ink); background: var(--white); border: 1px solid var(--rule); border-radius: 6px; padding: 8px 10px; min-height: 44px; max-width: 100%; }
+  .sf .ml-top { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+  .sf .ml-top label { flex: 1 1 15rem; max-width: 24rem; }
+  .sf .ml-sliders { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 10px 28px; margin-top: 12px; }
+  .sf .ml-s { display: grid; gap: 2px; }
+  .sf .ml-sn { display: flex; justify-content: space-between; gap: 8px; font-size: 14px; color: var(--muted); }
+  .sf .ml-sn b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .sf .ml-s input[type=range] { width: 100%; min-height: 32px; accent-color: var(--esa-green); }
+  .sf .ml-chart { margin-top: 10px; }
+  .sf .ml-svg { display: block; width: 100%; height: auto; }
+  .sf .ml-grid { stroke: var(--rule); }
+  .sf .ml-ax { fill: var(--muted); font-size: 11px; font-family: var(--sans); }
+  .sf .ml-eq { stroke: var(--muted); stroke-dasharray: 5 4; }
+  .sf .ml-leg { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 14px; color: var(--muted); }
+  .sf .ml-k { display: inline-flex; align-items: center; gap: 6px; }
+  .sf .ml-k i { display: inline-block; width: 16px; height: 3px; }
+  .sf .ml-k i.dash { height: 0; border-top: 2px dashed var(--muted); }
+  .sf .ml-out { font-weight: 600; margin: 10px 0 0; }
+  .sf .cx-h3 { font-size: 14px; color: var(--muted); margin: 18px 0 2px; }
+  .sf .cx-note { font-size: 14px; color: var(--muted); }
+  .sf .cx-rel { position: relative; }
+  .sf .cx-tip { position: absolute; pointer-events: none; background: var(--white); border: 1px solid var(--rule); border-radius: 4px; padding: 2px 8px; font-size: 13px; white-space: nowrap; z-index: 2; }
+  .sf .rp-b { font: inherit; font-size: 15px; font-weight: 500; border: 1px solid var(--ink); background: none; color: var(--ink); border-radius: 999px; padding: 8px 18px; min-height: 44px; cursor: pointer; transition: background .2s, color .2s; }
+  .sf .rp-b:hover { background: var(--ink); color: var(--white); }
+  .sf .sm-floor { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-top: 10px; }
+  .sf .sm-floor .cx-note { margin: 0; flex: 1 1 16rem; }
+  .sf .sm-slots { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 14px; margin-top: 10px; }
+  .sf .sm-slot { border: 1px solid var(--rule); border-top: 3px solid var(--sc, var(--ink)); border-radius: 6px; padding: 12px; display: grid; gap: 10px; background: var(--white); }
+  .sf .sm-slot-h { display: flex; align-items: center; gap: 8px; }
+  .sf .sm-slot-h i { width: 10px; height: 10px; border-radius: 50%; background: var(--sc, var(--ink)); }
+  .sf .sm-mini { display: grid; gap: 6px; }
+  .sf .try label.sc-obs { display: inline-flex; gap: 6px; align-items: center; color: var(--ink); font-size: 15px; min-height: 44px; }
+  .sf .sm-wbar { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 12px; font-size: 15px; }
+  .sf .sc-obs { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+  .sf .sm-tbl { overflow-x: auto; }
+  .sf .sm-t { font-variant-numeric: tabular-nums; }
+  .sf .try-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--rule); margin: 20px 0 4px; }
+  .sf .try-tabs button { font: inherit; font-size: 15px; background: none; border: 0; border-bottom: 2px solid transparent; padding: 10px 14px; min-height: 44px; color: var(--muted); cursor: pointer; margin-bottom: -1px; }
+  .sf .try-tabs button[aria-selected=true] { color: var(--ink); border-bottom-color: var(--esa-green); font-weight: 600; }
+</style>

@@ -33,11 +33,28 @@
   ],
   "models": [
     {
+      "id": "speed-and-the-floor",
+      "title": "Speed and the Floor",
+      "author": "Lawrence Zhang",
+      "stage": "Tested",
+      "lenses": [
+        "Growth economics",
+        "Political economy",
+        "Economic history"
+      ],
+      "question": "What does social order cost, and who pays for it?",
+      "claim": "Economic voice sets how fast a society grows. Political voice sets how far it falls after a large mistake.",
+      "link": "/research/speed-and-the-floor"
+    },
+    {
       "id": "four-baselines",
       "title": "Four baselines, three steps",
       "author": "Lawrence Zhang",
       "stage": "Tested",
-      "lenses": ["Strategy", "Organizational economics"],
+      "lenses": [
+        "Strategy",
+        "Organizational economics"
+      ],
       "question": "How should a small organization decide where to grow next?",
       "claim": "Measure four baselines: current reality, optimized potential, the market standard and the vision. Then move in three steps: close the gap to optimized, reach the market standard, and innovate past it."
     },
@@ -46,7 +63,10 @@
       "title": "Organize small before you scale",
       "author": "Lawrence Zhang",
       "stage": "Question",
-      "lenses": ["Institutional economics", "Philosophy"],
+      "lenses": [
+        "Institutional economics",
+        "Philosophy"
+      ],
       "question": "What is the best way to organize a small organization, and what carries over when you scale it to a society?",
       "claim": "Before designing for a whole society, find what makes small institutions work, building on Elinor Ostrom's study of self-governing institutions."
     },
@@ -55,7 +75,10 @@
       "title": "A structural critique of merit-based allocation",
       "author": "Lawrence Zhang",
       "stage": "Question",
-      "lenses": ["Welfare economics", "Philosophy"],
+      "lenses": [
+        "Welfare economics",
+        "Philosophy"
+      ],
       "question": "When resources are allocated by merit, what does the system reward, and what does it miss?",
       "claim": "[Working claim to come.]"
     }

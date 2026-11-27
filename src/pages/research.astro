@@ -103,6 +103,7 @@ const submitSteps = [
             <ul class="lenses" aria-label="Lenses">
               {m.lenses.map((l) => <li>{l}</li>)}
             </ul>
+            {m.link && <a class="btn primary model-link" href={m.link}>Explore the model <span aria-hidden="true">→</span></a>}
           </li>
         ))}
       </ul>
@@ -240,6 +241,7 @@ const submitSteps = [
   .model .question { font-family: var(--serif); font-size: 19px; line-height: 1.35; }
   .model .claim { color: var(--muted); font-size: 15px; }
   .lenses { list-style: none; margin: auto 0 0; padding: 8px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .model-link { align-self: flex-start; margin-top: 4px; }
   .lenses li { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: var(--paper); color: var(--deep); }
   @media (min-width: 640px) { .models { grid-template-columns: repeat(2, 1fr); } }
   @media (min-width: 1000px) { .models { grid-template-columns: repeat(3, 1fr); gap: 24px; } }

@@ -277,6 +277,8 @@ export interface ModelItem {
   lenses: string[];
   question: string;
   claim: string;
+  /** Optional page for a model that has its own write-up on the site. */
+  link?: string;
 }
 
 export function featuredResearch(): ResearchItem[] {
