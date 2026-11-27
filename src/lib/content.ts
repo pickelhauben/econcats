@@ -290,3 +290,8 @@ export function modelsInProgress(): ModelItem[] {
 export function memberResearch(): ResearchItem[] {
   return researchJson.members as ResearchItem[];
 }
+
+/** Remove bracketed placeholders ("[to confirm]") so unfinished notes in research.json never show on the page. */
+export function hidePlaceholders(text: string): string {
+  return text.replace(/\s*\[[^\]]*\]/g, '').trim();
+}

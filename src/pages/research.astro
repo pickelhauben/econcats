@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import CopyEmail from '../components/CopyEmail.astro';
 import site from '../data/site.json';
-import { featuredResearch, modelsInProgress, memberResearch, modelStages } from '../lib/content';
+import { featuredResearch, modelsInProgress, memberResearch, modelStages, hidePlaceholders } from '../lib/content';
 
 const featured = featuredResearch();
 const models = modelsInProgress();
@@ -52,9 +52,9 @@ const submitSteps = [
               <span class="year">{r.year}</span>
             </div>
             <h3 id={`${r.id}-title`}>{r.title}</h3>
-            <p class="authors">{r.authors}</p>
+            <p class="authors">{hidePlaceholders(r.authors)}</p>
             <p class="question"><span class="label">Question</span>{r.question}</p>
-            <p class="summary">{r.summary}</p>
+            {hidePlaceholders(r.summary) && <p class="summary">{hidePlaceholders(r.summary)}</p>}
             {r.findings.length > 0 && (
               <>
                 <h4>Findings</h4>
@@ -99,7 +99,7 @@ const submitSteps = [
             </div>
             <h3>{m.title}</h3>
             <p class="question"><span class="label">Question</span>{m.question}</p>
-            <p class="claim"><span class="label">Working claim</span>{m.claim}</p>
+            {hidePlaceholders(m.claim) && <p class="claim"><span class="label">Working claim</span>{hidePlaceholders(m.claim)}</p>}
             <ul class="lenses" aria-label="Lenses">
               {m.lenses.map((l) => <li>{l}</li>)}
             </ul>
@@ -121,7 +121,7 @@ const submitSteps = [
             <li class="member-card">
               <span class="field">{r.field}</span>
               <h3>{r.title}</h3>
-              <p class="authors">{r.authors}</p>
+              <p class="authors">{hidePlaceholders(r.authors)}</p>
               <p>{r.question}</p>
               {r.link && <a class="link" href={r.link} target="_blank" rel="noopener noreferrer">Read it <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>}
             </li>
