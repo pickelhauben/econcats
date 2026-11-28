@@ -4,8 +4,7 @@ You don't need to touch any code. Almost everything on the site comes from one G
 **ESA Website Content**, in the ESA Google Drive.
 
 1. Open the sheet and edit the right tab (see the table below).
-2. Wait. The site rebuilds **every day at 9 AM Arizona time** and picks up your changes.
-3. Need it sooner? See [Update the site right now](#update-the-site-right-now).
+2. The site picks up your changes the next time it is rebuilt. It rebuilds whenever the code changes; to publish sheet edits on their own, see [Update the site right now](#update-the-site-right-now).
 
 ---
 
@@ -167,9 +166,9 @@ Board members and alumni without a photo get a circle with their initials instea
 
 ## Update the site right now
 
-1. Go to the website's repository on GitHub (club account).
-2. Click **Actions** → **Daily rebuild** → **Run workflow** → **Run workflow**.
-3. Wait about 3–5 minutes, then refresh the site.
+1. Open the `econcats` project on Vercel (club account) and go to **Deployments**.
+2. On the newest production deployment, open the **⋯** menu and choose **Redeploy**.
+3. Wait about 1–2 minutes, then refresh the site.
 
 ---
 
@@ -185,7 +184,7 @@ These need a small code change (ask whoever maintains the site):
 
 ## If something looks wrong
 
-- **Your change didn't show up:** wait for the 9 AM rebuild, or run it now (above). Check the tab was published (File → Share → Publish to web) and the row isn't marked `draft` = `TRUE`.
+- **Your change didn't show up:** rebuild the site (above). Check the tab was published (File → Share → Publish to web) and the row isn't marked `draft` = `TRUE`.
 - **A whole section went back to old content:** the site couldn't read the sheet and used its backup copy. Check that the tab is still published as CSV, and that row 1 still has the column names.
 - **An event is in the wrong place:** check the `date` is `YYYY-MM-DD`.
 - **Still stuck:** ask the Director of Media, who owns the content sheet.
@@ -197,4 +196,4 @@ These need a small code change (ask whoever maintains the site):
 - Published CSV URLs live in `src/data/sources.json`, one per tab. An empty URL means "use the JSON file".
 - The loader is `src/lib/sheet.ts`. If a URL is empty or a fetch fails, it logs a `[sheet]` warning and falls back to `src/data/<tab>.json`. The build never fails because of the sheet.
 - The JSON files double as examples of each tab's column format.
-- The daily rebuild is `.github/workflows/daily-rebuild.yml`. It needs the GitHub secret `VERCEL_DEPLOY_HOOK`.
+- There is no scheduled rebuild. The daily GitHub Action was removed in November 2026 after every run failed; production deploys from `main`, and sheet-only changes need a manual redeploy on Vercel.

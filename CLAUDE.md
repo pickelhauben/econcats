@@ -90,5 +90,5 @@ The step-by-step prompts for the remaining pages live in `docs/build-prompts.md`
 
 ## Build order
 0. Setup ✅ · 1. Foundation (layout, nav, empty pages) · 2. Home and About · 3. Data-driven pages with sample JSON ·
-4. Google Sheet as CSV at build time + daily rebuild · 5. Photos with Astro `<Image>` · 6. Polish (favicon, meta, 404) ·
+4. Google Sheet as CSV at build time (daily rebuild removed; redeploy on Vercel to pick up sheet edits) · 5. Photos with Astro `<Image>` · 6. Polish (favicon, meta, 404) ·
 7. Launch on Vercel with the club account · 8. Handover guide.
