@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import CopyEmail from '../components/CopyEmail.astro';
 import site from '../data/site.json';
-import { featuredResearch, modelsInProgress, memberResearch, modelStages, hidePlaceholders } from '../lib/content';
+import { featuredResearch, modelsInProgress, memberResearch, hidePlaceholders } from '../lib/content';
 
 const featured = featuredResearch();
 const models = modelsInProgress();
@@ -11,7 +11,7 @@ const members = memberResearch();
 const submitSteps = [
   {
     title: 'Pick your work',
-    body: 'A class paper, an independent study, a data project, or a model or theorem you are still working out. Unfinished is fine.',
+    body: 'A finished class paper, independent study, data project, or model or theorem. We publish work once it is done; send it when you would defend it.',
   },
   {
     title: 'Email us an abstract',
@@ -23,22 +23,23 @@ const submitSteps = [
   },
 ];
 ---
-<Layout title="Research" description="Research by economics students at the University of Arizona: papers, case studies, and models and theorems in progress.">
+<Layout title="Research" description="Finished research by economics students at the University of Arizona: papers, case studies, models and theorems.">
 
   <!-- 1. Intro -->
   <section class="page-intro wrap">
     <p class="eyebrow">Research</p>
     <h1>What we're <em>studying.</em></h1>
-    <p class="lede">Papers, case studies, and the models and theorems our members are still working out. Economics is something you do, not only something you take.</p>
+    <p class="lede">Finished papers, case studies, models and theorems by our members. Economics is something you do, not only something you take.</p>
     <nav class="jump" aria-label="On this page">
-      <a href="#featured">Featured research</a>
-      <a href="#models">Models in progress</a>
+      {featured.length > 0 && <a href="#featured">Featured research</a>}
+      {models.length > 0 && <a href="#models">Models and theorems</a>}
       <a href="#members">Member projects</a>
       <a href="#submit">Share your work</a>
     </nav>
   </section>
 
   <!-- 2. Featured research -->
+  {featured.length > 0 && (
   <section class="section tint" id="featured" aria-labelledby="featured-title">
     <div class="wrap">
       <p class="eyebrow">Featured research</p>
@@ -74,21 +75,19 @@ const submitSteps = [
       </div>
     </div>
   </section>
+  )}
 
-  <!-- 3. Models and theorems in progress -->
+  <!-- 3. Models and theorems -->
+  {models.length > 0 && (
   <section class="section" id="models" aria-labelledby="models-title">
     <div class="wrap">
       <div class="split">
         <div>
           <p class="eyebrow">Models and theorems</p>
-          <h2 id="models-title">Still being <em>worked out</em></h2>
+          <h2 id="models-title">Models and <em>theorems</em></h2>
         </div>
-        <p class="intro-copy">Ideas at every stage, from a first question to a claim ready to defend. Each one names its question, its working claim and the lenses it borrows from economics and beyond.</p>
+        <p class="intro-copy">Each one names its question, its claim and the lenses it borrows from economics and beyond.</p>
       </div>
-
-      <ol class="stages" aria-label="Stages">
-        {modelStages.map((s) => <li>{s}</li>)}
-      </ol>
 
       <ul class="models">
         {models.map((m) => (
@@ -99,7 +98,7 @@ const submitSteps = [
             </div>
             <h3>{m.title}</h3>
             <p class="question"><span class="label">Question</span>{m.question}</p>
-            {hidePlaceholders(m.claim) && <p class="claim"><span class="label">Working claim</span>{hidePlaceholders(m.claim)}</p>}
+            {hidePlaceholders(m.claim) && <p class="claim"><span class="label">Claim</span>{hidePlaceholders(m.claim)}</p>}
             <ul class="lenses" aria-label="Lenses">
               {m.lenses.map((l) => <li>{l}</li>)}
             </ul>
@@ -109,6 +108,7 @@ const submitSteps = [
       </ul>
     </div>
   </section>
+  )}
 
   <!-- 4. Member projects -->
   <section class="section tint" id="members" aria-labelledby="members-title">

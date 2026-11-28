@@ -15,7 +15,8 @@
         "Non-tax charges in 1937–39 nearly matched federal grants, yet they are missing from the literature."
       ],
       "sources": "U.S. Bureau of the Census, State Financial Statistics 1929–1940; Census of Governments 1932; Michigan State Highway Department Biennial Reports; Ford Motor Company production records",
-      "link": ""
+      "link": "",
+      "published": false
     },
     {
       "id": "uranium-cartel",
@@ -28,7 +29,8 @@
       "summary": "[One or two sentences on the argument, once the case study is finished.]",
       "findings": [],
       "sources": "",
-      "link": ""
+      "link": "",
+      "published": false
     }
   ],
   "models": [
@@ -36,7 +38,7 @@
       "id": "speed-and-the-floor",
       "title": "Speed and the Floor",
       "author": "Lawrence Zhang",
-      "stage": "Tested",
+      "stage": "Ready to share",
       "lenses": [
         "Growth economics",
         "Political economy",
@@ -44,7 +46,8 @@
       ],
       "question": "What does social order cost, and who pays for it?",
       "claim": "Economic voice sets how fast a society grows. Political voice sets how far it falls after a large mistake.",
-      "link": "/research/speed-and-the-floor"
+      "link": "/research/speed-and-the-floor",
+      "published": true
     },
     {
       "id": "four-baselines",
@@ -56,7 +59,8 @@
         "Organizational economics"
       ],
       "question": "How should a small organization decide where to grow next?",
-      "claim": "Measure four baselines: current reality, optimized potential, the market standard and the vision. Then move in three steps: close the gap to optimized, reach the market standard, and innovate past it."
+      "claim": "Measure four baselines: current reality, optimized potential, the market standard and the vision. Then move in three steps: close the gap to optimized, reach the market standard, and innovate past it.",
+      "published": false
     },
     {
       "id": "small-institutions",
@@ -68,7 +72,8 @@
         "Philosophy"
       ],
       "question": "What is the best way to organize a small organization, and what carries over when you scale it to a society?",
-      "claim": "Before designing for a whole society, find what makes small institutions work, building on Elinor Ostrom's study of self-governing institutions."
+      "claim": "Before designing for a whole society, find what makes small institutions work, building on Elinor Ostrom's study of self-governing institutions.",
+      "published": false
     },
     {
       "id": "merit-allocation",
@@ -80,7 +85,8 @@
         "Philosophy"
       ],
       "question": "When resources are allocated by merit, what does the system reward, and what does it miss?",
-      "claim": "[Working claim to come.]"
+      "claim": "[Working claim to come.]",
+      "published": false
     }
   ],
   "members": []

@@ -247,7 +247,8 @@ export function pastSpeakers(): Speaker[] {
 
 // ---------------------------------------------------------------------------
 // Research showcase (/research). Local JSON for now: src/data/research.json.
-// Only list work whose authors have agreed to have it on the site.
+// Only finished work is published: an item shows only when it has "published": true
+// (and its authors have agreed to have it on the site). Drafts stay in the file, hidden.
 import researchJson from '../data/research.json';
 
 export type ResearchStatus = 'Complete' | 'In revision' | 'In progress';
@@ -267,6 +268,8 @@ export interface ResearchItem {
   findings: string[];
   sources: string;
   link: string;
+  /** Finished and approved for the site. Anything else stays hidden. */
+  published?: boolean;
 }
 
 export interface ModelItem {
@@ -279,16 +282,18 @@ export interface ModelItem {
   claim: string;
   /** Optional page for a model that has its own write-up on the site. */
   link?: string;
+  /** Finished and approved for the site. Anything else stays hidden. */
+  published?: boolean;
 }
 
 export function featuredResearch(): ResearchItem[] {
-  return researchJson.featured as ResearchItem[];
+  return (researchJson.featured as ResearchItem[]).filter((r) => r.published === true);
 }
 export function modelsInProgress(): ModelItem[] {
-  return (researchJson.models as ModelItem[]).filter((m) => m.stage !== 'Parked');
+  return (researchJson.models as ModelItem[]).filter((m) => m.published === true && m.stage !== 'Parked');
 }
 export function memberResearch(): ResearchItem[] {
-  return researchJson.members as ResearchItem[];
+  return (researchJson.members as ResearchItem[]).filter((r) => r.published === true);
 }
 
 /** Remove bracketed placeholders ("[to confirm]") so unfinished notes in research.json never show on the page. */

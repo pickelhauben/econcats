@@ -64,7 +64,7 @@ Heritage logos in `public/logos/`: `ees.png` (Eller Economics Society), `wec.jpg
 | About | `/about` | Mission, the merger story, heritage (`#heritage`, `#ees`, `#wec`) |
 | Activities | `/activities` | Upcoming and past events, photo gallery |
 | Projects | `/projects` | ODE chapter, exam reviews, mentorship, alumni campaign, discussion series |
-| Research | `/research` | Featured research, models and theorems in progress, member projects, how to share your work (email only), research competition teaser. Data: `src/data/research.json` |
+| Research | `/research` | Finished research only: featured papers, models and theorems, member projects, how to share your work (email only), research competition teaser. Data: `src/data/research.json`; an item shows only with `"published": true`, and empty sections hide themselves |
 | Model: Speed and the Floor | `/research/speed-and-the-floor` | Lawrence Zhang's societal structure model with a live simulator. Page in `src/pages/research/speed-and-the-floor.astro`; its scripts and video sit in `public/research/speed-and-the-floor/` (copied from his model page, so edit there) |
 | Leadership | `/leadership` | Current board by role, member wall (`#members`, opt-in dues payers for the current semester), advisors, "Lead with us" |
 | Alumni | `/alumni` | Spotlights, ways to get involved, supporters wall, reconnect form link |
@@ -81,6 +81,7 @@ Heritage logos in `public/logos/`: `ees.png` (Eller Economics Society), `wec.jpg
 - No University of Arizona logos or trademarks (no Wilbur/Wildcat marks, no block A).
 - Never invent facts: names, dates, quotes, numbers, links. Unknown values go in `[SQUARE BRACKETS]`.
 - Only publish photos, names and quotes of people who have agreed, especially alumni and supporters.
+- Research: publish finished work only. Drafts and papers in revision stay in `research.json` with `"published": false` until their author says they are done.
 - Keyboard focus must stay visible; check every page at phone width (375px).
 - One build step per session: check in the browser, commit, then move on.
 
