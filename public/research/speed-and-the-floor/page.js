@@ -1,4 +1,4 @@
-/* Speed and the Floor: the figure, the tables and the two tabs. Data and code from Lawrence Zhang's model page. */
+/* Who Pays for Order?: the figure, the tables and the two tabs. Data and code from Lawrence Zhang's model page. */
 (function () {
   /* Label table cells so the stacked tables read on phones. */
   const label = () => { for (const c of document.querySelectorAll('.stack td:not([data-l])')) { let i = 0, p = c; while ((p = p.previousElementSibling)) i += p.colSpan; c.dataset.l = c.closest('table').rows[0].cells[i]?.textContent || ''; } };

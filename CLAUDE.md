@@ -65,7 +65,7 @@ Heritage logos in `public/logos/`: `ees.png` (Eller Economics Society), `wec.jpg
 | Activities | `/activities` | Upcoming and past events, photo gallery |
 | Projects | `/projects` | ODE chapter, exam reviews, mentorship, alumni campaign, discussion series |
 | Research | `/research` | Finished research only: featured papers, models and theorems, member projects, how to share your work (email only), research competition teaser. Data: `src/data/research.json`; an item shows only with `"published": true`, and empty sections hide themselves |
-| Model: Speed and the Floor | `/research/speed-and-the-floor` | Lawrence Zhang's societal structure model with a live simulator. Page in `src/pages/research/speed-and-the-floor.astro`; its scripts and video sit in `public/research/speed-and-the-floor/` (copied from his model page, so edit there) |
+| Model: Who Pays for Order? | `/research/speed-and-the-floor` | Lawrence Zhang's societal structure model with a live simulator. Page in `src/pages/research/speed-and-the-floor.astro`; its scripts and video sit in `public/research/speed-and-the-floor/` (copied from his model page, so edit there) |
 | Leadership | `/leadership` | Current board by role, member wall (`#members`, opt-in dues payers for the current semester), advisors, "Lead with us" |
 | Alumni | `/alumni` | Spotlights, ways to get involved, supporters wall, reconnect form link |
 | Join / Contact | `/join` | Meetings, dues, email, Instagram |

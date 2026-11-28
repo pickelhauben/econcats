@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 ---
 <Layout
-  title="Speed and the Floor"
+  title="Who Pays for Order? A Model of Voice, Growth and Resilience"
   description="A model of what social order costs and who pays for it: economic voice sets how fast a society grows, political voice sets how far it falls. By Lawrence Zhang."
 >
 <div class="sf">
@@ -11,7 +11,8 @@ import Layout from '../../layouts/Layout.astro';
   <section class="page-intro wrap sf-intro">
     <p class="sf-back"><a href="/research#models">&larr; All research</a></p>
     <p class="eyebrow">Research · Model</p>
-    <h1>Economic voice sets how fast a society grows. Political voice sets how <em>far it falls.</em></h1>
+    <h1>Who pays for order? <em>A model of voice, growth and resilience</em></h1>
+    <p class="sf-claim">Economic voice sets how fast a society grows. Political voice sets how far it falls.</p>
     <p class="sf-by">Lawrence Zhang · Economics Student Association, University of Arizona · November 2026</p>
     <p class="lede">A model of what social order costs and who pays for it, built for the manuscript <em>Blut und Wille</em>. Its economic core is borrowed from standard growth economics; its parameters are partly fitted to growth since 1970, to about a thousand crises since 1972, and to how autocracies survive, and partly chosen by hand.</p>
     <div class="hero">
@@ -57,8 +58,8 @@ import Layout from '../../layouts/Layout.astro';
 <section class="sf-band tint"><div class="wrap sf-w860">
 <h2>Plague, war and what we leave behind</h2>
 <p>The final model also counts people, wars and a resource base that is finite but not fixed. The same pathogen kills 40% of a society with no medicine, 20% with 1918 medicine and 4% with modern medicine; a 1918-sized toll costs about 4% of output in the first year, close to the 6% the typical country lost. What happens after a plague depends on voice. Where workers can be heard, scarce labour bargains rent down and incomes end higher, as in Western Europe after the Black Death. Where they cannot, lords tighten their grip and incomes end lower, as in the second serfdom east of the Elbe.</p>
-<p>A war destroys capital, infrastructure and people and diverts output while it lasts: output falls by about two-fifths and is still 7% below its peaceful path twenty years on. Belief rallies at first, then falls furthest where saving was forced.</p>
-<p>Extraction can be borrowed from the future. Pulling resources out fast makes the first generation about 13% richer and the generation a century later about 36% poorer than steady extraction would. Reinvesting resource rents in other capital and cleaning up pollution cut that later loss to about a fifth; they do not erase it. Every cost assigned a zero is a cost exported, to the environment and to the unborn.</p>
+<p>A war destroys capital, infrastructure and people and diverts output while it lasts: output falls by nearly two-fifths and is still 7% below its peaceful path twenty years on. Belief rallies at first, then falls furthest where saving was forced.</p>
+<p>Extraction can be borrowed from the future. Pulling resources out fast makes the first generation about 14% richer and the generation a century later about 37% poorer than steady extraction would. Reinvesting resource rents in other capital and cleaning up pollution roughly halve that later loss; they do not erase it. Every cost assigned a zero is a cost exported, to the environment and to the unborn.</p>
 <h2 style="margin-top:32px">Between societies</h2>
 <p>Openness spreads ideas, capital and people. In data on 455 country-decades since 1970, doubling a country's trade share goes with 0.7 more points of growth a year, foreign investment speeds catch-up more the further behind a country is, and people move toward richer countries at about 0.15% of the population a year per log point of income gap. In the model, three societies that halve their openness lose a third to a half of their consumption and fight four times as many wars, because less trade means less to lose by fighting. A nationalist narrative, which grows where voice is narrow and results fall short, closes borders, raises arms spending and makes war likelier, and the nationalist society pays most of the cost itself.</p>
 <p>COVID-19 is the clearest test of a shared threat. The OECD countries that aimed to eliminate the virus (Australia, Iceland, Japan, New Zealand, South Korea) had about no excess deaths in 2020–21 against about 2,000 per million elsewhere, lost 4.6 points of GDP against 8.6, and spent fewer weeks under strict measures, as Oliu-Barton and colleagues reported in The Lancet. A model fitted to those outcomes says giving up output early to stamp a virus out costs less than half as much as living with it, and saves nearly every life. One society that does nothing pays the least in output, loses a hundred times more lives, and raises every cooperator's cost by half, since they must keep their borders closed longer.</p>
@@ -93,7 +94,7 @@ import Layout from '../../layouts/Layout.astro';
 </Layout>
 
 <style is:global>
-  /* Speed and the Floor. Everything is scoped under .sf, because the simulator builds its own markup in the browser. */
+  /* Who Pays for Order? Everything is scoped under .sf, because the simulator builds its own markup in the browser. */
   .sf {
     --mut: var(--muted);
     --car: #B3261E;
@@ -111,6 +112,8 @@ import Layout from '../../layouts/Layout.astro';
   .sf-back { font-size: 14px; }
   .sf-back a { display: inline-flex; align-items: center; min-height: 44px; color: var(--muted); text-decoration: none; }
   .sf-back a:hover { color: var(--ink); }
+  .sf h1 em { display: block; font-size: 0.5em; line-height: 1.2; margin-top: 10px; }
+  .sf-claim { font-family: var(--serif); font-size: clamp(19px, 2.2vw, 24px); line-height: 1.35; max-width: 34ch; margin-top: 18px !important; }
   .sf-by { font-size: 14px; color: var(--muted); margin-top: 20px !important; }
   .sf-intro .lede { margin-bottom: 0; }
 
